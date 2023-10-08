@@ -31,7 +31,7 @@ body {
 .properties-container {
   flex: none;
   width: 300px;
-  border-left: solid 1px #cccccc;
+  border-left: solid 1px #e0e0e0;
 }
 
 .properties-container .bio-properties-panel {

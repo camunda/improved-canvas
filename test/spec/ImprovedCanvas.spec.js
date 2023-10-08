@@ -14,20 +14,20 @@ import {
   BpmnPropertiesPanelModule,
   BpmnPropertiesProviderModule,
   ZeebePropertiesProviderModule,
-  ZeebeDescriptionProvider as DescriptionProvider
+  ZeebeTooltipProvider as TooltipProvider
 } from 'bpmn-js-properties-panel';
 
 import ZeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
 import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
-import ExampleModule from 'lib/';
+import HighContrastCanvas from 'lib/';
+
 
 const singleStart = window.__env__ && window.__env__.SINGLE_START;
 
 insertCoreStyles();
 insertBpmnStyles();
-
 
 describe('<Example>', function() {
 
@@ -58,12 +58,11 @@ describe('<Example>', function() {
         BpmnPropertiesPanelModule,
         BpmnPropertiesProviderModule,
         ZeebePropertiesProviderModule,
-        ExampleModule
+        HighContrastCanvas
       ],
       moddleExtensions = {
         zeebe: ZeebeModdle
       },
-      description = {},
       layout = {}
     } = options;
 
@@ -79,7 +78,7 @@ describe('<Example>', function() {
       propertiesPanel: {
         parent: propertiesContainer,
         feelTooltipContainer: container,
-        description,
+        description: TooltipProvider,
         layout
       },
       ...options
@@ -103,17 +102,14 @@ describe('<Example>', function() {
   }
 
 
-  (singleStart ? it.only : it)('should import simple process', async function() {
+  (singleStart ? it.only : it)('should render', async function() {
 
     // given
     const diagramXml = require('test/fixtures/simple.bpmn').default;
 
     // when
     const result = await createModeler(
-      diagramXml,
-      {
-        description: DescriptionProvider
-      }
+      diagramXml
     );
 
     // then
