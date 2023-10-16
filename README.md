@@ -1,13 +1,32 @@
 # @bpmn-io/improved-canvas
 
-## Hacking the Project
+Improvements or reworks of the bpmn-js canvas.
 
-To get the development setup make sure to have [NodeJS](https://nodejs.org/en/download/) installed.
-As soon as you are set up, clone the project and execute
+Includes related adjustments to web modeler styles.
+
+## Installation
+
+Install via npm.
 
 ```
-npm install
-npm start
+npm install @bpmn-io/improved-canvas
+```
+
+## Usage
+
+```javascript
+import BpmnJsImprovedCanvas from '@bpmn-io/improved-canvas';
+
+const bpmnJS = new BpmnJS({
+  additionalModules: [
+    BpmnJsImprovedCanvas
+  ]
+})
+```
+
+Alternatively, you can imoprt individual modules:
+```javascript
+import highContrastCanvas from '@bpmn-io/improved-canvas/lib/HighContrastCanvas';
 ```
 
 ## License
