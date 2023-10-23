@@ -15,18 +15,18 @@ npm install @bpmn-io/improved-canvas
 ## Usage
 
 ```javascript
-import BpmnJsImprovedCanvas from '@bpmn-io/improved-canvas';
+import ImprovedCanvasModule from '@bpmn-io/improved-canvas';
 
 const bpmnJS = new BpmnJS({
   additionalModules: [
-    BpmnJsImprovedCanvas
+    ImprovedCanvasModule
   ]
 })
 ```
 
-Alternatively, you can imoprt individual modules:
+Alternatively, you can import individual modules:
 ```javascript
-import highContrastCanvas from '@bpmn-io/improved-canvas/lib/HighContrastCanvas';
+import { HighContrastCanvasModule } from '@bpmn-io/improved-canvas';
 ```
 
 ## License
