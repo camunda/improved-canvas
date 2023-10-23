@@ -5,3 +5,7 @@ All notable changes to [@bpmn-io/improved-canvas](https://github.com/bpmn-io/imp
 ## Unreleased
 
 ___Note:__ Yet to be released changes appear here._
+
+## 0.1.0
+
+Initial release
