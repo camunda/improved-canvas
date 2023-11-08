@@ -1,4 +1,4 @@
-# @bpmn-io/improved-canvas
+# @camunda/improved-canvas
 
 Improvements or reworks of the bpmn-js canvas.
 
@@ -9,13 +9,13 @@ Includes related adjustments to web modeler styles.
 Install via npm.
 
 ```
-npm install @bpmn-io/improved-canvas
+npm install @camunda/improved-canvas
 ```
 
 ## Usage
 
 ```javascript
-import ImprovedCanvasModule from '@bpmn-io/improved-canvas';
+import ImprovedCanvasModule from '@camunda/improved-canvas';
 
 const bpmnJS = new BpmnJS({
   additionalModules: [
@@ -26,7 +26,7 @@ const bpmnJS = new BpmnJS({
 
 Alternatively, you can import individual modules:
 ```javascript
-import { HighContrastCanvasModule } from '@bpmn-io/improved-canvas';
+import { HighContrastCanvasModule } from '@camunda/improved-canvas';
 ```
 
 ## License

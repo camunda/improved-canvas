@@ -1,5 +1,5 @@
 {
-  "name": "@bpmn-io/improved-canvas",
+  "name": "@camunda/improved-canvas",
   "version": "0.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bpmn-io/improved-canvas.git"
+    "url": "git+https://github.com/camunda/improved-canvas.git"
   },
   "keywords": [
     "bpmn-io"
@@ -22,9 +22,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bpmn-io/improved-canvas/issues"
+    "url": "https://github.com/camunda/improved-canvas/issues"
   },
-  "homepage": "https://github.com/bpmn-io/improved-canvas#readme",
+  "homepage": "https://github.com/camunda/improved-canvas#readme",
   "publishConfig": {
     "access": "public"
   },

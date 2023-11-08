@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to [@bpmn-io/improved-canvas](https://github.com/bpmn-io/improved-canvas) are documented here. We use [semantic versioning](http://semver.org/) for releases.
+All notable changes to [@camunda/improved-canvas](https://github.com/camunda/improved-canvas) are documented here. We use [semantic versioning](http://semver.org/) for releases.
 
 ## Unreleased
 
