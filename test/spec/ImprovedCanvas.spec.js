@@ -21,7 +21,7 @@ import ZeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
 import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
-import ImprovedCanvasModule from 'lib/';
+import { ImprovedCanvasModule } from 'lib/';
 
 
 const singleStart = window.__env__ && window.__env__.SINGLE_START;
