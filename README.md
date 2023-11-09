@@ -1,5 +1,7 @@
 # @camunda/improved-canvas
 
+[![Build Status](https://github.com/camunda/improved-canvas/workflows/CI/badge.svg)](https://github.com/camunda/improved-canvas/actions?query=workflow:CI)
+
 Improvements or reworks of the bpmn-js canvas.
 
 Includes related adjustments to web modeler styles.
