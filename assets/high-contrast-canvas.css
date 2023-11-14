@@ -1,11 +1,3 @@
-:root {
-  --gray-10: #f4f4f4;
-  --gray-20: #e0e0e0;
-  --gray-40: #a8a8a8;
-  --gray-80: #393939;
-  --gray-100: #161616;
-}
-
 /* Canvas */
 .bjs-container {
   background-color: var(--gray-10);
