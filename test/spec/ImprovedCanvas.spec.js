@@ -21,6 +21,11 @@ import ZeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
 import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
+import BpmnJSColorPicker from 'bpmn-js-color-picker';
+import {
+  CreateAppendAnythingModule
+} from 'bpmn-js-create-append-anything';
+
 import { ImprovedCanvasModule } from 'lib/';
 
 
@@ -58,7 +63,9 @@ describe('<Example>', function() {
         BpmnPropertiesPanelModule,
         BpmnPropertiesProviderModule,
         ZeebePropertiesProviderModule,
-        ImprovedCanvasModule
+        ImprovedCanvasModule,
+        BpmnJSColorPicker,
+        CreateAppendAnythingModule
       ],
       moddleExtensions = {
         zeebe: ZeebeModdle
