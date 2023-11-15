@@ -1,0 +1,57 @@
+.bjs-container {
+  --context-pad-background-color: var(--gray-80);
+  --context-pad-color: white;
+  --context-pad-divider-color: var(--gray-100);
+  --context-pad-hover-color: #52525288;
+  --context-pad-active-color: #5a5a5a;
+}
+
+.bjs-container .djs-context-pad {
+  background: var(--context-pad-background-color);
+  color: var(--context-pad-color);
+  border-radius: 4px;
+  transform: translate(-50%, -100%);
+  padding: 5px;
+}
+
+.bjs-container .djs-context-pad.open {
+  display: flex;
+  align-items: center;
+}
+
+.bjs-container .djs-context-pad .group {
+  display: flex;
+}
+
+.bjs-container .djs-context-pad .entry {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  margin-right: 4px;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 6px;
+}
+
+.bjs-container .djs-context-pad .entry:last-child {
+  margin-right: 0;
+}
+
+.bjs-container .djs-context-pad .entry:hover {
+  background: var(--context-pad-hover-color);
+}
+
+.bjs-container .djs-context-pad .entry.active {
+  background: var(--context-pad-active-color);
+}
+
+.bjs-container .djs-context-pad .separator {
+  width: 1px;
+  height: 18px;
+  background: var(--context-pad-divider-color);
+  margin: 0 4px;
+}
