@@ -7,6 +7,10 @@
 }
 
 /* Canvas */
+.bjs-container {
+  background-color: var(--grey-10);
+}
+
 .djs-container{
   --palette-background-color: white;
   --palette-separator-color: var(--grey-20);
@@ -14,13 +18,11 @@
   --palette-border-color: var(--grey-20);
   
   --context-pad-entry-background-color: var(--grey-10);
-
-  background-color: var(--grey-10);
 }
 
 /* Properties Panel */
-.bio-properties-panel {
-  --header-background-color: white;
+.bio-properties-panel-header {
+  background-color: white;
 }
 
 /* Grid */
@@ -38,7 +40,8 @@ header[data-test="action-bar"] {
 
 div[data-test="error-panel-title"] {
   background-color: white;
-  border-top: 1px solid var(--grey-20);
+  border-top: 1px solid var(--gray-20);
+  border-bottom: 1px solid var(--gray-20);
 }
 
 button[data-test="details-panel-toggle"] {
@@ -46,12 +49,19 @@ button[data-test="details-panel-toggle"] {
   border-color: var(--grey-20);
 }
 
-div[data-test="modeler"] > div:not(.bjs-container) > div {
+button[data-test="details-panel-toggle"]:hover {
   background-color: white;
 }
 
+div[data-test="modeler"] > div:not(.bjs-container) > div {
+  background-color: white;
+  box-shadow: none;
+  border: none;
+}
+
 div[data-test="details-panel-wrapper"] {
-  border: var(--grey-20);
+  border: none;
+  box-shadow: none;
 }
 
 div[data-test="details-panel-wrapper"] div[aria-label="Details panel tabs"] {
