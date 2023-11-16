@@ -46,10 +46,12 @@ div[data-test="error-panel-title"] {
 
 button[data-test="details-panel-toggle"] {
   background-color: white;
-  border-color: var(--grey-20);
+  border: none;
+  box-shadow: none;
 }
 
-button[data-test="details-panel-toggle"]:hover {
+button[data-test="details-panel-toggle"]:hover,
+button[data-test="details-panel-toggle"]:focus {
   background-color: white;
 }
 
