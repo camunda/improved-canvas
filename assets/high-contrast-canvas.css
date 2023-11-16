@@ -1,23 +1,23 @@
 :root {
-  --grey-10: #f4f4f4;
-  --grey-20: #e0e0e0;
-  --grey-40: #a8a8a8;
-  --grey-80: #393939;
+  --gray-10: #f4f4f4;
+  --gray-20: #e0e0e0;
+  --gray-40: #a8a8a8;
+  --gray-80: #393939;
   --gray-100: #161616;
 }
 
 /* Canvas */
 .bjs-container {
-  background-color: var(--grey-10);
+  background-color: var(--gray-10);
 }
 
 .djs-container{
   --palette-background-color: white;
-  --palette-separator-color: var(--grey-20);
+  --palette-separator-color: var(--gray-20);
   --palette-entry-color: var(--gray-100);
-  --palette-border-color: var(--grey-20);
+  --palette-border-color: var(--gray-20);
   
-  --context-pad-entry-background-color: var(--grey-10);
+  --context-pad-entry-background-color: var(--gray-10);
 }
 
 /* Properties Panel */
@@ -28,14 +28,14 @@
 /* Grid */
 defs pattern circle {
   fill: hsl(0, 0%, 87%) !important;
-  fill: var(--grey-40) !important;
+  fill: var(--gray-40) !important;
 }
 
 /* TODO: add styles to web modeler properly if permanent feature */
 /* Web Modeler */
 header[data-test="action-bar"] {
   background-color: white;
-  border-bottom: 1px solid var(--grey-20);
+  border-bottom: 1px solid var(--gray-20);
 }
 
 div[data-test="error-panel-title"] {
