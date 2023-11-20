@@ -6,6 +6,11 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 0.2.0
+
+* `FEAT`: update context pad UI ([#8](https://github.com/camunda/improved-canvas/pull/8))
+* `CHORE`: remove web modeler styles
+
 ## 0.1.2
 
 * `FIX`: fix incorrect styles ([cfeb0ef](https://github.com/camunda/improved-canvas/commit/074a8370eb2e07df3f0ab3c05c33a133ea620364))
