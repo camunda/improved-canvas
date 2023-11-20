@@ -7,7 +7,7 @@ const nonbundledDependencies = Object.keys({ ...pkg.dependencies });
 
 const nodeResolve = require('@rollup/plugin-node-resolve');
 
-const postcss = require('rollup-plugin-postcss');
+const css = require('rollup-plugin-import-css');
 
 module.exports = {
   input: 'lib/index.js',
@@ -22,10 +22,8 @@ module.exports = {
   plugins: [
     commonjs(),
     json(),
-    postcss({
-      plugins: []
-    }),
-    nodeResolve()
+    nodeResolve(),
+    css()
   ],
   external: nonbundledDependencies
 };
