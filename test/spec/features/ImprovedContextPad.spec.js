@@ -132,6 +132,28 @@ describe('<Example>', function() {
       ]);
     }));
 
+
+    it('participants', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const shape = elementRegistry.get('Participant_1');
+
+      // when
+      contextPad.open(shape);
+
+      // then
+      const laneGroup = domQuery('.djs-context-pad .group[data-group="lanes"]');
+      expect(laneGroup).to.exist;
+
+      const entries = [ ...domQueryAll('.djs-context-pad .entry', laneGroup) ];
+      expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
+        'lane-insert-above',
+        'lane-divide-two',
+        'lane-divide-three',
+        'lane-insert-below'
+      ]);
+    }));
+
   });
 
 
