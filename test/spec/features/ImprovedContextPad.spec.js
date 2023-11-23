@@ -20,6 +20,7 @@ import ImprovedContextPad from 'lib/features/contextPad';
 import ColorPickerModule from 'bpmn-js-color-picker';
 
 import diagramXML from '../../fixtures/simple.bpmn';
+import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
 
 insertCoreStyles();
 insertBpmnStyles();
@@ -32,7 +33,8 @@ describe('<Example>', function() {
       return bootstrapModeler(diagramXML, {
         additionalModules: [
           ImprovedContextPad,
-          ColorPickerModule
+          ColorPickerModule,
+          CreateAppendAnythingModule
         ]
       })();
     };
