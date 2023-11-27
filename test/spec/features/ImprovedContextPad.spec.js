@@ -157,19 +157,39 @@ describe('<Example>', function() {
   });
 
 
-  it('active entries', inject(function(elementRegistry, contextPad) {
+  describe('active entries', function() {
 
-    // given
-    const shape = elementRegistry.get('StartEvent_1');
-    contextPad.open(shape);
+    it('single element', inject(function(elementRegistry, contextPad) {
 
-    // when
-    contextPad.trigger('click', padEvent('replace'));
+      // given
+      const shape = elementRegistry.get('StartEvent_1');
+      contextPad.open(shape);
 
-    // then
-    const entry = domQuery('[data-action="replace"]');
-    expect(entry.classList.contains('active')).to.be.true;
-  }));
+      // when
+      contextPad.trigger('click', padEvent('replace'));
+
+      // then
+      const entry = domQuery('[data-action="replace"]');
+      expect(entry.classList.contains('active')).to.be.true;
+    }));
+
+
+    it('multiple elements', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const shape1 = elementRegistry.get('StartEvent_1');
+      const shape2 = elementRegistry.get('Task_1');
+      contextPad.open([ shape1, shape2 ]);
+
+      // when
+      contextPad.trigger('click', padEvent('align-elements'));
+
+      // then
+      const entry = domQuery('[data-action="align-elements"]');
+      expect(entry.classList.contains('active')).to.be.true;
+    }));
+
+  });
 
 });
 
