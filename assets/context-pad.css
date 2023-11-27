@@ -23,6 +23,15 @@
   display: flex;
 }
 
+.bjs-container .djs-context-pad .group:not(:last-child):after {
+  display: block;
+  content: "";
+  width: 1px;
+  height: 18px;
+  background: var(--context-pad-divider-color);
+  margin: auto 4px;
+}
+
 .bjs-container .djs-context-pad .entry {
   width: 36px;
   height: 36px;

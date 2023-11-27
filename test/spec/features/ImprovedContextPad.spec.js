@@ -74,21 +74,6 @@ describe('<Example>', function() {
   }));
 
 
-  it('should add separator between groups', inject(function(elementRegistry, contextPad) {
-
-    // given
-    const shape = elementRegistry.get('StartEvent_1');
-
-    // when
-    contextPad.open(shape);
-
-    // then
-    const separators = domQueryAll('.djs-context-pad .separator');
-
-    expect(separators.length).to.equal(2);
-  }));
-
-
   describe('entries', function() {
 
     it('single element', inject(function(elementRegistry, contextPad) {
