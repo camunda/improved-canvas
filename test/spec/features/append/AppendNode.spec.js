@@ -24,19 +24,12 @@ insertBpmnStyles();
 
 describe('<AppendNode>', function() {
 
-  function bootstrap(diagramXML) {
-
-    return function() {
-      return bootstrapModeler(diagramXML, {
-        additionalModules: [
-          Append,
-          CreateAppendAnythingModule
-        ]
-      })();
-    };
-  }
-
-  beforeEach(bootstrap(diagramXML));
+  beforeEach(bootstrapModeler(diagramXML, {
+    additionalModules: [
+      Append,
+      CreateAppendAnythingModule
+    ]
+  }));
 
 
   describe('render', function() {

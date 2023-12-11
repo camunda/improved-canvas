@@ -21,20 +21,13 @@ insertBpmnStyles();
 
 describe('<HorizontalPopupMenu>', function() {
 
-  function bootstrap(diagramXML) {
-
-    return function() {
-      return bootstrapModeler(diagramXML, {
-        additionalModules: [
-          ImprovedContextPad,
-          HorizontalPopupMenu,
-          ColorPickerModule
-        ]
-      })();
-    };
-  }
-
-  beforeEach(bootstrap(diagramXML));
+  beforeEach(bootstrapModeler(diagramXML, {
+    additionalModules: [
+      ImprovedContextPad,
+      HorizontalPopupMenu,
+      ColorPickerModule
+    ]
+  }));
 
   describe('should render', function() {
 

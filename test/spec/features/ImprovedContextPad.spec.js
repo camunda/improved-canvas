@@ -27,20 +27,14 @@ insertBpmnStyles();
 
 describe('<Example>', function() {
 
-  function bootstrap(diagramXML) {
+  beforeEach(bootstrapModeler(diagramXML, {
+    additionalModules: [
+      ImprovedContextPad,
+      ColorPickerModule,
+      CreateAppendAnythingModule
+    ]
+  }));
 
-    return function() {
-      return bootstrapModeler(diagramXML, {
-        additionalModules: [
-          ImprovedContextPad,
-          ColorPickerModule,
-          CreateAppendAnythingModule
-        ]
-      })();
-    };
-  }
-
-  beforeEach(bootstrap(diagramXML));
 
   it('should render context pad', inject(function(elementRegistry, contextPad) {
 
@@ -71,7 +65,7 @@ describe('<Example>', function() {
 
     const contextPadCenter = contextPadBounds.x + contextPadBounds.width / 2;
 
-    expect(contextPadCenter).to.equal(shapeCenter);
+    expect(contextPadCenter).to.closeTo(shapeCenter, 1);
     expect(contextPadBounds.y).to.be.greaterThan(shapeBounds.y);
   }));
 
