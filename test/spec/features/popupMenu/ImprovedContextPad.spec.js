@@ -70,6 +70,44 @@ describe('<ImprovedContextPad>', function() {
   }));
 
 
+  describe('events', function() {
+
+    it('click', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const shape = elementRegistry.get('StartEvent_1');
+      contextPad.open(shape);
+      const entry = domQuery('[data-action="replace"]');
+
+      // when
+      entry.click();
+
+      // then
+      expect(entry.classList.contains('active')).to.be.true;
+    }));
+
+
+    it('dragstart', inject(function(elementRegistry, contextPad, dragging) {
+
+      // given
+      const shape = elementRegistry.get('StartEvent_1');
+      contextPad.open(shape);
+      const entry = domQuery('[data-action="connect"]');
+
+      // when
+      const event = new MouseEvent('dragstart', {
+        bubbles: true
+      });
+      entry.dispatchEvent(event);
+
+      // then
+      expect(dragging.context().prefix).to.eql('connect');
+
+    }));
+
+  });
+
+
   describe('entries', function() {
 
     it('single element', inject(function(elementRegistry, contextPad) {
