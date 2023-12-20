@@ -67,13 +67,13 @@ describe('<AppendNodeProvider>', function() {
 
   describe('#isAllowed', function() {
 
-    it('should return true', inject(function(elementRegistry, appendNodeProvider) {
+    it('should return true', inject(function(elementRegistry, appendNode) {
 
       // given
       const shape = elementRegistry.get('Task');
 
       // when
-      const allowed = appendNodeProvider.isAllowed(shape);
+      const allowed = appendNode.isAllowed(shape);
 
       // then
       expect(allowed).to.be.true;
@@ -95,11 +95,11 @@ describe('<AppendNodeProvider>', function() {
 
       forEach(ids, function(id) {
 
-        it(`should dissalow for element <${id}>`, inject(function(elementRegistry, appendNodeProvider) {
+        it(`should dissalow for element <${id}>`, inject(function(elementRegistry, appendNode) {
           const shape = elementRegistry.get(id);
 
           // when
-          const allowed = appendNodeProvider.isAllowed(shape);
+          const allowed = appendNode.isAllowed(shape);
 
           // then
           expect(allowed).to.be.false;
