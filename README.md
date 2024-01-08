@@ -15,11 +15,11 @@ npm install @camunda/improved-canvas
 ## Usage
 
 ```javascript
-import { ImprovedCanvasModule } from '@camunda/improved-canvas';
+import { BpmnImprovedCanvasModule } from '@camunda/improved-canvas';
 
 const bpmnJS = new BpmnJS({
   additionalModules: [
-    ImprovedCanvasModule
+    BpmnImprovedCanvasModule
   ]
 })
 ```

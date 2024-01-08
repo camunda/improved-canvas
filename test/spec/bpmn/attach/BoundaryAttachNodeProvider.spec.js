@@ -8,7 +8,7 @@ import {
 
 import { assign } from 'min-dash';
 
-import Attach from 'lib/features/attach';
+import Attach from 'lib/bpmn/attach';
 
 import diagramXML from './BoundaryAttachNode.bpmn';
 import { is } from 'bpmn-js/lib/util/ModelUtil';

@@ -13,8 +13,8 @@ import {
 import ColorPickerModule from 'bpmn-js-color-picker';
 
 import diagramXML from '../../../fixtures/simple.bpmn';
-import ImprovedContextPad from 'lib/features/contextPad';
-import HorizontalPopupMenu from 'lib/features/popupMenu';
+import ImprovedContextPad from 'lib/bpmn/contextPad';
+import HorizontalPopupMenu from 'lib/bpmn/popupMenu';
 
 insertCoreStyles();
 insertBpmnStyles();

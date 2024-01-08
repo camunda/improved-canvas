@@ -10,7 +10,7 @@ import {
   queryAll as domQueryAll
 } from 'min-dom';
 
-import Append from 'lib/features/append';
+import Append from 'lib/bpmn/append';
 
 import {
   CreateAppendAnythingModule

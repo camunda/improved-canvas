@@ -8,8 +8,9 @@
     "test": "karma start karma.config.js",
     "lint": "eslint .",
     "dev": "npm test -- --auto-watch --no-single-run",
-    "start": "cross-env SINGLE_START=true npm run dev",
-    "build": "rollup -c  --bundleConfigAsCjs",
+    "start": "npm run start:bpmn",
+    "start:bpmn": "cross-env SINGLE_START=bpmn npm run dev",
+    "build": "rollup -c --bundleConfigAsCjs",
     "build:watch": "rollup -cw",
     "prepare": "run-s build"
   },
