@@ -11,7 +11,7 @@ import {
 import {
   query as domQuery
 } from 'min-dom';
-import Append from 'lib/features/append';
+import Append from 'lib/bpmn/append';
 
 import { forEach } from 'min-dash';
 

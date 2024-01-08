@@ -26,10 +26,10 @@ import {
   CreateAppendAnythingModule
 } from 'bpmn-js-create-append-anything';
 
-import { ImprovedCanvasModule } from 'lib/';
+import { BpmnImprovedCanvasModule } from 'lib/';
 
 
-const singleStart = window.__env__ && window.__env__.SINGLE_START;
+const singleStart = window.__env__ && window.__env__.SINGLE_START === 'bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
@@ -63,7 +63,7 @@ describe('<Example>', function() {
         BpmnPropertiesPanelModule,
         BpmnPropertiesProviderModule,
         ZeebePropertiesProviderModule,
-        ImprovedCanvasModule,
+        BpmnImprovedCanvasModule,
         BpmnJSColorPicker,
         CreateAppendAnythingModule
       ],

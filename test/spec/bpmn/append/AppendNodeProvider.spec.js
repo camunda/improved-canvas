@@ -13,13 +13,13 @@ import {
   forEach
 } from 'min-dash';
 
-import Append from 'lib/features/append';
+import Append from 'lib/bpmn/append';
 
 import {
   CreateAppendAnythingModule
 } from 'bpmn-js-create-append-anything';
 
-import diagramXML from './AppendNode.bpmn';
+import diagramXML from '../../common/append/AppendNode.bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
