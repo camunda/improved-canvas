@@ -7,8 +7,7 @@ import {
 } from 'test/TestHelper';
 
 import {
-  query as domQuery,
-  queryAll as domQueryAll
+  query as domQuery
 } from 'min-dom';
 
 import {
@@ -17,10 +16,7 @@ import {
 
 import ImprovedContextPad from 'lib/bpmn/contextPad';
 
-import ColorPickerModule from 'bpmn-js-color-picker';
-
 import diagramXML from '../../../fixtures/simple.bpmn';
-import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
 
 insertCoreStyles();
 insertBpmnStyles();
@@ -29,9 +25,7 @@ describe('<ImprovedContextPad>', function() {
 
   beforeEach(bootstrapModeler(diagramXML, {
     additionalModules: [
-      ImprovedContextPad,
-      ColorPickerModule,
-      CreateAppendAnythingModule
+      ImprovedContextPad
     ]
   }));
 

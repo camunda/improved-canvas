@@ -10,6 +10,7 @@
     "dev": "npm test -- --auto-watch --no-single-run",
     "start": "npm run start:bpmn",
     "start:bpmn": "cross-env SINGLE_START=bpmn npm run dev",
+    "start:dmn": "cross-env SINGLE_START=dmn npm run dev",
     "build": "rollup -c --bundleConfigAsCjs",
     "build:watch": "rollup -cw",
     "prepare": "run-s build"
@@ -41,11 +42,11 @@
   ],
   "module": "dist/index.es.js",
   "dependencies": {
-    "@bpmn-io/properties-panel": "^3.16.0",
     "diagram-js-grid": "^0.2.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.23.4",
+    "@bpmn-io/properties-panel": "^3.16.0",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.5",
@@ -61,6 +62,8 @@
     "bpmn-js-properties-panel": "^5.7.0",
     "camunda-bpmn-js-behaviors": "^1.1.0",
     "cross-env": "^7.0.3",
+    "dmn-js": "^15.0.0",
+    "dmn-js-properties-panel": "^3.2.1",
     "downloadjs": "^1.4.7",
     "eslint": "^8.50.0",
     "eslint-plugin-bpmn-io": "^1.0.0",
