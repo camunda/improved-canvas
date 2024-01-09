@@ -1,9 +1,4 @@
 /* Canvas */
-.dmn-drd-container,
-.bjs-container {
-  background-color: var(--gray-10);
-}
-
 .djs-container{
   --palette-background-color: white;
   --palette-separator-color: var(--gray-20);
@@ -11,6 +6,16 @@
   --palette-border-color: var(--gray-20);
   
   --context-pad-entry-background-color: var(--gray-10);
+}
+
+.dmn-drd-container,
+.bjs-container {
+  background-color: var(--gray-10);
+}
+
+.dmn-drd-container {
+  --dmn-definitions-background-color: white;
+  --dmn-definitions-border-color: var(--gray-20);
 }
 
 /* Properties Panel */
