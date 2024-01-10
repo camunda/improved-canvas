@@ -46,6 +46,17 @@
   padding: 6px;
 }
 
+.djs-context-pad .bio-properties-panel-tooltip-wrapper {
+  text-decoration: none;
+}
+
+.djs-context-pad .bio-properties-panel-tooltip-content {
+  font-size: 12px;
+  padding: 9px 12px;
+  border-radius: 4px;
+  width: max-content;
+}
+
 .bjs-container .djs-context-pad .entry:last-child {
   margin-right: 0;
 }
