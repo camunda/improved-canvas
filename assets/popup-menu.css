@@ -1,8 +1,8 @@
 .djs-popup.color-picker,
 .djs-popup.align-elements {
-  background-color: var(--gray-80);
+  background-color: var(--context-pad-background-color);
   border-radius: 4px;
-  box-shadow: none;
+  box-shadow: var(--context-pad-box-shadow);
   border: none;
 
   & .djs-popup-results {
