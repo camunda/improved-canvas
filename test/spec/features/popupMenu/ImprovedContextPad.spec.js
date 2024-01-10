@@ -210,6 +210,36 @@ describe('<ImprovedContextPad>', function() {
 
   });
 
+
+  describe('entry tooltips', function() {
+
+    it('should render tooltip', inject(async function(elementRegistry, contextPad) {
+
+      // given
+      const shape = elementRegistry.get('StartEvent_1');
+      contextPad.open(shape);
+
+      // when
+      const entry = domQuery('.bio-properties-panel-tooltip-wrapper');
+
+
+      const event = new MouseEvent('mouseenter', {
+        bubbles: true
+      });
+
+      entry.dispatchEvent(event);
+
+      // tooltip is displayed with a delay
+      await delay(200);
+
+      const tooltip = domQuery('.bio-properties-panel-tooltip', entry);
+
+      // then
+      expect(tooltip).to.exist;
+    }));
+
+  });
+
 });
 
 
@@ -231,4 +261,8 @@ function padEvent(entry) {
       clientY: 100
     };
   });
+}
+
+function delay(delayInms) {
+  return new Promise(resolve => setTimeout(resolve, delayInms));
 }

@@ -84,6 +84,10 @@ module.exports = function(karma) {
           'module',
           'main'
         ],
+        alias: {
+          'preact': '/node_modules/@bpmn-io/properties-panel/preact',
+          'preact/hooks': '/node_modules/@bpmn-io/properties-panel/preact',
+        },
         modules: [
           'node_modules',
           absoluteBasePath

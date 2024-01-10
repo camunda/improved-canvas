@@ -1,4 +1,6 @@
 /* eslint-env node */
+import alias from '@rollup/plugin-alias';
+
 const commonjs = require('@rollup/plugin-commonjs');
 const json = require('@rollup/plugin-json');
 
@@ -23,7 +25,13 @@ module.exports = {
     commonjs(),
     json(),
     nodeResolve(),
-    css()
+    css(),
+    alias({
+      entries: [
+        { find: 'react', replacement: '@bpmn-io/properties-panel/preact/compat' },
+        { find: 'preact', replacement: '@bpmn-io/properties-panel/preact' }
+      ]
+    })
   ],
   external: nonbundledDependencies
 };
