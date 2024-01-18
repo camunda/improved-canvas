@@ -43,6 +43,6 @@
     align-items: center;
     height: 24px;
     width: 24px;
-    fill: white;
+    fill: var(--context-pad-color);
   }
 }
