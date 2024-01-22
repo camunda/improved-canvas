@@ -38,8 +38,8 @@ describe('<AppendMenuProvider>', function() {
     const entries = domQueryAll('.djs-popup-group[data-group="common"] .entry');
     expect(entries).to.have.length(3);
     expect(entries[0].title).to.equal('Task');
-    expect(entries[1].title).to.equal('Exclusive Gateway');
-    expect(entries[2].title).to.equal('End Event');
+    expect(entries[1].title).to.equal('Exclusive gateway');
+    expect(entries[2].title).to.equal('End event');
 
     expect(domQuery(".djs-popup .entry-header[title='Common']")).to.exist;
   }));
