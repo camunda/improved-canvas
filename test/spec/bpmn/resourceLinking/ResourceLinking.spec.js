@@ -34,11 +34,11 @@ describe('<ResourceLinking>', function() {
 
   beforeEach(bootstrapModeler(diagramXML, {
     additionalModules: [
-      ImprovedContextPad,
-      ColorPickerModule,
-      CreateAppendAnythingModule,
       BpmnPropertiesPanelModule,
       BpmnPropertiesProviderModule,
+      ColorPickerModule,
+      CreateAppendAnythingModule,
+      ImprovedContextPad,
       ZeebePropertiesProviderModule,
       ResourceLinking
     ],
@@ -48,234 +48,22 @@ describe('<ResourceLinking>', function() {
   }));
 
 
-  it('should fire "contextPad.linkResource" event', inject(function(elementRegistry, contextPad, eventBus) {
+  describe('entry', function() {
 
-    // given
-    const task = elementRegistry.get('UserTask');
+    it('should add', inject(function(elementRegistry, contextPad) {
 
-    // when
-    contextPad.open(task);
+      // given
+      const task = elementRegistry.get('UserTask');
 
-    // then
-    expect(domQuery('.entry.call-to-action')).to.exist;
+      // when
+      contextPad.open(task);
 
-    // when
-    const listener = sinon.spy();
-    eventBus.on('contextPad.linkResource', listener);
+      // then
+      expect(domQuery('.entry.call-to-action')).to.exist;
+    }));
 
-    // when
-    contextPad.trigger('click', padEvent('link-form'));
 
-    // then
-    expect(listener).to.have.been.called;
-  }));
-
-
-  describe('render', function() {
-
-    describe('user task', function() {
-
-      it('without form linked', inject(function(elementRegistry, contextPad) {
-
-        // given
-        const task = elementRegistry.get('UserTask');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.exist;
-
-      }));
-
-
-      it('with form linked', inject(async function(elementRegistry, contextPad) {
-
-        // given
-        const task = elementRegistry.get('UserTask_form');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.not.exist;
-      }));
-
-
-      it('should add highlight', inject(function(elementRegistry, contextPad, modeling) {
-
-        // given
-        const task = elementRegistry.get('UserTask_form'),
-              businessObject = getBusinessObject(task),
-              extensionElements = businessObject.get('extensionElements');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.not.exist;
-
-        // when
-        modeling.updateModdleProperties(task, extensionElements, { values: [ ] });
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.exist;
-      }));
-
-
-      it('should remove highlight', inject(function(elementRegistry, contextPad, modeling, bpmnFactory) {
-
-        // given
-        const task = elementRegistry.get('UserTask'),
-              businessObject = getBusinessObject(task),
-              extensionElements = businessObject.get('extensionElements');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.exist;
-
-        // when
-        const form = createElement('zeebe:FormDefinition', { formId: 'form1' }, extensionElements, bpmnFactory);
-        modeling.updateModdleProperties(task, extensionElements, {
-          values: [ form ]
-        });
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.not.exist;
-      }));
-
-    });
-
-
-    describe('business rule task', function() {
-
-      it('without decision linked', inject(function(elementRegistry, contextPad) {
-
-        // given
-        const task = elementRegistry.get('BusinessRuleTask');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.exist;
-
-      }));
-
-
-      it('with decision linked', inject(async function(elementRegistry, contextPad) {
-
-        // given
-        const task = elementRegistry.get('BusinessRuleTask_decision');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.not.exist;
-      }));
-
-
-      it('should add highlight', inject(function(elementRegistry, contextPad, modeling) {
-
-        // given
-        const task = elementRegistry.get('BusinessRuleTask_decision'),
-              businessObject = getBusinessObject(task),
-              extensionElements = businessObject.get('extensionElements');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.not.exist;
-
-        // when
-        modeling.updateModdleProperties(task, extensionElements, { values: [ ] });
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.exist;
-      }));
-
-    });
-
-
-    describe('call activity', function() {
-
-      it('without process linked', inject(function(elementRegistry, contextPad) {
-
-        // given
-        const task = elementRegistry.get('CallActivity');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.exist;
-
-      }));
-
-
-      it('with process linked', inject(async function(elementRegistry, contextPad) {
-
-        // given
-        const task = elementRegistry.get('CallActivity_process');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.not.exist;
-      }));
-
-
-      it('should add highlight', inject(function(elementRegistry, contextPad, modeling) {
-
-        // given
-        const task = elementRegistry.get('CallActivity_process'),
-              businessObject = getBusinessObject(task),
-              extensionElements = businessObject.get('extensionElements');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.not.exist;
-
-        // when
-        modeling.updateModdleProperties(task, extensionElements, { values: [ ] });
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.exist;
-      }));
-
-
-      it('should remove highlight', inject(function(elementRegistry, contextPad, modeling, bpmnFactory) {
-
-        // given
-        const task = elementRegistry.get('CallActivity'),
-              businessObject = getBusinessObject(task),
-              extensionElements = businessObject.get('extensionElements');
-
-        // when
-        contextPad.open(task);
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.exist;
-
-        // when
-        const process = createElement('zeebe:CalledElement', { processId: 'process1' }, extensionElements, bpmnFactory);
-        modeling.updateModdleProperties(task, extensionElements, { values: [ process ] });
-
-        // then
-        expect(domQuery('.entry.call-to-action.highlighted')).to.not.exist;
-      }));
-
-    });
-
-
-    it('should not render', inject(function(elementRegistry, contextPad) {
+    it('should not add', inject(function(elementRegistry, contextPad) {
 
       // given
       const task = elementRegistry.get('Task');
@@ -284,7 +72,323 @@ describe('<ResourceLinking>', function() {
       contextPad.open(task);
 
       // then
-      expect(domQuery('.entry.call-to-action')).to.not.exist;
+      expect(domQuery('.entry.call-to-action')).not.to.exist;
+    }));
+
+
+    describe('user task', function() {
+
+      it('no form linked', inject(function(contextPad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('UserTask');
+
+        // when
+        contextPad.open(task);
+
+        // then
+        const entry = domQuery('.entry.call-to-action');
+
+        expect(entry).to.exist;
+        expect(entry.classList.contains('call-to-action-active')).to.be.true;
+      }));
+
+
+      it('form linked', inject(async function(contextPad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('UserTask_form');
+
+        // when
+        contextPad.open(task);
+
+        // then
+        const entry = domQuery('.entry.call-to-action');
+
+        expect(entry).to.exist;
+        expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+      }));
+
+
+      describe('update', function() {
+
+        it('should set to active when unlinking form', inject(function(contextPad, elementRegistry, modeling) {
+
+          // given
+          const task = elementRegistry.get('UserTask_form'),
+                businessObject = getBusinessObject(task),
+                extensionElements = businessObject.get('extensionElements');
+
+          // when
+          contextPad.open(task);
+
+          // then
+          const entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+
+          // when
+          modeling.updateModdleProperties(task, extensionElements, {
+            values: []
+          });
+
+          // then
+          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+        }));
+
+
+        it('should set to inactive when linking form', inject(function(bpmnFactory, contextPad, elementRegistry, modeling) {
+
+          // given
+          const task = elementRegistry.get('UserTask'),
+                businessObject = getBusinessObject(task),
+                extensionElements = businessObject.get('extensionElements');
+
+          // when
+          contextPad.open(task);
+
+          // then
+          const entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+
+          // when
+          const form = createElement('zeebe:FormDefinition', {
+            formId: 'FormDefinition_1'
+          }, extensionElements, bpmnFactory);
+
+          modeling.updateModdleProperties(task, extensionElements, {
+            values: [ form ]
+          });
+
+          // then
+          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+        }));
+
+      });
+
+    });
+
+
+    describe('business rule task', function() {
+
+      it('no decision linked', inject(function(contextPad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('BusinessRuleTask');
+
+        // when
+        contextPad.open(task);
+
+        // then
+        const entry = domQuery('.entry.call-to-action');
+
+        expect(entry).to.exist;
+        expect(entry.classList.contains('call-to-action-active')).to.be.true;
+      }));
+
+
+      it('decision linked', inject(async function(contextPad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('BusinessRuleTask_decision');
+
+        // when
+        contextPad.open(task);
+
+        // then
+        const entry = domQuery('.entry.call-to-action');
+
+        expect(entry).to.exist;
+        expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+      }));
+
+
+      describe('update', function() {
+
+        it('should set to active when unlinking decision', inject(function(contextPad, elementRegistry, modeling) {
+
+          // given
+          const task = elementRegistry.get('BusinessRuleTask_decision'),
+                businessObject = getBusinessObject(task),
+                extensionElements = businessObject.get('extensionElements');
+
+          // when
+          contextPad.open(task);
+
+          // then
+          const entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+
+          // when
+          modeling.updateModdleProperties(task, extensionElements, {
+            values: []
+          });
+
+          // then
+          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+        }));
+
+
+        it('should set to inactive when linking decision', inject(function(bpmnFactory, contextPad, elementRegistry, modeling) {
+
+          // given
+          const task = elementRegistry.get('BusinessRuleTask'),
+                businessObject = getBusinessObject(task),
+                extensionElements = businessObject.get('extensionElements');
+
+          // when
+          contextPad.open(task);
+
+          // then
+          const entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+
+          // when
+          const decision = createElement('zeebe:CalledDecision', {
+            decisionId: 'Decision_1'
+          }, extensionElements, bpmnFactory);
+
+          modeling.updateModdleProperties(task, extensionElements, {
+            values: [ decision ]
+          });
+
+          // then
+          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+        }));
+
+      });
+
+    });
+
+
+    describe('call activity', function() {
+
+      it('no process linked', inject(function(contextPad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('CallActivity');
+
+        // when
+        contextPad.open(task);
+
+        // then
+        const entry = domQuery('.entry.call-to-action');
+
+        expect(entry).to.exist;
+        expect(entry.classList.contains('call-to-action-active')).to.be.true;
+      }));
+
+
+      it('process linked', inject(async function(contextPad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('CallActivity_process');
+
+        // when
+        contextPad.open(task);
+
+        // then
+        const entry = domQuery('.entry.call-to-action');
+
+        expect(entry).to.exist;
+        expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+      }));
+
+
+      describe('update', function() {
+
+        it('should set to active', inject(function(contextPad, elementRegistry, modeling) {
+
+          // given
+          const task = elementRegistry.get('CallActivity_process'),
+                businessObject = getBusinessObject(task),
+                extensionElements = businessObject.get('extensionElements');
+
+          // when
+          contextPad.open(task);
+
+          // then
+          const entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+
+          // when
+          modeling.updateModdleProperties(task, extensionElements, {
+            values: []
+          });
+
+          // then
+          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+        }));
+
+
+        it('should set to inactive', inject(function(bpmnFactory, contextPad, elementRegistry, modeling) {
+
+          // given
+          const task = elementRegistry.get('CallActivity'),
+                businessObject = getBusinessObject(task),
+                extensionElements = businessObject.get('extensionElements');
+
+          // when
+          contextPad.open(task);
+
+          // then
+          const entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+
+          // when
+          const process = createElement('zeebe:CalledElement', {
+            processId: 'Process_1'
+          }, extensionElements, bpmnFactory);
+
+          modeling.updateModdleProperties(task, extensionElements, {
+            values: [ process ]
+          });
+
+          // then
+          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+        }));
+
+      });
+
+    });
+
+  });
+
+
+  describe('events', function() {
+
+    it('should fire "contextPad.linkResource" event', inject(function(elementRegistry, contextPad, eventBus) {
+
+      // given
+      const task = elementRegistry.get('UserTask');
+
+      contextPad.open(task);
+
+      const spy = sinon.spy();
+
+      eventBus.on('contextPad.linkResource', spy);
+
+      const event = padEvent('link-form');
+
+      // when
+      contextPad.trigger('click', event);
+
+      // then
+      expect(spy).to.have.been.calledWithMatch({
+        element: task,
+        originalEvent: event
+      });
     }));
 
   });
