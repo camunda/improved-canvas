@@ -16,8 +16,8 @@
   color: var(--context-pad-color);
   border-radius: 4px;
   transform: translate(-50%, -100%);
-  padding: 5px;
-  box-shadow: var(--context-pad-box-shadow)
+  box-shadow: var(--context-pad-box-shadow);
+  overflow: hidden;
 }
 
 .djs-container .djs-context-pad.open {
@@ -27,6 +27,15 @@
 
 .djs-container .djs-context-pad .group {
   display: flex;
+  padding: 5px 0 5px 0;
+
+  &:first-child {
+    padding-left: 5px;
+  }
+
+  &:last-child {
+    padding-right: 5px;
+  }
 }
 
 .djs-container .djs-context-pad .group:not(:last-child):after {
@@ -83,30 +92,21 @@
 }
 
 /** Call to action context pad entry */
-.djs-container .djs-context-pad.call-to-action {
-  padding: 0 5px 0 0;
+.djs-container .djs-context-pad .group[data-group="call-to-action-active"] {
+  padding-right: 5px;
+  background: var(--context-pad-entry-call-to-action-background-color);
 
-  & .group {
-    padding: 5px 0;
+  &:after {
+    display: none;
   }
 
-  & .group:first-child {
-    padding: 0;
-    border-radius: 4px 0 0 4px;
+  & + .group {
+    padding-left: 5px;
   }
 
-  & .entry.call-to-action:not(.highlighted) {
-    margin-left: 3px;
-  }
-
-  & .entry.call-to-action.highlighted {
-    height: 46px;
-    width: 43px;
-    padding: 9.5px;
-    border-radius: 4px 0 0 4px;
+  & .entry.call-to-action.call-to-action-active {
     background: var(--context-pad-entry-call-to-action-background-color);
     fill: white;
-    margin-right: -4px;
 
     &:hover {
       background: var(--context-pad-entry-call-to-action-hover-background-color);
