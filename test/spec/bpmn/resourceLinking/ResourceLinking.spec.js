@@ -10,6 +10,8 @@ import {
   query as domQuery
 } from 'min-dom';
 
+import { waitFor } from '@testing-library/preact';
+
 import ImprovedContextPad from 'lib/bpmn/contextPad';
 import ResourceLinking from 'lib/bpmn/resourceLinking';
 
@@ -45,6 +47,15 @@ describe('<ResourceLinking>', function() {
     moddleExtensions: {
       zeebe: ZeebeModdle
     },
+  }));
+
+
+  let elementsChangedSpy;
+
+  beforeEach(inject(function(eventBus) {
+    elementsChangedSpy = sinon.spy();
+
+    eventBus.on('elements.changed', elementsChangedSpy);
   }));
 
 
@@ -112,7 +123,7 @@ describe('<ResourceLinking>', function() {
 
       describe('update', function() {
 
-        it('should set to active when unlinking form', inject(function(contextPad, elementRegistry, modeling) {
+        it('should set to active when unlinking form', inject(async function(contextPad, elementRegistry, modeling) {
 
           // given
           const task = elementRegistry.get('UserTask_form'),
@@ -123,7 +134,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          const entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry.call-to-action');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -133,12 +144,17 @@ describe('<ResourceLinking>', function() {
             values: []
           });
 
+          await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
+
           // then
+          entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
         }));
 
 
-        it('should set to inactive when linking form', inject(function(bpmnFactory, contextPad, elementRegistry, modeling) {
+        it('should set to inactive when linking form', inject(async function(bpmnFactory, contextPad, elementRegistry, modeling) {
 
           // given
           const task = elementRegistry.get('UserTask'),
@@ -149,7 +165,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          const entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry.call-to-action');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -163,7 +179,12 @@ describe('<ResourceLinking>', function() {
             values: [ form ]
           });
 
+          await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
+
           // then
+          entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
         }));
 
@@ -208,7 +229,7 @@ describe('<ResourceLinking>', function() {
 
       describe('update', function() {
 
-        it('should set to active when unlinking decision', inject(function(contextPad, elementRegistry, modeling) {
+        it('should set to active when unlinking decision', inject(async function(contextPad, elementRegistry, modeling) {
 
           // given
           const task = elementRegistry.get('BusinessRuleTask_decision'),
@@ -219,7 +240,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          const entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry.call-to-action');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -229,12 +250,17 @@ describe('<ResourceLinking>', function() {
             values: []
           });
 
+          await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
+
           // then
+          entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
         }));
 
 
-        it('should set to inactive when linking decision', inject(function(bpmnFactory, contextPad, elementRegistry, modeling) {
+        it('should set to inactive when linking decision', inject(async function(bpmnFactory, contextPad, elementRegistry, modeling) {
 
           // given
           const task = elementRegistry.get('BusinessRuleTask'),
@@ -245,7 +271,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          const entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry.call-to-action');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -259,7 +285,12 @@ describe('<ResourceLinking>', function() {
             values: [ decision ]
           });
 
+          await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
+
           // then
+          entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
         }));
 
@@ -304,7 +335,7 @@ describe('<ResourceLinking>', function() {
 
       describe('update', function() {
 
-        it('should set to active', inject(function(contextPad, elementRegistry, modeling) {
+        it('should set to active when unlinking process', inject(async function(contextPad, elementRegistry, modeling) {
 
           // given
           const task = elementRegistry.get('CallActivity_process'),
@@ -315,7 +346,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          const entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry.call-to-action');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -325,12 +356,17 @@ describe('<ResourceLinking>', function() {
             values: []
           });
 
+          await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
+
           // then
+          entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
         }));
 
 
-        it('should set to inactive', inject(function(bpmnFactory, contextPad, elementRegistry, modeling) {
+        it('should set to inactive when linking process', inject(async function(bpmnFactory, contextPad, elementRegistry, modeling) {
 
           // given
           const task = elementRegistry.get('CallActivity'),
@@ -341,7 +377,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          const entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry.call-to-action');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -355,7 +391,12 @@ describe('<ResourceLinking>', function() {
             values: [ process ]
           });
 
+          await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
+
           // then
+          entry = domQuery('.entry.call-to-action');
+
+          expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
         }));
 
