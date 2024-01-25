@@ -12,22 +12,14 @@ import {
 
 import { waitFor } from '@testing-library/preact';
 
+import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
+
+import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
+
 import ImprovedContextPad from 'lib/bpmn/contextPad';
 import ResourceLinking from 'lib/bpmn/resourceLinking';
 
-import ColorPickerModule from 'bpmn-js-color-picker';
-
 import diagramXML from './ResourceLinking.bpmn';
-import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
-import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
-
-import {
-  BpmnPropertiesPanelModule,
-  BpmnPropertiesProviderModule,
-  ZeebePropertiesProviderModule
-} from 'bpmn-js-properties-panel';
-
-import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
 insertCoreStyles();
 insertBpmnStyles();
@@ -36,12 +28,7 @@ describe('<ResourceLinking>', function() {
 
   beforeEach(bootstrapModeler(diagramXML, {
     additionalModules: [
-      BpmnPropertiesPanelModule,
-      BpmnPropertiesProviderModule,
-      ColorPickerModule,
-      CreateAppendAnythingModule,
       ImprovedContextPad,
-      ZeebePropertiesProviderModule,
       ResourceLinking
     ],
     moddleExtensions: {
@@ -61,10 +48,49 @@ describe('<ResourceLinking>', function() {
 
   describe('entry', function() {
 
-    it('should add', inject(function(elementRegistry, contextPad) {
+    it('should add (user task)', inject(function(elementRegistry, contextPad) {
 
       // given
       const task = elementRegistry.get('UserTask');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry.call-to-action')).to.exist;
+    }));
+
+
+    it('should add (business rule task)', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const task = elementRegistry.get('BusinessRuleTask');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry.call-to-action')).to.exist;
+    }));
+
+
+    it('should add (call activity)', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const task = elementRegistry.get('CallActivity');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry.call-to-action')).to.exist;
+    }));
+
+
+    it('should add (start event)', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const task = elementRegistry.get('StartEvent');
 
       // when
       contextPad.open(task);
@@ -420,7 +446,7 @@ describe('<ResourceLinking>', function() {
 
       eventBus.on('contextPad.linkResource', spy);
 
-      const event = padEvent('link-form');
+      const event = mockContextPadEvent('link-form');
 
       // when
       contextPad.trigger('click', event);
@@ -437,20 +463,46 @@ describe('<ResourceLinking>', function() {
 });
 
 
+describe('<ResourceLinking> (configuration)', function() {
+
+  beforeEach(bootstrapModeler(diagramXML, {
+    additionalModules: [
+      ImprovedContextPad,
+      ResourceLinking
+    ],
+    resourceLinking: {
+      noneStartEvent: false
+    }
+  }));
+
+
+  it('should not support none start events', inject(function(elementRegistry, contextPad) {
+
+    // given
+    const startEvent = elementRegistry.get('StartEvent');
+
+    // when
+    contextPad.open(startEvent);
+
+    // then
+    expect(domQuery('.entry.call-to-action')).not.to.exist;
+  }));
+
+});
+
+
 // helpers //////////
-function padEntry(element, name) {
-  return domQuery('[data-action="' + name + '"]', element);
+function queryContextPadEntry(action, contextPadHtml) {
+  return domQuery(`[data-action="${ action }"]`, contextPadHtml);
 }
 
-function padEvent(entry) {
-
-  return getBpmnJS().invoke(function(overlays) {
-
-    var target = padEntry(overlays._overlayRoot, entry);
+function mockContextPadEvent(entry) {
+  return getBpmnJS().invoke(function(contextPad) {
+    const target = queryContextPadEntry(entry, contextPad.getPad().html);
 
     return {
       target: target,
-      preventDefault: function() {},
+      preventDefault: () => {},
       clientX: 100,
       clientY: 100
     };
