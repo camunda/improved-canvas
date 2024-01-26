@@ -6,6 +6,16 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.0.0
+
+* `FEAT`: add call-to-action to context pad for linking BPMN, DMN and Forms ([#24](https://github.com/camunda/improved-canvas/pull/24))
+* `FEAT`: update DMN context pad UI ([#22](https://github.com/camunda/improved-canvas/pull/22))
+* `FEAT`: add tooltips to context pad ([#20](https://github.com/camunda/improved-canvas/pull/20))
+* `FEAT`: add _Common_ group to append popup ([#13](https://github.com/camunda/improved-canvas/pull/13))
+* `FEAT`: add seperate feature for appending boundary events ([#12](https://github.com/camunda/improved-canvas/pull/12))
+* `FEAT`: add separate feature for appending shapes ([#11](https://github.com/camunda/improved-canvas/pull/11))
+* `FEAT`: adjust non-searchable popups ([#9](https://github.com/camunda/improved-canvas/pull/9))
+
 ## 0.2.1
 
 * `FIX`: styles are not injected by default ([5403789](https://github.com/camunda/improved-canvas/commit/5403789288696f594f498f1fe31166972e1f895a))
