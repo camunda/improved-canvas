@@ -57,7 +57,7 @@ describe('<ResourceLinking>', function() {
       contextPad.open(task);
 
       // then
-      expect(domQuery('.entry.call-to-action')).to.exist;
+      expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
     }));
 
 
@@ -70,7 +70,7 @@ describe('<ResourceLinking>', function() {
       contextPad.open(task);
 
       // then
-      expect(domQuery('.entry.call-to-action')).to.exist;
+      expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
     }));
 
 
@@ -83,7 +83,7 @@ describe('<ResourceLinking>', function() {
       contextPad.open(task);
 
       // then
-      expect(domQuery('.entry.call-to-action')).to.exist;
+      expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
     }));
 
 
@@ -96,7 +96,7 @@ describe('<ResourceLinking>', function() {
       contextPad.open(task);
 
       // then
-      expect(domQuery('.entry.call-to-action')).to.exist;
+      expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
     }));
 
 
@@ -109,7 +109,7 @@ describe('<ResourceLinking>', function() {
       contextPad.open(task);
 
       // then
-      expect(domQuery('.entry.call-to-action')).not.to.exist;
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
     }));
 
 
@@ -124,7 +124,7 @@ describe('<ResourceLinking>', function() {
         contextPad.open(task);
 
         // then
-        const entry = domQuery('.entry.call-to-action');
+        const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
         expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -140,7 +140,7 @@ describe('<ResourceLinking>', function() {
         contextPad.open(task);
 
         // then
-        const entry = domQuery('.entry.call-to-action');
+        const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
         expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -160,7 +160,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          let entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -173,7 +173,7 @@ describe('<ResourceLinking>', function() {
           await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
 
           // then
-          entry = domQuery('.entry.call-to-action');
+          entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -191,7 +191,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          let entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -208,7 +208,7 @@ describe('<ResourceLinking>', function() {
           await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
 
           // then
-          entry = domQuery('.entry.call-to-action');
+          entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -230,7 +230,7 @@ describe('<ResourceLinking>', function() {
         contextPad.open(task);
 
         // then
-        const entry = domQuery('.entry.call-to-action');
+        const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
         expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -246,7 +246,7 @@ describe('<ResourceLinking>', function() {
         contextPad.open(task);
 
         // then
-        const entry = domQuery('.entry.call-to-action');
+        const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
         expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -266,7 +266,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          let entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -279,7 +279,7 @@ describe('<ResourceLinking>', function() {
           await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
 
           // then
-          entry = domQuery('.entry.call-to-action');
+          entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -297,7 +297,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          let entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -314,7 +314,7 @@ describe('<ResourceLinking>', function() {
           await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
 
           // then
-          entry = domQuery('.entry.call-to-action');
+          entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -336,7 +336,7 @@ describe('<ResourceLinking>', function() {
         contextPad.open(task);
 
         // then
-        const entry = domQuery('.entry.call-to-action');
+        const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
         expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -352,7 +352,7 @@ describe('<ResourceLinking>', function() {
         contextPad.open(task);
 
         // then
-        const entry = domQuery('.entry.call-to-action');
+        const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
         expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -372,7 +372,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          let entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -385,7 +385,7 @@ describe('<ResourceLinking>', function() {
           await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
 
           // then
-          entry = domQuery('.entry.call-to-action');
+          entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -403,7 +403,7 @@ describe('<ResourceLinking>', function() {
           contextPad.open(task);
 
           // then
-          let entry = domQuery('.entry.call-to-action');
+          let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-active')).to.be.true;
@@ -420,7 +420,7 @@ describe('<ResourceLinking>', function() {
           await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
 
           // then
-          entry = domQuery('.entry.call-to-action');
+          entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
           expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
@@ -446,7 +446,7 @@ describe('<ResourceLinking>', function() {
 
       eventBus.on('contextPad.linkResource', spy);
 
-      const event = mockContextPadEvent('link-form');
+      const event = mockContextPadEvent('link-resource');
 
       // when
       contextPad.trigger('click', event);
@@ -485,7 +485,7 @@ describe('<ResourceLinking> (configuration)', function() {
     contextPad.open(startEvent);
 
     // then
-    expect(domQuery('.entry.call-to-action')).not.to.exist;
+    expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
   }));
 
 });
