@@ -6,6 +6,11 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.1.0
+
+* `FEAT`: add context pad entry to show comments ([#29](https://github.com/camunda/improved-canvas/pull/29))
+* `FIX`: allow context pad overflow to show tooltips ([#29](https://github.com/camunda/improved-canvas/pull/29))
+
 ## 1.0.0
 
 * `FEAT`: add call-to-action to context pad for linking BPMN, DMN and Forms ([#24](https://github.com/camunda/improved-canvas/pull/24))
