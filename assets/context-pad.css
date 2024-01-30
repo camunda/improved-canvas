@@ -17,7 +17,6 @@
   border-radius: 4px;
   transform: translate(-50%, -100%);
   box-shadow: var(--context-pad-box-shadow);
-  overflow: hidden;
 }
 
 .djs-container .djs-context-pad.open {
@@ -94,6 +93,7 @@
 /** Call to action context pad entry */
 .djs-container .djs-context-pad .group[data-group="call-to-action-active"] {
   padding-right: 5px;
+  border-radius: 4px 0 0 4px;
   background: var(--context-pad-entry-call-to-action-background-color);
 
   &:after {
