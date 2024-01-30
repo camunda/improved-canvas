@@ -156,7 +156,7 @@ describe('<ImprovedContextPad>', function() {
       entry.dispatchEvent(event);
 
       // tooltip is displayed with a delay
-      await delay(200);
+      await wait(200);
 
       const tooltip = domQuery('.bio-properties-panel-tooltip', entry);
 
@@ -189,6 +189,6 @@ function padEvent(entry) {
   });
 }
 
-function delay(delayInms) {
-  return new Promise(resolve => setTimeout(resolve, delayInms));
+function wait(ms = 100) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
