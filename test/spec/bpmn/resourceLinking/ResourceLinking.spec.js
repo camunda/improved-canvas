@@ -115,7 +115,7 @@ describe('<ResourceLinking>', function() {
 
     describe('user task', function() {
 
-      it('no form linked', inject(function(contextPad, elementRegistry) {
+      it('no form embedded or linked', inject(function(contextPad, elementRegistry) {
 
         // given
         const task = elementRegistry.get('UserTask');
@@ -131,10 +131,26 @@ describe('<ResourceLinking>', function() {
       }));
 
 
+      it('form embedded', inject(async function(contextPad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('UserTask_embeddedForm');
+
+        // when
+        contextPad.open(task);
+
+        // then
+        const entry = domQuery('.entry[data-action="link-resource"]');
+
+        expect(entry).to.exist;
+        expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+      }));
+
+
       it('form linked', inject(async function(contextPad, elementRegistry) {
 
         // given
-        const task = elementRegistry.get('UserTask_form');
+        const task = elementRegistry.get('UserTask_linkedForm');
 
         // when
         contextPad.open(task);
@@ -149,10 +165,76 @@ describe('<ResourceLinking>', function() {
 
       describe('update', function() {
 
+        it('should set to active when removing embedded form', inject(async function(contextPad, elementRegistry, modeling) {
+
+          // given
+          const task = elementRegistry.get('UserTask_embeddedForm'),
+                businessObject = getBusinessObject(task),
+                extensionElements = businessObject.get('extensionElements');
+
+          // when
+          contextPad.open(task);
+
+          // then
+          let entry = domQuery('.entry[data-action="link-resource"]');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+
+          // when
+          modeling.updateModdleProperties(task, extensionElements, {
+            values: []
+          });
+
+          await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
+
+          // then
+          entry = domQuery('.entry[data-action="link-resource"]');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+        }));
+
+
+        it('should set to inactive when embedding form', inject(async function(bpmnFactory, contextPad, elementRegistry, modeling) {
+
+          // given
+          const task = elementRegistry.get('UserTask'),
+                businessObject = getBusinessObject(task),
+                extensionElements = businessObject.get('extensionElements');
+
+          // when
+          contextPad.open(task);
+
+          // then
+          let entry = domQuery('.entry[data-action="link-resource"]');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+
+          // when
+          const form = createElement('zeebe:FormDefinition', {
+            formKey: 'foobar'
+          }, extensionElements, bpmnFactory);
+
+          modeling.updateModdleProperties(task, extensionElements, {
+            values: [ form ]
+          });
+
+          await waitFor(() => expect(elementsChangedSpy).to.have.been.calledOnce);
+
+          // then
+          entry = domQuery('.entry[data-action="link-resource"]');
+
+          expect(entry).to.exist;
+          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+        }));
+
+
         it('should set to active when unlinking form', inject(async function(contextPad, elementRegistry, modeling) {
 
           // given
-          const task = elementRegistry.get('UserTask_form'),
+          const task = elementRegistry.get('UserTask_linkedForm'),
                 businessObject = getBusinessObject(task),
                 extensionElements = businessObject.get('extensionElements');
 
@@ -198,7 +280,7 @@ describe('<ResourceLinking>', function() {
 
           // when
           const form = createElement('zeebe:FormDefinition', {
-            formId: 'FormDefinition_1'
+            formId: 'Form_1'
           }, extensionElements, bpmnFactory);
 
           modeling.updateModdleProperties(task, extensionElements, {

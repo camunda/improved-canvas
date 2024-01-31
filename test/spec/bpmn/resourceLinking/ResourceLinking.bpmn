@@ -1,78 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_043jtgn" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.19.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.4.0">
   <bpmn:process id="Process_1i8nbae" isExecutable="true">
-    <bpmn:userTask id="UserTask">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="UserTaskForm_1">{"id": "Form_1"}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:userTask id="UserTask" name="UserTask">
       <bpmn:extensionElements>
         <zeebe:formDefinition formId="" />
       </bpmn:extensionElements>
     </bpmn:userTask>
-    <bpmn:userTask id="UserTask_form">
+    <bpmn:userTask id="UserTask_linkedForm" name="UserTask_linkedForm">
       <bpmn:extensionElements>
         <zeebe:formDefinition formId="foo" />
       </bpmn:extensionElements>
     </bpmn:userTask>
-    <bpmn:callActivity id="CallActivity">
+    <bpmn:callActivity id="CallActivity" name="CallActivity">
       <bpmn:extensionElements>
         <zeebe:calledElement propagateAllChildVariables="false" />
       </bpmn:extensionElements>
     </bpmn:callActivity>
-    <bpmn:callActivity id="CallActivity_process">
+    <bpmn:callActivity id="CallActivity_process" name="CallActivity_process">
       <bpmn:extensionElements>
         <zeebe:calledElement processId="foo" propagateAllChildVariables="false" />
       </bpmn:extensionElements>
     </bpmn:callActivity>
-    <bpmn:businessRuleTask id="BusinessRuleTask">
+    <bpmn:businessRuleTask id="BusinessRuleTask" name="BusinessRuleTask">
       <bpmn:extensionElements>
         <zeebe:calledDecision />
       </bpmn:extensionElements>
     </bpmn:businessRuleTask>
-    <bpmn:businessRuleTask id="BusinessRuleTask_decision">
+    <bpmn:businessRuleTask id="BusinessRuleTask_decision" name="BusinessRuleTask_decision">
       <bpmn:extensionElements>
         <zeebe:calledDecision decisionId="foo" />
       </bpmn:extensionElements>
     </bpmn:businessRuleTask>
-    <bpmn:task id="Task" />
-    <bpmn:startEvent id="StartEvent" />
-    <bpmn:startEvent id="MessageStartEvent">
+    <bpmn:task id="Task" name="Task" />
+    <bpmn:startEvent id="StartEvent" name="StartEvent" />
+    <bpmn:startEvent id="MessageStartEvent" name="MessageStartEvent">
       <bpmn:messageEventDefinition id="MessageEventDefinition_1wu6f0f" />
     </bpmn:startEvent>
-    <bpmn:startEvent id="StartEvent_form">
+    <bpmn:startEvent id="StartEvent_linkedForm" name="StartEvent_linkedForm">
       <bpmn:extensionElements>
         <zeebe:formDefinition formId="foo" />
       </bpmn:extensionElements>
     </bpmn:startEvent>
+    <bpmn:userTask id="UserTask_embeddedForm" name="UserTask_embeddedForm">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_1" />
+      </bpmn:extensionElements>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1i8nbae">
       <bpmndi:BPMNShape id="Activity_0psy58l_di" bpmnElement="UserTask">
         <dc:Bounds x="160" y="260" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_136t5ag" bpmnElement="UserTask_form">
+      <bpmndi:BPMNShape id="BPMNShape_136t5ag" bpmnElement="UserTask_linkedForm">
         <dc:Bounds x="330" y="260" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1igog2u_di" bpmnElement="CallActivity">
         <dc:Bounds x="160" y="390" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0dg4h1g" bpmnElement="CallActivity_process">
         <dc:Bounds x="330" y="390" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0wejyoj_di" bpmnElement="BusinessRuleTask">
         <dc:Bounds x="160" y="530" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1wtw7k3" bpmnElement="BusinessRuleTask_decision">
         <dc:Bounds x="330" y="530" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1f5sb7n_di" bpmnElement="Task">
         <dc:Bounds x="160" y="660" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1x1rtg7_di" bpmnElement="StartEvent">
         <dc:Bounds x="192" y="82" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="184" y="125" width="52" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_10r0mcs_di" bpmnElement="MessageStartEvent">
         <dc:Bounds x="192" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="166" y="215" width="88" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_14pba4k_di" bpmnElement="StartEvent_form">
+      <bpmndi:BPMNShape id="Event_14pba4k_di" bpmnElement="StartEvent_linkedForm">
         <dc:Bounds x="362" y="82" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="340" y="125" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vhp37m_di" bpmnElement="UserTask_embeddedForm">
+        <dc:Bounds x="500" y="260" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
