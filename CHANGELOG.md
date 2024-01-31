@@ -10,6 +10,7 @@ ___Note:__ Yet to be released changes appear here._
 
 * `FEAT`: add context pad entry to show comments ([#29](https://github.com/camunda/improved-canvas/pull/29))
 * `FIX`: allow context pad overflow to show tooltips ([#29](https://github.com/camunda/improved-canvas/pull/29))
+* `FIX`: recognize form key ([#31](https://github.com/camunda/improved-canvas/pull/31))
 
 ## 1.0.0
 
