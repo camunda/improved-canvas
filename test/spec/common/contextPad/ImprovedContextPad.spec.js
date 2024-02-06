@@ -10,6 +10,8 @@ import {
   query as domQuery
 } from 'min-dom';
 
+import { waitFor } from '@testing-library/preact';
+
 import {
   getBBox
 } from 'diagram-js/lib/util/Elements';
@@ -139,15 +141,15 @@ describe('<ImprovedContextPad>', function() {
 
   describe('entry tooltips', function() {
 
-    it('should render tooltip', inject(async function(elementRegistry, contextPad) {
+    it('should show tooltip', inject(async function(elementRegistry, contextPad) {
 
       // given
       const shape = elementRegistry.get('StartEvent_1');
+
       contextPad.open(shape);
 
       // when
       const entry = domQuery('.bio-properties-panel-tooltip-wrapper');
-
 
       const event = new MouseEvent('mouseenter', {
         bubbles: true
@@ -155,13 +157,14 @@ describe('<ImprovedContextPad>', function() {
 
       entry.dispatchEvent(event);
 
-      // tooltip is displayed with a delay
-      await wait(200);
+      let tooltip;
 
-      const tooltip = domQuery('.bio-properties-panel-tooltip', entry);
+      await waitFor(() => {
+        tooltip = domQuery('.bio-properties-panel-tooltip', entry);
 
-      // then
-      expect(tooltip).to.exist;
+        // then
+        expect(tooltip).to.exist;
+      });
     }));
 
   });
@@ -246,8 +249,4 @@ function padEvent(entry) {
       clientY: 100
     };
   });
-}
-
-function wait(ms = 100) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
