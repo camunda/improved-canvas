@@ -166,6 +166,65 @@ describe('<ImprovedContextPad>', function() {
 
   });
 
+
+  describe('feedback button', function() {
+
+    it('shoud add feedback button', inject(async function(elementRegistry, contextPad) {
+
+      // given
+      const shape = elementRegistry.get('StartEvent_1');
+
+      // when
+      contextPad.open(shape);
+
+      // then
+      const feedbackButton = domQuery('.feedback-button');
+
+      expect(feedbackButton).to.exist;
+    }));
+
+
+    it('shoud remove feedback button', inject(async function(elementRegistry, contextPad) {
+
+      // given
+      const shape = elementRegistry.get('StartEvent_1');
+
+      contextPad.open(shape);
+
+      // when
+      contextPad.close();
+
+      const feedbackButton = domQuery('.feedback-button');
+
+      // then
+      expect(feedbackButton).not.to.exist;
+    }));
+
+
+    it('shoud fire event on click', inject(async function(contextPad, elementRegistry, eventBus) {
+
+      // given
+      const shape = elementRegistry.get('StartEvent_1');
+
+      contextPad.open(shape);
+
+      const feedbackButton = domQuery('.feedback-button');
+
+      const spy = sinon.spy();
+
+      eventBus.on('contextPad.feedback', spy);
+
+      // when
+      const event = new MouseEvent('click');
+
+      feedbackButton.dispatchEvent(event);
+
+      // then
+      expect(spy).to.have.been.called;
+    }));
+
+  });
+
 });
 
 

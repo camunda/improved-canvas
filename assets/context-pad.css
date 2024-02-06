@@ -28,11 +28,11 @@
   display: flex;
   padding: 5px 0 5px 0;
 
-  &:first-child {
+  &:nth-child(1 of .group) {
     padding-left: 5px;
   }
 
-  &:last-child {
+  &:nth-last-child(1 of .group) {
     padding-right: 5px;
   }
 }
@@ -90,7 +90,7 @@
   margin: 0 4px;
 }
 
-/** Call to action context pad entry */
+/* Call-to-action button */
 .djs-container .djs-context-pad .group[data-group="call-to-action-active"] {
   padding-right: 5px;
   border-radius: 4px 0 0 4px;
@@ -111,5 +111,22 @@
     &:hover {
       background: var(--context-pad-entry-call-to-action-hover-background-color);
     }
+  }
+}
+
+/* Feedback */
+.djs-container .feedback-button {
+  font-family: inherit;
+  font-size: 12px;
+  position: absolute;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--gray-60);
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--gray-80);
+    text-decoration: underline;
   }
 }
