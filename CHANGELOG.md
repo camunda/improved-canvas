@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.2.0
+
+* `FEAT`: add feedback button ([#33](https://github.com/camunda/improved-canvas/pull/33))
+
 ## 1.1.0
 
 * `FEAT`: add context pad entry to show comments ([#29](https://github.com/camunda/improved-canvas/pull/29))
