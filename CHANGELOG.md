@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.2.1
+
+* `FIX`: don't show append node if connection or no append options ([#35](https://github.com/camunda/improved-canvas/pull/35))
+
 ## 1.2.0
 
 * `FEAT`: add feedback button ([#33](https://github.com/camunda/improved-canvas/pull/33))
