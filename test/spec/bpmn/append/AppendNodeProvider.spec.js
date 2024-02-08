@@ -9,10 +9,6 @@ import {
   query as domQuery
 } from 'min-dom';
 
-import {
-  forEach
-} from 'min-dash';
-
 import Append from 'lib/bpmn/append';
 
 import {
@@ -82,20 +78,32 @@ describe('<AppendNodeProvider>', function() {
 
     describe('should return false', function() {
 
-      // given
-      const ids = [
+      [
         'EndEvent',
         'Group',
         'TextAnnotation',
         'Lane',
         'Participant',
         'DataStoreReference',
-        'DataObjectReference'
-      ];
+        'DataObjectReference',
+        'SequenceFlow_1'
+      ].forEach(function(id) {
 
-      forEach(ids, function(id) {
+        it(`should disallow for element <${id}>`, inject(function(appendNode, elementRegistry, popupMenu) {
 
-        it(`should dissalow for element <${id}>`, inject(function(elementRegistry, appendNode) {
+          // given
+          popupMenu.registerProvider('bpmn-append', {
+            getPopupMenuEntries: () => entries => entries,
+            getPopupMenuHeaderEntries: () => headerEntries => {
+              return {
+                ...headerEntries,
+                foo: {
+                  action: () => {}
+                }
+              };
+            }
+          });
+
           const shape = elementRegistry.get(id);
 
           // when
@@ -104,7 +112,9 @@ describe('<AppendNodeProvider>', function() {
           // then
           expect(allowed).to.be.false;
         }));
+
       });
+
     });
 
   });
