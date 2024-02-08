@@ -105,10 +105,32 @@ describe('<AppendNode>', function() {
     }));
 
 
-    it('should not show for non allowed element', inject(function(elementRegistry, selection, appendNode) {
+    it('should not show for non-allowed element', inject(function(elementRegistry, selection, appendNode) {
 
       // given
       const shape = elementRegistry.get('Task');
+
+      appendNode.registerProvider({
+        getActions: function() {
+          return {};
+        },
+        isAllowed: function(target) {
+          return !is(target, 'bpmn:Task');
+        }
+      });
+
+      // when
+      selection.select(shape);
+
+      // then
+      expect(domQuery('.djs-append-node')).not.to.exist;
+    }));
+
+
+    it('should not show for connection', inject(function(elementRegistry, selection, appendNode) {
+
+      // given
+      const shape = elementRegistry.get('SequenceFlow_1');
 
       appendNode.registerProvider({
         getActions: function() {
