@@ -1,5 +1,5 @@
-.djs-popup.color-picker,
-.djs-popup.align-elements {
+.bio-improved-canvas .djs-popup.color-picker,
+.bio-improved-canvas .djs-popup.align-elements {
   background-color: var(--context-pad-background-color);
   border-radius: 4px;
   box-shadow: var(--context-pad-box-shadow);
