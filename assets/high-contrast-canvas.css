@@ -1,5 +1,5 @@
 /* Canvas */
-.djs-container{
+.bio-improved-canvas {
   --palette-background-color: white;
   --palette-separator-color: var(--gray-20);
   --palette-entry-color: var(--gray-100);
@@ -8,33 +8,18 @@
   --context-pad-entry-background-color: var(--gray-10);
 }
 
-.dmn-drd-container,
-.bjs-container {
+.djs-container.bio-improved-canvas,
+.dmn-drd-container.bio-improved-canvas {
   background-color: var(--gray-10);
 }
 
-.dmn-drd-container {
+.dmn-drd-container.bio-improved-canvas {
   --dmn-definitions-background-color: white;
   --dmn-definitions-border-color: var(--gray-20);
 }
 
-/* Properties Panel */
-
-.bio-properties-panel-header {
-  background-color: white;
-}
-
-/* Keep forms white */
-.cfp-container .bio-properties-panel-header {
-  background-color: var(--header-background-color);
-}
-
-.bio-properties-panel-placeholder {
-  --placeholder-background-color: white;
-}
-
 /* Grid */
-defs pattern circle {
+.bio-improved-canvas defs pattern circle {
   fill: hsl(0, 0%, 87%) !important;
   fill: var(--gray-40) !important;
 }

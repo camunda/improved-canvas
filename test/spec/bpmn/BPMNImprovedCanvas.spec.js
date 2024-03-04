@@ -121,6 +121,8 @@ describe('<Example>', function() {
 
     // then
     expect(result.error).not.to.exist;
+
+    expect(result.modeler.get('canvas').getContainer().classList.contains('bio-improved-canvas')).to.be.true;
   });
 
 });
