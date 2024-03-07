@@ -10,6 +10,8 @@ import {
   query as domQuery
 } from 'min-dom';
 
+import { omit } from 'min-dash';
+
 import ImprovedContextPad from 'lib/bpmn/contextPad';
 import ShowComments from 'lib/bpmn/showComments';
 
@@ -40,6 +42,28 @@ describe('<ShowComments>', function() {
 
       // then
       expect(domQuery('.entry[data-action="show-comments"]')).to.exist;
+    }));
+
+
+    it('should not move delete entry if not found', inject(function(elementRegistry, contextPad, eventBus) {
+
+      // given
+      contextPad.registerProvider(200, {
+        getContextPadEntries() {
+          return (entries) => {
+            return omit(entries, [ 'delete' ]);
+          };
+        }
+      });
+
+      const startEvent = elementRegistry.get('StartEvent_1');
+
+      // when
+      contextPad.open(startEvent);
+
+      // then
+      expect(domQuery('.entry[data-action="show-comments"]')).to.exist;
+      expect(domQuery('.entry[data-action="delete"]')).not.to.exist;
     }));
 
   });
