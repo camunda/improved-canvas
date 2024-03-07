@@ -45,6 +45,19 @@ describe('<ShowComments>', function() {
     }));
 
 
+    it('should not add to labels', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const label = elementRegistry.get('StartEvent_1_label');
+
+      // when
+      contextPad.open(label);
+
+      // then
+      expect(domQuery('.entry[data-action="show-comments"]')).not.to.exist;
+    }));
+
+
     it('should not move delete entry if not found', inject(function(elementRegistry, contextPad, eventBus) {
 
       // given
