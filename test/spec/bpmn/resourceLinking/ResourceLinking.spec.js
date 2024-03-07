@@ -100,13 +100,26 @@ describe('<ResourceLinking>', function() {
     }));
 
 
-    it('should not add', inject(function(elementRegistry, contextPad) {
+    it('should not add (task)', inject(function(elementRegistry, contextPad) {
 
       // given
       const task = elementRegistry.get('Task');
 
       // when
       contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+
+    it('should not add (start event label)', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const label = elementRegistry.get('StartEvent_label');
+
+      // when
+      contextPad.open(label);
 
       // then
       expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
