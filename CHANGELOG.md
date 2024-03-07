@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.2.3
+
+* `FIX`: handle labels correctly when opening context pad ([#41](https://github.com/camunda/improved-canvas/pull/41))
+
 ## 1.2.2
 
 * `FIX`: namespace CSS to `bio-improved-canvas`([#39](https://github.com/camunda/improved-canvas/pull/39))
