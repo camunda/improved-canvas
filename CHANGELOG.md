@@ -6,6 +6,11 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.2.4
+
+* `FIX`: ensure icons are visible in all major browsers ([#42](https://github.com/camunda/improved-canvas/pull/42))
+* `FIX`: add `aria-role="button"` to context pad entries ([#44](https://github.com/camunda/improved-canvas/pull/44))
+
 ## 1.2.3
 
 * `FIX`: handle labels correctly when opening context pad ([#41](https://github.com/camunda/improved-canvas/pull/41))
