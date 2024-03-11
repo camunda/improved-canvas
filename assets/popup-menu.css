@@ -45,4 +45,9 @@
     width: 24px;
     fill: var(--context-pad-color);
   }
+  
+  /* Safari icon fix */
+  & .djs-popup-entry-icon > svg {
+    height: 100%;
+  }
 }

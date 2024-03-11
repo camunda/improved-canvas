@@ -58,6 +58,11 @@
   box-shadow: none;
   border-radius: 0;
   padding: 6px;
+
+  /* Safari icon fix */
+  & > svg {
+    height: 100%;
+  }
 }
 
 .bio-improved-canvas .djs-context-pad .bio-properties-panel-tooltip-wrapper {
