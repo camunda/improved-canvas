@@ -6,6 +6,11 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.3.0
+
+* `FEAT`: add `resourceLinking.linkResource` rule ([#47](https://github.com/camunda/improved-canvas/pull/47))
+* `FIX`: do not show resource linking if element template found ([#47](https://github.com/camunda/improved-canvas/pull/47))
+
 ## 1.2.4
 
 * `FIX`: ensure icons are visible in all major browsers ([#42](https://github.com/camunda/improved-canvas/pull/42))
