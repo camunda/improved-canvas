@@ -593,6 +593,23 @@ describe('<ResourceLinking>', function() {
       expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
     }));
 
+
+    it('should disallow if element template found', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('UserTask');
+
+      modeling.updateProperties(task, {
+        'zeebe:modelerTemplate': 'foo'
+      });
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
   });
 
 });
