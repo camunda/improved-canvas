@@ -12,7 +12,12 @@ import {
 
 import { waitFor } from '@testing-library/preact';
 
-import { getBusinessObject } from 'bpmn-js/lib/util/ModelUtil';
+import {
+  getBusinessObject,
+  is
+} from 'bpmn-js/lib/util/ModelUtil';
+
+import CustomRulesModule from 'bpmn-js/test/util/custom-rules';
 
 import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
@@ -29,7 +34,8 @@ describe('<ResourceLinking>', function() {
   beforeEach(bootstrapModeler(diagramXML, {
     additionalModules: [
       ImprovedContextPad,
-      ResourceLinking
+      ResourceLinking,
+      CustomRulesModule
     ],
     moddleExtensions: {
       zeebe: ZeebeModdle
@@ -551,6 +557,40 @@ describe('<ResourceLinking>', function() {
         element: task,
         originalEvent: event
       });
+    }));
+
+  });
+
+
+  describe('rules', function() {
+
+    it('should allow by default', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const task = elementRegistry.get('UserTask');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
+    }));
+
+
+    it('should disallow', inject(function(elementRegistry, contextPad, customRules) {
+
+      // given
+      customRules.addRule('resourceLinking.linkResource', 2000, ({ element }) => {
+        return !is(element, 'bpmn:UserTask');
+      });
+
+      const task = elementRegistry.get('UserTask');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
     }));
 
   });
