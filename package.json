@@ -42,7 +42,7 @@
   ],
   "module": "dist/index.es.js",
   "dependencies": {
-    "diagram-js-grid": "^0.2.0",
+    "diagram-js-grid": "^1.0.0",
     "min-dash": "^4.2.1"
   },
   "devDependencies": {
