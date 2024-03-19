@@ -14,19 +14,28 @@ npm install @camunda/improved-canvas
 
 ## Usage
 
+For the BPMN modeler use the `BpmnImprovedCanvasModule`.
+
 ```javascript
 import { BpmnImprovedCanvasModule } from '@camunda/improved-canvas';
 
-const bpmnJS = new BpmnJS({
+const modeler = new Modeler({
   additionalModules: [
     BpmnImprovedCanvasModule
   ]
-})
+});
 ```
 
-Alternatively, you can import individual modules:
+For the BPMN viewer use the `HighContrastCanvasModule`.
+
 ```javascript
 import { HighContrastCanvasModule } from '@camunda/improved-canvas';
+
+const viewer = new NavigatedViewer({
+  additionalModules: [
+    HighContrastCanvasModule
+  ]
+});
 ```
 
 ## License
