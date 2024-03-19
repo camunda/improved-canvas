@@ -6,6 +6,12 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.3.1
+
+* `FIX`: expose viewer-only module ([#48](https://github.com/camunda/improved-canvas/pull/48))
+* `DEPS`: add `bpmn-js-create-append-anything` peer dependency ([#48](https://github.com/camunda/improved-canvas/pull/48))
+* `DEPS`: update `diagram-js-grid` to v1.0.0 ([#48](https://github.com/camunda/improved-canvas/pull/48))
+
 ## 1.3.0
 
 * `FEAT`: add `resourceLinking.linkResource` rule ([#47](https://github.com/camunda/improved-canvas/pull/47))
