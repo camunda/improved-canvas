@@ -117,6 +117,10 @@
       background: var(--context-pad-entry-call-to-action-hover-background-color);
     }
   }
+
+  & .entry:before {
+    font-size: 24px;
+  }
 }
 
 /* Feedback */
