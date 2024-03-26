@@ -33,7 +33,7 @@ describe('<ImprovedContextPad>', function() {
 
   describe('entries', function() {
 
-    it('single element', inject(function(elementRegistry, contextPad) {
+    it('single element', inject(function(canvas, elementRegistry, contextPad) {
 
       // given
       const shape = elementRegistry.get('StartEvent_1');
@@ -42,7 +42,7 @@ describe('<ImprovedContextPad>', function() {
       contextPad.open(shape);
 
       // then
-      const entries = [ ...domQueryAll('.djs-context-pad .entry') ];
+      const entries = [ ...domQueryAll('.djs-context-pad .entry', canvas.getContainer()) ];
       expect(entries.length).to.equal(5);
       expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
         'replace',
