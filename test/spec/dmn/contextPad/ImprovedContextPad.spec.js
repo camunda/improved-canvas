@@ -27,7 +27,7 @@ describe('<DMNImprovedContextPad>', function() {
   }));
 
 
-  it('entries', inject(function(elementRegistry, contextPad) {
+  it('entries', inject(function(canvas, elementRegistry, contextPad) {
 
     // given
     const shape = elementRegistry.get('Decision_1');
@@ -36,7 +36,7 @@ describe('<DMNImprovedContextPad>', function() {
     contextPad.open(shape);
 
     // then
-    const entries = [ ...domQueryAll('.dmn-drd-container .djs-context-pad .entry') ];
+    const entries = [ ...domQueryAll('.djs-context-pad .entry', canvas.getContainer()) ];
 
     expect(entries.length).to.equal(8);
     expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([

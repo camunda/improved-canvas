@@ -7,6 +7,12 @@ import {
   insertDmnStyles,
 } from 'test/DMNTestHelper';
 
+import axe from 'axe-core';
+
+import { waitFor } from '@testing-library/preact';
+
+import { query as domQuery } from 'min-dom';
+
 import DmnModeler from 'dmn-js/lib/Modeler';
 
 import {
@@ -106,6 +112,43 @@ describe('<DMNImprovedCanvas>', function() {
     expect(result.error).not.to.exist;
 
     expect(result.modeler.getActiveViewer().get('canvas').getContainer().classList.contains('bio-improved-canvas')).to.be.true;
+  });
+
+
+  describe('accessibility', function() {
+
+    it('should have no violations (context pad)', async function() {
+
+      // given
+      const diagramXml = require('test/fixtures/simple.dmn').default;
+
+      const result = await createModeler(
+        diagramXml
+      );
+
+      expect(result.error).not.to.exist;
+
+      // when
+      const { modeler } = result,
+            viewer = modeler.getActiveViewer();
+
+      viewer.get('selection').select(viewer.get('elementRegistry').get('Decision_1'));
+
+      // then
+      await waitFor(() => {
+        expect(domQuery('.djs-context-pad', modelerContainer)).to.exist;
+      });
+
+      const results = await axe.run(domQuery('.djs-context-pad', modelerContainer));
+
+      if (results.violations.length) {
+        console.error(results.violations);
+      }
+
+      expect(results.passes).to.be.not.empty;
+      expect(results.violations).to.be.empty;
+    });
+
   });
 
 });

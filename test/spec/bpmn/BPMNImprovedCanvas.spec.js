@@ -8,6 +8,12 @@ import {
   enableLogging
 } from 'test/TestHelper';
 
+import axe from 'axe-core';
+
+import { waitFor } from '@testing-library/preact';
+
+import { query as domQuery } from 'min-dom';
+
 import Modeler from 'bpmn-js/lib/Modeler';
 
 import {
@@ -22,9 +28,8 @@ import ZeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
 import BpmnJSColorPicker from 'bpmn-js-color-picker';
-import {
-  CreateAppendAnythingModule
-} from 'bpmn-js-create-append-anything';
+
+import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
 
 import { BpmnImprovedCanvasModule } from 'lib/';
 
@@ -123,6 +128,42 @@ describe('<Example>', function() {
     expect(result.error).not.to.exist;
 
     expect(result.modeler.get('canvas').getContainer().classList.contains('bio-improved-canvas')).to.be.true;
+  });
+
+
+  describe('accessibility', function() {
+
+    it('should have no violations (context pad)', async function() {
+
+      // given
+      const diagramXml = require('test/fixtures/simple.bpmn').default;
+
+      const result = await createModeler(
+        diagramXml
+      );
+
+      expect(result.error).not.to.exist;
+
+      // when
+      const { modeler } = result;
+
+      modeler.get('selection').select(modeler.get('elementRegistry').get('StartEvent_1'));
+
+      // then
+      await waitFor(() => {
+        expect(domQuery('.djs-context-pad', modelerContainer)).to.exist;
+      });
+
+      const results = await axe.run(domQuery('.djs-context-pad', modelerContainer));
+
+      if (results.violations.length) {
+        console.error(results.violations);
+      }
+
+      expect(results.passes).to.be.not.empty;
+      expect(results.violations).to.be.empty;
+    });
+
   });
 
 });
