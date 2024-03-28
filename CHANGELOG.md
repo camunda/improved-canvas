@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.3.3
+
+* `FIX`: do not show feedback button if context pad empty ([#51](https://github.com/camunda/improved-canvas/pull/51))
+
 ## 1.3.2
 
 * `FIX`: fix aria role (use `role="button"`) for context pad entries ([#49](https://github.com/camunda/improved-canvas/pull/49))
