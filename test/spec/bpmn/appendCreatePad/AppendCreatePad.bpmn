@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="sid-38422fae-e03e-43a3-bef4-bd33b32041b2" targetNamespace="http://bpmn.io/bpmn" exporter="Camunda Modeler" exporterVersion="5.22.0">
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="StartEvent_1">
+      <outgoing>SequenceFlow_1</outgoing>
+    </startEvent>
+    <task id="Task_1">
+      <incoming>SequenceFlow_1</incoming>
+      <outgoing>SequenceFlow_2</outgoing>
+    </task>
+    <sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="Task_1" />
+    <eventBasedGateway id="EventBasedGateway_1">
+      <incoming>SequenceFlow_2</incoming>
+      <outgoing>SequenceFlow_3</outgoing>
+      <outgoing>SequenceFlow_5</outgoing>
+    </eventBasedGateway>
+    <sequenceFlow id="SequenceFlow_2" sourceRef="Task_1" targetRef="EventBasedGateway_1" />
+    <receiveTask id="ReceiveTask_1">
+      <incoming>SequenceFlow_3</incoming>
+      <outgoing>SequenceFlow_4</outgoing>
+    </receiveTask>
+    <sequenceFlow id="SequenceFlow_3" sourceRef="EventBasedGateway_1" targetRef="ReceiveTask_1" />
+    <boundaryEvent id="CompensationBoundaryEvent_1" attachedToRef="Task_1">
+      <compensateEventDefinition id="CompensateEventDefinition_0i3933p" />
+    </boundaryEvent>
+    <task id="CompensationTask_1" isForCompensation="true" />
+    <intermediateCatchEvent id="MessageIntermediateCatchEvent_1">
+      <incoming>SequenceFlow_5</incoming>
+      <messageEventDefinition id="MessageEventDefinition_1u0wzmw" />
+    </intermediateCatchEvent>
+    <sequenceFlow id="SequenceFlow_5" sourceRef="EventBasedGateway_1" targetRef="MessageIntermediateCatchEvent_1" />
+    <endEvent id="EndEvent_1">
+      <incoming>SequenceFlow_4</incoming>
+    </endEvent>
+    <sequenceFlow id="SequenceFlow_4" sourceRef="ReceiveTask_1" targetRef="EndEvent_1" />
+    <boundaryEvent id="BoundaryEvent_1" attachedToRef="Task_1" />
+    <association id="Association_1" associationDirection="One" sourceRef="CompensationBoundaryEvent_1" targetRef="CompensationTask_1" />
+    <textAnnotation id="TextAnnotation_1" />
+    <association id="Association_2" associationDirection="None" sourceRef="ReceiveTask_1" targetRef="TextAnnotation_1" />
+  </process>
+  <bpmndi:BPMNDiagram id="BpmnDiagram_1">
+    <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="Event_0fwcfkk_di" bpmnElement="StartEvent_1">
+        <omgdc:Bounds x="152" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0aab5ar_di" bpmnElement="Task_1">
+        <omgdc:Bounds x="240" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0zv1ahf_di" bpmnElement="EventBasedGateway_1">
+        <omgdc:Bounds x="395" y="175" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1egfsfd_di" bpmnElement="ReceiveTask_1">
+        <omgdc:Bounds x="500" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wgj152_di" bpmnElement="CompensationTask_1">
+        <omgdc:Bounds x="360" y="280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0pm6fw1_di" bpmnElement="MessageIntermediateCatchEvent_1">
+        <omgdc:Bounds x="502" y="292" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1sdojak_di" bpmnElement="EndEvent_1">
+        <omgdc:Bounds x="662" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0rhuxqj_di" bpmnElement="BoundaryEvent_1">
+        <omgdc:Bounds x="322" y="222" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_113xn56_di" bpmnElement="TextAnnotation_1">
+        <omgdc:Bounds x="600" y="80" width="100" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1croeja_di" bpmnElement="CompensationBoundaryEvent_1">
+        <omgdc:Bounds x="272" y="222" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0vg8wnk_di" bpmnElement="SequenceFlow_1">
+        <di:waypoint x="188" y="200" />
+        <di:waypoint x="240" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15yn69b_di" bpmnElement="SequenceFlow_2">
+        <di:waypoint x="340" y="200" />
+        <di:waypoint x="395" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0adao6k_di" bpmnElement="SequenceFlow_3">
+        <di:waypoint x="445" y="200" />
+        <di:waypoint x="500" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01fr945_di" bpmnElement="SequenceFlow_5">
+        <di:waypoint x="420" y="225" />
+        <di:waypoint x="420" y="310" />
+        <di:waypoint x="502" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0az7t96_di" bpmnElement="SequenceFlow_4">
+        <di:waypoint x="600" y="200" />
+        <di:waypoint x="662" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1xg69qd_di" bpmnElement="Association_1">
+        <di:waypoint x="290" y="258" />
+        <di:waypoint x="290" y="320" />
+        <di:waypoint x="360" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0h1iobe_di" bpmnElement="Association_2">
+        <di:waypoint x="588" y="160" />
+        <di:waypoint x="636" y="110" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

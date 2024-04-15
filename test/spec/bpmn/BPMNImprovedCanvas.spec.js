@@ -29,8 +29,6 @@ import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
 import BpmnJSColorPicker from 'bpmn-js-color-picker';
 
-import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
-
 import { BpmnImprovedCanvasModule } from 'lib/';
 
 
@@ -69,8 +67,7 @@ describe('<Example>', function() {
         BpmnPropertiesProviderModule,
         ZeebePropertiesProviderModule,
         BpmnImprovedCanvasModule,
-        BpmnJSColorPicker,
-        CreateAppendAnythingModule
+        BpmnJSColorPicker
       ],
       moddleExtensions = {
         zeebe: ZeebeModdle

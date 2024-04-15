@@ -10,12 +10,11 @@ import {
   queryAll as domQueryAll
 } from 'min-dom';
 
-import ImprovedContextPad from 'lib/bpmn/contextPad';
+import ImprovedContextPadModule from 'lib/bpmn/contextPad';
 
 import ColorPickerModule from 'bpmn-js-color-picker';
 
 import diagramXML from '../../../fixtures/simple.bpmn';
-import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
 
 insertCoreStyles();
 insertBpmnStyles();
@@ -24,9 +23,8 @@ describe('<ImprovedContextPad>', function() {
 
   beforeEach(bootstrapModeler(diagramXML, {
     additionalModules: [
-      ImprovedContextPad,
-      ColorPickerModule,
-      CreateAppendAnythingModule
+      ImprovedContextPadModule,
+      ColorPickerModule
     ]
   }));
 
@@ -43,11 +41,10 @@ describe('<ImprovedContextPad>', function() {
 
       // then
       const entries = [ ...domQueryAll('.djs-context-pad .entry', canvas.getContainer()) ];
-      expect(entries.length).to.equal(5);
+      expect(entries.length).to.equal(4);
       expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
         'replace',
         'set-color',
-        'append.text-annotation',
         'connect',
         'delete'
       ]);
