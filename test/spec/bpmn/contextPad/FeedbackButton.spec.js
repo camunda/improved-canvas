@@ -9,10 +9,9 @@ import {
   query as domQuery
 } from 'min-dom';
 
-import ImprovedContextPad from 'lib/bpmn/contextPad';
+import ImprovedContextPadModule from 'lib/bpmn/contextPad';
 
 import diagramXML from '../../../fixtures/simple.bpmn';
-import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
 
 insertCoreStyles();
 insertBpmnStyles();
@@ -21,8 +20,7 @@ describe('<FeedbackButton>', function() {
 
   beforeEach(bootstrapModeler(diagramXML, {
     additionalModules: [
-      ImprovedContextPad,
-      CreateAppendAnythingModule
+      ImprovedContextPadModule
     ]
   }));
 

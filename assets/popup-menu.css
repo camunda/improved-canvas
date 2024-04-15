@@ -8,7 +8,7 @@
   & .djs-popup-results {
     display: flex;
     align-items: center;
-    padding: 5px;
+    padding: var(--context-pad-padding);
     margin: 0;
   }
 
@@ -24,12 +24,12 @@
     width: 1px;
     height: 18px;
     background: var(--context-pad-divider-color);
-    margin: auto 4px;
+    margin: auto var(--context-pad-padding);
   }
 
   & .entry {
     margin-top: 0;
-    padding: 6px;
+    padding: var(--context-pad-padding);
   }
 
   & .entry:hover,
