@@ -12,7 +12,7 @@
     "start:bpmn": "cross-env SINGLE_START=bpmn npm run dev",
     "start:dmn": "cross-env SINGLE_START=dmn npm run dev",
     "build": "rollup -c --bundleConfigAsCjs",
-    "build:watch": "rollup -cw",
+    "build:watch": "rollup -cw --bundleConfigAsCjs",
     "prepare": "run-s build"
   },
   "repository": {
