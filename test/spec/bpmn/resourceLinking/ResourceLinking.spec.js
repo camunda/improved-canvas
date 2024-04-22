@@ -145,8 +145,10 @@ describe('<ResourceLinking>', function() {
         // then
         const entry = domQuery('.entry[data-action="link-resource"]');
 
+        console.log(entry);
+
         expect(entry).to.exist;
-        expect(entry.classList.contains('call-to-action-active')).to.be.true;
+        expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
       }));
 
 
@@ -162,7 +164,7 @@ describe('<ResourceLinking>', function() {
         const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
-        expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+        expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
       }));
 
 
@@ -178,7 +180,7 @@ describe('<ResourceLinking>', function() {
         const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
-        expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+        expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
       }));
 
 
@@ -198,7 +200,7 @@ describe('<ResourceLinking>', function() {
           let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
 
           // when
           modeling.updateModdleProperties(task, extensionElements, {
@@ -211,7 +213,7 @@ describe('<ResourceLinking>', function() {
           entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
         }));
 
 
@@ -229,7 +231,7 @@ describe('<ResourceLinking>', function() {
           let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
 
           // when
           const form = createElement('zeebe:FormDefinition', {
@@ -246,7 +248,7 @@ describe('<ResourceLinking>', function() {
           entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
         }));
 
 
@@ -264,7 +266,7 @@ describe('<ResourceLinking>', function() {
           let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
 
           // when
           modeling.updateModdleProperties(task, extensionElements, {
@@ -277,7 +279,7 @@ describe('<ResourceLinking>', function() {
           entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
         }));
 
 
@@ -295,7 +297,7 @@ describe('<ResourceLinking>', function() {
           let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
 
           // when
           const form = createElement('zeebe:FormDefinition', {
@@ -312,7 +314,7 @@ describe('<ResourceLinking>', function() {
           entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
         }));
 
       });
@@ -334,7 +336,7 @@ describe('<ResourceLinking>', function() {
         const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
-        expect(entry.classList.contains('call-to-action-active')).to.be.true;
+        expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
       }));
 
 
@@ -350,7 +352,7 @@ describe('<ResourceLinking>', function() {
         const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
-        expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+        expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
       }));
 
 
@@ -370,7 +372,7 @@ describe('<ResourceLinking>', function() {
           let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
 
           // when
           modeling.updateModdleProperties(task, extensionElements, {
@@ -383,7 +385,7 @@ describe('<ResourceLinking>', function() {
           entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
         }));
 
 
@@ -401,7 +403,7 @@ describe('<ResourceLinking>', function() {
           let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
 
           // when
           const decision = createElement('zeebe:CalledDecision', {
@@ -418,7 +420,7 @@ describe('<ResourceLinking>', function() {
           entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
         }));
 
       });
@@ -440,7 +442,7 @@ describe('<ResourceLinking>', function() {
         const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
-        expect(entry.classList.contains('call-to-action-active')).to.be.true;
+        expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
       }));
 
 
@@ -456,7 +458,7 @@ describe('<ResourceLinking>', function() {
         const entry = domQuery('.entry[data-action="link-resource"]');
 
         expect(entry).to.exist;
-        expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+        expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
       }));
 
 
@@ -476,7 +478,7 @@ describe('<ResourceLinking>', function() {
           let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
 
           // when
           modeling.updateModdleProperties(task, extensionElements, {
@@ -489,7 +491,7 @@ describe('<ResourceLinking>', function() {
           entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
         }));
 
 
@@ -507,7 +509,7 @@ describe('<ResourceLinking>', function() {
           let entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-active')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
 
           // when
           const process = createElement('zeebe:CalledElement', {
@@ -524,7 +526,7 @@ describe('<ResourceLinking>', function() {
           entry = domQuery('.entry[data-action="link-resource"]');
 
           expect(entry).to.exist;
-          expect(entry.classList.contains('call-to-action-inactive')).to.be.true;
+          expect(entry.classList.contains('resource-linking-no-resource')).to.be.false;
         }));
 
       });
