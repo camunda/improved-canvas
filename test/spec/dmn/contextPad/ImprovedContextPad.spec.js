@@ -44,8 +44,8 @@ describe('<DMNImprovedContextPad>', function() {
       'append.input-data',
       'append.knowledge-source',
       'append.business-knowledge-model',
-      'replace',
       'append.text-annotation',
+      'replace',
       'connect',
       'delete'
     ]);

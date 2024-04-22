@@ -44,8 +44,8 @@ describe('<ImprovedContextPad>', function() {
       expect(entries.length).to.equal(4);
       expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
         'replace',
-        'set-color',
         'connect',
+        'set-color',
         'delete'
       ]);
     }));
