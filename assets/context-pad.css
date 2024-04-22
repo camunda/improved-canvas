@@ -94,28 +94,9 @@
   margin: 0 var(--context-pad-padding);
 }
 
-/* Call-to-action button */
-.bio-improved-canvas .djs-context-pad .group[data-group="call-to-action-active"] {
-  padding-right: var(--context-pad-padding);
-  border-radius: 4px 0 0 4px;
-  background: var(--context-pad-entry-call-to-action-background-color);
-
-  &:after {
-    display: none;
-  }
-
-  & + .group {
-    padding-left: var(--context-pad-padding);
-  }
-
-  & .entry.call-to-action.call-to-action-active {
-    background: var(--context-pad-entry-call-to-action-background-color);
-    fill: white;
-
-    &:hover {
-      background: var(--context-pad-entry-call-to-action-hover-background-color);
-    }
-  }
+/* Resource linking */
+.bio-improved-canvas .djs-context-pad .entry.resource-linking-no-resource svg {
+  fill: var(--blue-60);
 }
 
 /* Feedback */
