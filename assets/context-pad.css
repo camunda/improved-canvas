@@ -1,7 +1,7 @@
 .bio-improved-canvas {
   --context-pad-background-color: white;
   --context-pad-color: var(--gray-80);
-  --context-pad-divider-color: var(--gray-30);
+  --context-pad-divider-color: var(--gray-20);
   --context-pad-hover-color: var(--gray-10);
   --context-pad-active-color: #e8e8e8;
   --context-pad-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.30);
@@ -27,7 +27,6 @@
 
 .bio-improved-canvas .djs-context-pad .group {
   display: flex;
-  padding: var(--context-pad-padding) 0 var(--context-pad-padding) 0;
 
   &:nth-child(1 of .group) {
     padding-left: var(--context-pad-padding);
@@ -41,8 +40,8 @@
 .bio-improved-canvas .djs-context-pad .group:not(:last-child):after {
   display: block;
   content: "";
-  width: 1px;
-  height: 18px;
+  width: 0.5px;
+  height: 40px;
   background: var(--context-pad-divider-color);
   margin: auto var(--context-pad-padding);
 }
@@ -53,8 +52,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0;
-  margin-right: var(--context-pad-padding);
+  margin: var(--context-pad-padding) 0 var(--context-pad-padding) 0;
   background: none;
   box-shadow: none;
   border-radius: 0;
