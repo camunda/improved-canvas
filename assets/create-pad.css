@@ -1,69 +1,69 @@
-.djs-overlay-create-pad {
-  pointer-events: none;
-  
-  .djs-create-pad {
-    pointer-events: all;
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-    transform: translate(-20px, -20px);
-  
-    &:hover {
-      z-index: 150;
-  
-      .djs-create-pad-icon {
-        display: none;
-      }
-  
-      .djs-create-pad-entries {
-        display: grid;
-      }
-    }
-  
+.djs-create-pad {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  transform: translate(-20px, -20px);
+  z-index: 100;
+
+  &:not(.open) {
+    display: none;
+  }
+
+  &:hover {
+    z-index: 150;
+
     .djs-create-pad-icon {
+      display: none;
+    }
+
+    .djs-create-pad-entries {
+      display: grid;
+    }
+  }
+
+  .djs-create-pad-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      background-color: var(--color-blue-205-100-50);
+      box-shadow: var(--context-pad-box-shadow);
+    }
+  }
+
+  .djs-create-pad-entries {
+    display: none;
+    flex-direction: row;
+    overflow: hidden;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: white;
+    color: var(--gray-80);
+    box-shadow: var(--context-pad-box-shadow);
+
+    .djs-create-pad-entry {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
+      width: 32px;
+      height: 32px;
+      font-size: 22px;
   
-      svg {
-        width: 20px;
-        height: 20px;
-        border-radius: 100%;
-        background-color: var(--color-blue-205-100-50);
-        box-shadow: var(--context-pad-box-shadow);
-      }
-    }
-  
-    .djs-create-pad-entries {
-      display: none;
-      flex-direction: row;
-      overflow: hidden;
-      padding: 4px;
-      border-radius: 4px;
-      background-color: white;
-      color: var(--gray-80);
-      box-shadow: var(--context-pad-box-shadow);
-  
-      .djs-create-pad-entry {
+      * {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 32px;
-        height: 32px;
-        font-size: 22px;
-    
-        * {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-    
-        &:hover {
-          background: var(--context-pad-hover-color);
-        }
+      }
+  
+      &:hover {
+        background: var(--context-pad-hover-color);
       }
     }
   }
