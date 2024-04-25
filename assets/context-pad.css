@@ -18,6 +18,7 @@
   color: var(--context-pad-color);
   border-radius: 4px;
   box-shadow: var(--context-pad-box-shadow);
+  z-index: 200;
 }
 
 .bio-improved-canvas .djs-context-pad.open {

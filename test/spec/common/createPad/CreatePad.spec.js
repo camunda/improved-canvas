@@ -609,8 +609,8 @@ function createCustomCreatePad(options = {}) {
   } = options;
 
   class CustomCreatePad extends CreatePad {
-    constructor(eventBus, overlays) {
-      super(eventBus, overlays);
+    constructor(canvas, eventBus) {
+      super(canvas, eventBus);
     }
 
     canOpen(element) {
@@ -626,7 +626,7 @@ function createCustomCreatePad(options = {}) {
     }
   }
 
-  CustomCreatePad.$inject = [ 'eventBus', 'overlays' ];
+  CustomCreatePad.$inject = [ 'canvas', 'eventBus' ];
 
   return CustomCreatePad;
 }

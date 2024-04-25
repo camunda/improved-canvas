@@ -120,7 +120,7 @@ describe('<AppendCreatePad>', function() {
 
   describe('#getPosition', function() {
 
-    it('should return position for task', inject(function(appendCreatePad, elementRegistry) {
+    it('should return position for task', inject(function(appendCreatePad, canvas, elementRegistry) {
 
       // given
       const task = elementRegistry.get('Task_1');
@@ -129,14 +129,20 @@ describe('<AppendCreatePad>', function() {
       const position = appendCreatePad.getPosition(task);
 
       // then
-      expect(position).to.eql({
-        left: task.width + 30,
-        top: task.height / 2
-      });
+      const gfx = canvas.getGraphics(task);
+
+      const targetBounds = gfx.getBoundingClientRect();
+
+      const container = canvas.getContainer();
+
+      const containerBounds = container.getBoundingClientRect();
+
+      expect(position.left).to.be.within(targetBounds.right - containerBounds.left, targetBounds.right - containerBounds.left + 25);
+      expect(position.top).to.be.closeTo(targetBounds.top + targetBounds.height / 2 - containerBounds.top, 1);
     }));
 
 
-    it('should return position for boundary event (right)', inject(function(appendCreatePad, elementRegistry) {
+    it('should return position for boundary event (right)', inject(function(appendCreatePad, canvas, elementRegistry) {
 
       // given
       const boundaryEvent = elementRegistry.get('BoundaryEvent_1');
@@ -145,14 +151,20 @@ describe('<AppendCreatePad>', function() {
       const position = appendCreatePad.getPosition(boundaryEvent);
 
       // then
-      expect(position).to.eql({
-        left: boundaryEvent.width + 30,
-        top: boundaryEvent.height / 2
-      });
+      const gfx = canvas.getGraphics(boundaryEvent);
+
+      const targetBounds = gfx.getBoundingClientRect();
+
+      const container = canvas.getContainer();
+
+      const containerBounds = container.getBoundingClientRect();
+
+      expect(position.left).to.be.within(targetBounds.right - containerBounds.left, targetBounds.right - containerBounds.left + 25);
+      expect(position.top).to.be.closeTo(targetBounds.top + targetBounds.height / 2 - containerBounds.top, 1);
     }));
 
 
-    it('should return position for boundary event (bottom)', inject(function(appendCreatePad, elementRegistry) {
+    it('should return position for boundary event (bottom)', inject(function(appendCreatePad, canvas, elementRegistry) {
 
       // given
       const boundaryEvent = elementRegistry.get('CompensationBoundaryEvent_1');
@@ -161,10 +173,16 @@ describe('<AppendCreatePad>', function() {
       const position = appendCreatePad.getPosition(boundaryEvent);
 
       // then
-      expect(position).to.eql({
-        left: boundaryEvent.width / 2,
-        top: boundaryEvent.height + 30
-      });
+      const gfx = canvas.getGraphics(boundaryEvent);
+
+      const targetBounds = gfx.getBoundingClientRect();
+
+      const container = canvas.getContainer();
+
+      const containerBounds = container.getBoundingClientRect();
+
+      expect(position.left).to.be.closeTo(targetBounds.left + targetBounds.width / 2 - containerBounds.left, 1);
+      expect(position.top).to.be.within(targetBounds.bottom - containerBounds.top, targetBounds.bottom - containerBounds.top + 25);
     }));
 
   });
