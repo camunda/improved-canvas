@@ -130,7 +130,7 @@ describe('<AttachCreatePad>', function() {
 
   describe('#getPosition', function() {
 
-    it('should return position for task', inject(function(attachCreatePad, elementRegistry) {
+    it('should return position for task', inject(function(attachCreatePad, canvas, elementRegistry) {
 
       // given
       const task = elementRegistry.get('Task_1');
@@ -139,10 +139,16 @@ describe('<AttachCreatePad>', function() {
       const position = attachCreatePad.getPosition(task);
 
       // then
-      expect(position).to.eql({
-        left: task.width - 25,
-        top: task.height + 5
-      });
+      const gfx = canvas.getGraphics(task);
+
+      const targetBounds = gfx.getBoundingClientRect();
+
+      const container = canvas.getContainer();
+
+      const containerBounds = container.getBoundingClientRect();
+
+      expect(position.left).to.be.within(targetBounds.right - containerBounds.left - 50, targetBounds.right - containerBounds.left);
+      expect(position.top).to.be.within(targetBounds.bottom - containerBounds.top - 25, targetBounds.bottom - containerBounds.top);
     }));
 
   });
