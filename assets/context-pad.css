@@ -103,20 +103,3 @@
 .bio-improved-canvas .djs-context-pad .entry.resource-linking-no-resource svg {
   fill: var(--blue-60);
 }
-
-/* Feedback */
-.bio-improved-canvas .feedback-button {
-  font-family: inherit;
-  font-size: 12px;
-  position: absolute;
-  padding: 0;
-  border: none;
-  background: none;
-  color: var(--gray-60);
-  white-space: nowrap;
-
-  &:hover {
-    color: var(--gray-80);
-    text-decoration: underline;
-  }
-}
