@@ -612,6 +612,19 @@ describe('<ResourceLinking>', function() {
       expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
     }));
 
+
+    it('should disallow if none start event in event subprocess', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const startEvent = elementRegistry.get('EventSubprocessStartEvent');
+
+      // when
+      contextPad.open(startEvent);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
   });
 
 });
