@@ -1,11 +1,11 @@
 /* Canvas */
 .bio-improved-canvas {
-  --palette-background-color: white;
-  --palette-separator-color: var(--gray-20);
-  --palette-entry-color: var(--gray-100);
-  --palette-border-color: var(--gray-20);
+  --palette-background-color: white !important;
+  --palette-separator-color: var(--gray-20) !important;
+  --palette-entry-color: var(--gray-100) !important;
+  --palette-border-color: var(--gray-20) !important;
   
-  --context-pad-entry-background-color: var(--gray-10);
+  --context-pad-entry-background-color: var(--gray-10) !important;
 }
 
 .djs-container.bio-improved-canvas,
