@@ -113,7 +113,7 @@ describe('<ImprovedContextPad>', function() {
       contextPad.open(shape);
 
       // when
-      contextPad.trigger('click', padEvent('replace'));
+      contextPad.trigger('click', contextPadEvent('replace'));
 
       // then
       const entry = domQuery('[data-action="replace"]');
@@ -129,7 +129,7 @@ describe('<ImprovedContextPad>', function() {
       contextPad.open([ shape1, shape2 ]);
 
       // when
-      contextPad.trigger('click', padEvent('align-elements'));
+      contextPad.trigger('click', contextPadEvent('align-elements'));
 
       // then
       const entry = domQuery('[data-action="align-elements"]');
@@ -169,84 +169,19 @@ describe('<ImprovedContextPad>', function() {
 
   });
 
-
-  describe('feedback button', function() {
-
-    it('shoud add feedback button', inject(async function(elementRegistry, contextPad) {
-
-      // given
-      const shape = elementRegistry.get('StartEvent_1');
-
-      // when
-      contextPad.open(shape);
-
-      // then
-      const feedbackButton = domQuery('.feedback-button');
-
-      expect(feedbackButton).to.exist;
-    }));
-
-
-    it('shoud remove feedback button', inject(async function(elementRegistry, contextPad) {
-
-      // given
-      const shape = elementRegistry.get('StartEvent_1');
-
-      contextPad.open(shape);
-
-      // when
-      contextPad.close();
-
-      const feedbackButton = domQuery('.feedback-button');
-
-      // then
-      expect(feedbackButton).not.to.exist;
-    }));
-
-
-    it('shoud fire event on click', inject(async function(contextPad, elementRegistry, eventBus) {
-
-      // given
-      const shape = elementRegistry.get('StartEvent_1');
-
-      contextPad.open(shape);
-
-      const feedbackButton = domQuery('.feedback-button');
-
-      const spy = sinon.spy();
-
-      eventBus.on('contextPad.feedback', spy);
-
-      // when
-      const event = new MouseEvent('click');
-
-      feedbackButton.dispatchEvent(event);
-
-      // then
-      expect(spy).to.have.been.called;
-    }));
-
-  });
-
 });
 
 
 // helpers //////////
-function padEntry(element, name) {
-  return domQuery('[data-action="' + name + '"]', element);
-}
-
-function padEvent(entry) {
-
-  return getBpmnJS().invoke(function(overlays) {
-
-    var target = padEntry(overlays._overlayRoot, entry);
+export function contextPadEvent(action) {
+  return getBpmnJS().invoke(function(canvas) {
+    const target = domQuery(`.djs-context-pad [data-action="${ action }"]`, canvas.getContainer());
 
     return {
-      target: target,
-      preventDefault: function() {},
       clientX: 100,
-      clientY: 100
+      clientY: 100,
+      preventDefault: () => {},
+      target
     };
   });
 }
