@@ -6,6 +6,13 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.4.0
+
+* FEAT: add quick append and attach ([#59](https://github.com/camunda/improved-canvas/pull/59))
+* CHORE: re-order context pad entries ([#60](https://github.com/camunda/improved-canvas/pull/60))
+* CHORE: make dividers full heigth ([#60](https://github.com/camunda/improved-canvas/pull/60))
+* CHORE: remove plus from comments icon ([#59](https://github.com/camunda/improved-canvas/pull/59))
+
 ## 1.3.3
 
 * `FIX`: do not show feedback button if context pad empty ([#51](https://github.com/camunda/improved-canvas/pull/51))
