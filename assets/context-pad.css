@@ -13,10 +13,10 @@
 }
 
 .bio-improved-canvas .djs-context-pad {
+  width: auto;
   background: var(--context-pad-background-color);
   color: var(--context-pad-color);
   border-radius: 4px;
-  transform: translate(-50%, -100%);
   box-shadow: var(--context-pad-box-shadow);
 }
 
@@ -65,7 +65,12 @@
 }
 
 .bio-improved-canvas .djs-context-pad .bio-properties-panel-tooltip-wrapper {
+  position: relative;
   text-decoration: none;
+}
+
+.bio-improved-canvas .djs-context-pad .bio-properties-panel-tooltip {
+  position: absolute;
 }
 
 .bio-improved-canvas .djs-context-pad .bio-properties-panel-tooltip-content {
