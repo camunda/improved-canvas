@@ -172,7 +172,25 @@ describe('<ImprovedContextPad>', function() {
 
   describe('visibility', function() {
 
-    it('should hide when element not visible', inject(function(canvas, elementRegistry, contextPad) {
+    it('should hide when element hidden', inject(function(canvas, elementRegistry, contextPad) {
+
+      // given
+      const shape = elementRegistry.get('StartEvent_1');
+
+      contextPad.open(shape);
+
+      // assume
+      expect(contextPad.isShown()).to.be.true;
+
+      // when
+      canvas.addMarker(shape, 'djs-element-hidden');
+
+      // then
+      expect(contextPad.isShown()).to.be.false;
+    }));
+
+
+    it('should hide when element outside bounds', inject(function(canvas, elementRegistry, contextPad) {
 
       // given
       const shape = elementRegistry.get('StartEvent_1');
@@ -190,7 +208,7 @@ describe('<ImprovedContextPad>', function() {
     }));
 
 
-    it('should show when element not visible', inject(function(canvas, elementRegistry, contextPad) {
+    it('should show when element visible and inside bounds', inject(function(canvas, elementRegistry, contextPad) {
 
       // given
       const shape = elementRegistry.get('StartEvent_1');
