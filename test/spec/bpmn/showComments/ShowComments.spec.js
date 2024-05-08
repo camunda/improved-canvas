@@ -118,8 +118,8 @@ function queryContextPadEntry(action, contextPadHtml) {
 }
 
 function mockContextPadEvent(entry) {
-  return getBpmnJS().invoke(function(contextPad) {
-    const target = queryContextPadEntry(entry, contextPad.getPad().html);
+  return getBpmnJS().invoke(function(canvas) {
+    const target = queryContextPadEntry(entry, canvas.getContainer());
 
     return {
       target: target,
