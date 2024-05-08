@@ -2,8 +2,7 @@ import {
   insertCoreStyles,
   insertBpmnStyles,
   bootstrapModeler,
-  inject,
-  getBpmnJS
+  inject
 } from 'test/TestHelper';
 
 import {
@@ -12,9 +11,12 @@ import {
 
 import ColorPickerModule from 'bpmn-js-color-picker';
 
-import diagramXML from '../../../fixtures/simple.bpmn';
-import ImprovedContextPad from 'lib/bpmn/contextPad';
+import { contextPadEvent } from '../contextPad/ImprovedContextPad.spec';
+
 import HorizontalPopupMenu from 'lib/bpmn/popupMenu';
+import ImprovedContextPad from 'lib/bpmn/contextPad';
+
+import diagramXML from '../../../fixtures/simple.bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
@@ -29,6 +31,7 @@ describe('<HorizontalPopupMenu>', function() {
     ]
   }));
 
+
   describe('should render', function() {
 
     it('color picker', inject(function(elementRegistry, contextPad) {
@@ -38,7 +41,7 @@ describe('<HorizontalPopupMenu>', function() {
 
       // when
       contextPad.open(shape);
-      contextPad.trigger('click', padEvent('set-color'));
+      contextPad.trigger('click', contextPadEvent('set-color'));
 
       // then
       expect(domQuery('.djs-popup.color-picker')).to.exist;
@@ -53,7 +56,7 @@ describe('<HorizontalPopupMenu>', function() {
 
       // when
       contextPad.open([ shape, task ]);
-      contextPad.trigger('click', padEvent('align-elements'));
+      contextPad.trigger('click', contextPadEvent('align-elements'));
 
       // then
       expect(domQuery('.djs-popup.align-elements')).to.exist;
@@ -72,7 +75,7 @@ describe('<HorizontalPopupMenu>', function() {
     const contextPadNode = domQuery('.djs-context-pad');
     const contextPadBounds = contextPadNode.getBoundingClientRect();
 
-    contextPad.trigger('click', padEvent('set-color'));
+    contextPad.trigger('click', contextPadEvent('set-color'));
 
     // then
     const popupNode = domQuery('.djs-popup');
@@ -84,24 +87,3 @@ describe('<HorizontalPopupMenu>', function() {
   }));
 
 });
-
-
-// helpers //////////
-function padEntry(element, name) {
-  return domQuery('[data-action="' + name + '"]', element);
-}
-
-function padEvent(entry) {
-
-  return getBpmnJS().invoke(function(overlays) {
-
-    var target = padEntry(overlays._overlayRoot, entry);
-
-    return {
-      target: target,
-      preventDefault: function() {},
-      clientX: 100,
-      clientY: 100
-    };
-  });
-}
