@@ -6,6 +6,13 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.5.0
+
+* `FEAT`: context pad always visible as long as elements visible ([#61](https://github.com/camunda/improved-canvas/pull/61))
+* `FEAT`: quick append and attach visible as long as elements visible ([#61](https://github.com/camunda/improved-canvas/pull/61))
+* `CHORE`: comments icon simplified ([#61](https://github.com/camunda/improved-canvas/pull/61))
+* `FIX`: do not show resource linking if start event is inside event subprocess ([#61](https://github.com/camunda/improved-canvas/pull/61))
+
 ## 1.4.0
 
 * `FEAT`: add quick append and attach ([#59](https://github.com/camunda/improved-canvas/pull/59))
