@@ -1,3 +1,7 @@
+.djs-palette {
+  z-index: 200;
+}
+
 .djs-create-pad {
   position: absolute;
   display: flex;
