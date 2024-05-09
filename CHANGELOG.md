@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.5.2
+
+* `FIX`: do not hide context pad on `djs-label-hidden` added
+
 ## 1.5.1
 
 * `FIX`: ensure palette is above create pads ([e87000](https://github.com/camunda/improved-canvas/commit/e870002680a5407892f06dbd1be6965f7ff71277))
