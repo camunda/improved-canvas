@@ -1,13 +1,13 @@
-.djs-palette {
-  z-index: 200;
+.bio-improved-canvas .djs-palette {
+  z-index: 100;
 }
 
-.djs-create-pad {
+.bio-improved-canvas .djs-create-pad {
   position: absolute;
   display: flex;
   align-items: flex-start;
   transform: translate(-20px, -20px);
-  z-index: 100;
+  z-index: 50;
 
   &:not(.open) {
     display: none;
