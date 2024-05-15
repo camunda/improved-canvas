@@ -1,3 +1,7 @@
+.bio-improved-canvas .djs-palette {
+  z-index: 100;
+}
+
 .bio-improved-canvas {
   --context-pad-background-color: white;
   --context-pad-color: var(--gray-80);
@@ -18,7 +22,11 @@
   color: var(--context-pad-color);
   border-radius: 4px;
   box-shadow: var(--context-pad-box-shadow);
-  z-index: 200;
+  z-index: 50;
+
+  &:hover {
+    z-index: 150;
+  }
 }
 
 .bio-improved-canvas .djs-context-pad.open {
