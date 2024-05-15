@@ -66,6 +66,108 @@ describe('<CreatePad>', function() {
   });
 
 
+  describe('open on hover', function() {
+
+    beforeEach(bootstrapModeler(diagramXML, {
+      additionalModules: [
+        createCustomCreatePadModule()
+      ]
+    }));
+
+    let clock;
+
+    beforeEach(function() {
+      clock = sinon.useFakeTimers();
+    });
+
+    afterEach(function() {
+      clock.restore();
+    });
+
+
+    it('should open on mouseenter after 200ms delay', inject(function(canvas, customCreatePad, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      customCreatePad.open(task);
+
+      const html = canvas.getContainer().querySelector('.djs-create-pad');
+
+      expect(html).to.exist;
+
+      html.dispatchEvent(new MouseEvent('mouseenter'));
+
+      expect(html.classList.contains('hover')).to.be.false;
+
+      clock.tick(100);
+
+      expect(html.classList.contains('hover')).to.be.false;
+
+      // when
+      clock.tick(100);
+
+      // then
+      expect(html.classList.contains('hover')).to.be.true;
+    }));
+
+
+    it('should close on mouseleave', inject(function(canvas, customCreatePad, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      customCreatePad.open(task);
+
+      const html = canvas.getContainer().querySelector('.djs-create-pad');
+
+      expect(html).to.exist;
+
+      html.dispatchEvent(new MouseEvent('mouseenter'));
+
+      expect(html.classList.contains('hover')).to.be.false;
+
+      clock.tick(200);
+
+      expect(html.classList.contains('hover')).to.be.true;
+
+      // when
+      html.dispatchEvent(new MouseEvent('mouseleave'));
+
+      // then
+      expect(html.classList.contains('hover')).to.be.false;
+    }));
+
+
+    it('should not open on mouseenter after 200ms delay if closed', inject(function(canvas, customCreatePad, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      customCreatePad.open(task);
+
+      const html = canvas.getContainer().querySelector('.djs-create-pad');
+
+      expect(html).to.exist;
+
+      html.dispatchEvent(new MouseEvent('mouseenter'));
+
+      expect(html.classList.contains('hover')).to.be.false;
+
+      clock.tick(100);
+
+      expect(html.classList.contains('hover')).to.be.false;
+
+      // when
+      customCreatePad.close();
+
+      // then
+      expect(customCreatePad._mouseEnterTimeout).to.be.null;
+    }));
+
+  });
+
+
   describe('getHtml', function() {
 
     beforeEach(bootstrapModeler(diagramXML, {

@@ -13,7 +13,7 @@
     display: none;
   }
 
-  &:hover {
+  &.hover {
     z-index: 150;
 
     .djs-create-pad-icon {
