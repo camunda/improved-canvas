@@ -632,28 +632,58 @@ describe('<ResourceLinking>', function() {
 
 describe('<ResourceLinking> (configuration)', function() {
 
-  beforeEach(bootstrapModeler(diagramXML, {
-    additionalModules: [
-      ImprovedContextPad,
-      ResourceLinking
-    ],
-    resourceLinking: {
-      noneStartEvent: false
-    }
-  }));
+  describe('enabled', function() {
+
+    beforeEach(bootstrapModeler(diagramXML, {
+      additionalModules: [
+        ImprovedContextPad,
+        ResourceLinking
+      ],
+      resourceLinking: false
+    }));
 
 
-  it('should not support none start events', inject(function(elementRegistry, contextPad) {
+    it('should not be enabled', inject(function(elementRegistry, contextPad) {
 
-    // given
-    const startEvent = elementRegistry.get('StartEvent');
+      // given
+      const userTask = elementRegistry.get('UserTask');
 
-    // when
-    contextPad.open(startEvent);
+      // when
+      contextPad.open(userTask);
 
-    // then
-    expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
-  }));
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+  });
+
+
+  describe('none start events', function() {
+
+    beforeEach(bootstrapModeler(diagramXML, {
+      additionalModules: [
+        ImprovedContextPad,
+        ResourceLinking
+      ],
+      resourceLinking: {
+        noneStartEvent: false
+      }
+    }));
+
+
+    it('should not support none start events', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const startEvent = elementRegistry.get('StartEvent');
+
+      // when
+      contextPad.open(startEvent);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+  });
 
 });
 
