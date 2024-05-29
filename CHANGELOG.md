@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.7.0
+
+* `FEAT`: disable resource linking through configuration ([#67](https://github.com/camunda/improved-canvas/pull/67))
+
 ## 1.6.0
 
 * `FEAT`: show create pad entries after delay ([#64](https://github.com/camunda/improved-canvas/pull/64))
