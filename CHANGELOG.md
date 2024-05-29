@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.6.0
+
+* `FEAT`: show create pad entries after delay ([#64](https://github.com/camunda/improved-canvas/pull/64))
+
 ## 1.5.2
 
 * `FIX`: do not hide context pad on `djs-label-hidden` added
