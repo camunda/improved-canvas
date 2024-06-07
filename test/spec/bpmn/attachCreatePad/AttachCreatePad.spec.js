@@ -50,6 +50,19 @@ describe('<AttachCreatePad>', function() {
     }));
 
 
+    it('should return false if attach not allowed (compensation activity)', inject(function(attachCreatePad, elementRegistry) {
+
+      // given
+      const compensationTask = elementRegistry.get('CompensationTask_1');
+
+      // when
+      const canOpen = attachCreatePad.canOpen(compensationTask);
+
+      // then
+      expect(canOpen).to.be.false;
+    }));
+
+
     it('should return false if attach not allowed (event subprocess)', inject(function(attachCreatePad, elementRegistry) {
 
       // given
