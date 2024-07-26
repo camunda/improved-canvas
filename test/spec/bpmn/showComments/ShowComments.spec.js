@@ -58,7 +58,7 @@ describe('<ShowComments>', function() {
     }));
 
 
-    it('should not move delete entry if not found', inject(function(elementRegistry, contextPad, eventBus) {
+    it('should not move delete entry if not found', inject(function(elementRegistry, contextPad) {
 
       // given
       contextPad.registerProvider(200, {

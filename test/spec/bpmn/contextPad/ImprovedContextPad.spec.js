@@ -41,11 +41,12 @@ describe('<ImprovedContextPad>', function() {
 
       // then
       const entries = [ ...domQueryAll('.djs-context-pad .entry', canvas.getContainer()) ];
-      expect(entries.length).to.equal(4);
+      expect(entries.length).to.equal(5);
       expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
         'replace',
         'connect',
         'set-color',
+        'append.text-annotation',
         'delete'
       ]);
     }));
@@ -82,14 +83,21 @@ describe('<ImprovedContextPad>', function() {
 
       // then
       const laneGroup = domQuery('.djs-context-pad .group[data-group="lanes"]');
+
       expect(laneGroup).to.exist;
 
-      const entries = [ ...domQueryAll('.djs-context-pad .entry', laneGroup) ];
+      const entries = [ ...domQueryAll('.djs-context-pad .entry') ];
+
       expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
+        'replace',
+        'connect',
+        'set-color',
         'lane-insert-above',
         'lane-divide-two',
         'lane-divide-three',
-        'lane-insert-below'
+        'lane-insert-below',
+        'append.text-annotation',
+        'delete'
       ]);
     }));
 

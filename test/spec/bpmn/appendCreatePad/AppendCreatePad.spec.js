@@ -70,7 +70,6 @@ describe('<AppendCreatePad>', function() {
         'append.gateway',
         'append.intermediate-event',
         'append.end-event',
-        'append.text-annotation',
         'append'
       ]);
     }));
@@ -93,7 +92,6 @@ describe('<AppendCreatePad>', function() {
         'append.timer-intermediate-event',
         'append.condition-intermediate-event',
         'append.signal-intermediate-event',
-        'append.text-annotation',
         'append'
       ]);
     }));
@@ -110,9 +108,7 @@ describe('<AppendCreatePad>', function() {
       // then
       expect(entries).to.exist;
 
-      expect(Object.keys(entries)).to.eql([
-        'append.text-annotation' // won't be shown since rules don't allow appending
-      ]);
+      expect(Object.keys(entries)).to.eql([]);
     }));
 
   });
