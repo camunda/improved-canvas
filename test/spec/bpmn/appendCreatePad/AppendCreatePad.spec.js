@@ -142,6 +142,28 @@ describe('<AppendCreatePad>', function() {
     }));
 
 
+    it('should return position for expanded sub-process', inject(function(appendCreatePad, canvas, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      // when
+      const position = appendCreatePad.getPosition(task);
+
+      // then
+      const gfx = canvas.getGraphics(task);
+
+      const targetBounds = gfx.getBoundingClientRect();
+
+      const container = canvas.getContainer();
+
+      const containerBounds = container.getBoundingClientRect();
+
+      expect(position.left).to.be.within(targetBounds.right - containerBounds.left, targetBounds.right - containerBounds.left + 50);
+      expect(position.top).to.be.closeTo(targetBounds.top + targetBounds.height / 2 - containerBounds.top, 1);
+    }));
+
+
     it('should return position for boundary event (right)', inject(function(appendCreatePad, canvas, elementRegistry) {
 
       // given
