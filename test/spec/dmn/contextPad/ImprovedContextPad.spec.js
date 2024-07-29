@@ -40,13 +40,13 @@ describe('<DMNImprovedContextPad>', function() {
 
     expect(entries.length).to.equal(8);
     expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
-      'append.decision',
-      'append.input-data',
-      'append.knowledge-source',
-      'append.business-knowledge-model',
-      'append.text-annotation',
       'replace',
       'connect',
+      'append.decision',
+      'append.knowledge-source',
+      'append.business-knowledge-model',
+      'append.input-data',
+      'append.text-annotation',
       'delete'
     ]);
   }));
