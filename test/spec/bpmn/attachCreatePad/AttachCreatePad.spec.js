@@ -63,6 +63,19 @@ describe('<AttachCreatePad>', function() {
     }));
 
 
+    it('should return false if attach not allowed (receive task after event-based gateway)', inject(function(attachCreatePad, elementRegistry) {
+
+      // given
+      const compensationTask = elementRegistry.get('ReceiveTask_1');
+
+      // when
+      const canOpen = attachCreatePad.canOpen(compensationTask);
+
+      // then
+      expect(canOpen).to.be.false;
+    }));
+
+
     it('should return false if attach not allowed (event subprocess)', inject(function(attachCreatePad, elementRegistry) {
 
       // given
