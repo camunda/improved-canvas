@@ -72,8 +72,8 @@ describe('<Example>', function() {
         ZeebePropertiesProviderModule,
         BpmnImprovedCanvasModule,
         BpmnJSColorPicker,
-        RefactoringsModule,
-        CloudElementTemplatesPropertiesProviderModule
+        // RefactoringsModule,
+        // CloudElementTemplatesPropertiesProviderModule
       ],
       moddleExtensions = {
         zeebe: ZeebeModdle

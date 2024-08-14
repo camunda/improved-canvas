@@ -37,3 +37,11 @@ body {
 .properties-container .bio-properties-panel {
   --font-family: 'IBM Plex Sans', sans-serif !important;
 }
+
+.title-row {
+  display: none;
+}
+
+.test-container {
+  border: none;
+}
