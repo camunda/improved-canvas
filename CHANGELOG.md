@@ -6,6 +6,12 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.7.2
+
+* `FIX`: disallow attach if host is receive task after event-based gateway ([#74](https://github.com/camunda/improved-canvas/pull/74))
+* `FIX`: increase append icon gap if element resizable ([#71](https://github.com/camunda/improved-canvas/pull/71))
+* `CHORE` move text annotation back to context pad ([#71](https://github.com/camunda/improved-canvas/pull/71))
+
 ## 1.7.1
 
 * `FIX`: do not show attach option for compensation activities ([#68](https://github.com/camunda/improved-canvas/pull/68))
