@@ -25,6 +25,7 @@ import ImprovedContextPad from 'lib/bpmn/contextPad';
 import ResourceLinking from 'lib/bpmn/resourceLinking';
 
 import diagramXML from './ResourceLinking.bpmn';
+import diagramCollaborationXML from './ResourceLinkingCollaboration.bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
@@ -613,6 +614,19 @@ describe('<ResourceLinking>', function() {
     }));
 
 
+    it('should disallow if none start event in subprocess', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const startEvent = elementRegistry.get('SubprocessStartEvent');
+
+      // when
+      contextPad.open(startEvent);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+
     it('should disallow if none start event in event subprocess', inject(function(elementRegistry, contextPad, modeling) {
 
       // given
@@ -624,6 +638,52 @@ describe('<ResourceLinking>', function() {
       // then
       expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
     }));
+
+
+    describe('process', function() {
+
+      it('should allow if none start event in process', inject(function(elementRegistry, contextPad, modeling) {
+
+        // given
+        const startEvent = elementRegistry.get('StartEvent');
+
+        // when
+        contextPad.open(startEvent);
+
+        // then
+        expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
+      }));
+
+    });
+
+
+    describe('collaboration', function() {
+
+      beforeEach(bootstrapModeler(diagramCollaborationXML, {
+        additionalModules: [
+          ImprovedContextPad,
+          ResourceLinking,
+          CustomRulesModule
+        ],
+        moddleExtensions: {
+          zeebe: ZeebeModdle
+        },
+      }));
+
+
+      it('should allow if none start event in participant', inject(function(elementRegistry, contextPad, modeling) {
+
+        // given
+        const startEvent = elementRegistry.get('StartEvent');
+
+        // when
+        contextPad.open(startEvent);
+
+        // then
+        expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
+      }));
+
+    });
 
   });
 
