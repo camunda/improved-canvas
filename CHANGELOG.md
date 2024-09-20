@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.7.3
+
+* `FIX`: disallow linking form to start event if parent is sub process ([#75](https://github.com/camunda/improved-canvas/pull/75))
+
 ## 1.7.2
 
 * `FIX`: disallow attach if host is receive task after event-based gateway ([#74](https://github.com/camunda/improved-canvas/pull/74))
