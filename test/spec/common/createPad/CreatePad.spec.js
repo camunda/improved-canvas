@@ -24,7 +24,9 @@ describe('<CreatePad>', function() {
 
     beforeEach(bootstrapModeler(diagramXML, {
       additionalModules: [
-        createCustomCreatePadModule()
+        createCustomCreatePadModule({
+          className: 'djs-foobar'
+        })
       ]
     }));
 
@@ -61,6 +63,19 @@ describe('<CreatePad>', function() {
 
       // then
       expect(customCreatePad.isOpen()).to.be.false;
+    }));
+
+
+    it('should have custom class name', inject(function(canvas, customCreatePad, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      // when
+      customCreatePad.open(task);
+
+      // then
+      expect(canvas.getContainer().querySelector('.djs-foobar')).to.exist;
     }));
 
   });
@@ -705,6 +720,7 @@ function createCustomCreatePadModule(options) {
 
 function createCustomCreatePad(options = {}) {
   const {
+    className,
     canOpen = () => true,
     getEntries = () => ({}),
     getPosition = () => ({ x: 0, y: 0 })
@@ -712,7 +728,7 @@ function createCustomCreatePad(options = {}) {
 
   class CustomCreatePad extends CreatePad {
     constructor(canvas, eventBus) {
-      super(canvas, eventBus);
+      super(canvas, eventBus, className);
     }
 
     canOpen(element) {

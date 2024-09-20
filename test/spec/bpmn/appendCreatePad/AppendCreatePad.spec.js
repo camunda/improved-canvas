@@ -22,6 +22,19 @@ describe('<AppendCreatePad>', function() {
   }));
 
 
+  it('should have custom class name', inject(function(appendCreatePad, canvas, elementRegistry) {
+
+    // given
+    const task = elementRegistry.get('Task_1');
+
+    // when
+    appendCreatePad.open(task);
+
+    // then
+    expect(canvas.getContainer().querySelector('.djs-append-create-pad')).to.exist;
+  }));
+
+
   describe('#canOpen', function() {
 
     it('should return true if append allowed', inject(function(appendCreatePad, elementRegistry) {
