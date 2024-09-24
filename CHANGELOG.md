@@ -8,7 +8,7 @@ ___Note:__ Yet to be released changes appear here._
 
 ## 1.7.4
 
-* `CHORE`: add custom class names to create pads ([f85241f0](https://github.com/camunda/improved-canvas/commit/f85241f037b74e5b34531c4afbfd6c5babc1f222))
+* `CHORE`: add custom class names to create pads ([`f85241f`](https://github.com/camunda/improved-canvas/commit/f85241f037b74e5b34531c4afbfd6c5babc1f222))
 
 ## 1.7.3
 
