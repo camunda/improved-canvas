@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.7.5
+
+* `FIX`: disallow linking form to start event if parent is not only participant with executable process ([#76](https://github.com/camunda/improved-canvas/pull/76))
+
 ## 1.7.4
 
 * `CHORE`: add custom class names to create pads ([f85241f0](https://github.com/camunda/improved-canvas/commit/f85241f037b74e5b34531c4afbfd6c5babc1f222))
