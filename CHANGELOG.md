@@ -42,7 +42,7 @@ ___Note:__ Yet to be released changes appear here._
 
 ## 1.5.1
 
-* `FIX`: ensure palette is above create pads ([e87000](https://github.com/camunda/improved-canvas/commit/e870002680a5407892f06dbd1be6965f7ff71277))
+* `FIX`: ensure palette is above create pads ([`e87000`](https://github.com/camunda/improved-canvas/commit/e870002680a5407892f06dbd1be6965f7ff71277))
 
 ## 1.5.0
 
@@ -116,7 +116,7 @@ ___Note:__ Yet to be released changes appear here._
 
 ## 0.2.1
 
-* `FIX`: styles are not injected by default ([5403789](https://github.com/camunda/improved-canvas/commit/5403789288696f594f498f1fe31166972e1f895a))
+* `FIX`: styles are not injected by default ([`5403789`](https://github.com/camunda/improved-canvas/commit/5403789288696f594f498f1fe31166972e1f895a))
 
 ## 0.2.0
 
@@ -125,11 +125,11 @@ ___Note:__ Yet to be released changes appear here._
 
 ## 0.1.2
 
-* `FIX`: fix incorrect styles ([cfeb0ef](https://github.com/camunda/improved-canvas/commit/074a8370eb2e07df3f0ab3c05c33a133ea620364))
+* `FIX`: fix incorrect styles ([`cfeb0ef`](https://github.com/camunda/improved-canvas/commit/074a8370eb2e07df3f0ab3c05c33a133ea620364))
 
 ## 0.1.1
 
-* `FIX`: add missing and fix incorrect styles ([bb9b98f](https://github.com/camunda/improved-canvas/commit/bb9b98f94b30aa28a7316fcfd3b1cbb86691ad7d))
+* `FIX`: add missing and fix incorrect styles ([`bb9b98f`](https://github.com/camunda/improved-canvas/commit/bb9b98f94b30aa28a7316fcfd3b1cbb86691ad7d))
 
 ## 0.1.0
 
