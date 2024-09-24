@@ -25,7 +25,8 @@ import ImprovedContextPad from 'lib/bpmn/contextPad';
 import ResourceLinking from 'lib/bpmn/resourceLinking';
 
 import diagramXML from './ResourceLinking.bpmn';
-import diagramCollaborationXML from './ResourceLinkingCollaboration.bpmn';
+import diagramCollaborationOneExecutableXML from './ResourceLinkingCollaboration-one-executable.bpmn';
+import diagramCollaborationManyExecutableXML from './ResourceLinkingCollaboration-many-executable.bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
@@ -657,9 +658,9 @@ describe('<ResourceLinking>', function() {
     });
 
 
-    describe('collaboration', function() {
+    describe('collaboration - one executable', function() {
 
-      beforeEach(bootstrapModeler(diagramCollaborationXML, {
+      beforeEach(bootstrapModeler(diagramCollaborationOneExecutableXML, {
         additionalModules: [
           ImprovedContextPad,
           ResourceLinking,
@@ -671,16 +672,58 @@ describe('<ResourceLinking>', function() {
       }));
 
 
-      it('should allow if none start event in participant', inject(function(elementRegistry, contextPad, modeling) {
+      it('should allow if none start event in participant with executable process', inject(function(elementRegistry, contextPad) {
 
         // given
-        const startEvent = elementRegistry.get('StartEvent');
+        const startEvent = elementRegistry.get('StartEvent_1');
 
         // when
         contextPad.open(startEvent);
 
         // then
         expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
+      }));
+
+
+      it('should not allow if none start event in participant without executable process', inject(function(elementRegistry, contextPad) {
+
+        // given
+        const startEvent = elementRegistry.get('StartEvent_2');
+
+        // when
+        contextPad.open(startEvent);
+
+        // then
+        expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+      }));
+
+    });
+
+
+    describe('collaboration - many executable', function() {
+
+      beforeEach(bootstrapModeler(diagramCollaborationManyExecutableXML, {
+        additionalModules: [
+          ImprovedContextPad,
+          ResourceLinking,
+          CustomRulesModule
+        ],
+        moddleExtensions: {
+          zeebe: ZeebeModdle
+        },
+      }));
+
+
+      it('should not allow', inject(function(elementRegistry, contextPad) {
+
+        // given
+        const startEvent = elementRegistry.get('StartEvent_1');
+
+        // when
+        contextPad.open(startEvent);
+
+        // then
+        expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
       }));
 
     });
