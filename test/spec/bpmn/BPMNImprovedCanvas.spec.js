@@ -25,7 +25,7 @@ import {
 
 import ZeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
-import RefactoringsModule from '@bpmn-io/refactorings';
+// import RefactoringsModule from '@bpmn-io/refactorings';
 
 import { CloudElementTemplatesPropertiesProviderModule } from 'bpmn-js-element-templates';
 
@@ -72,18 +72,18 @@ describe('<Example>', function() {
         ZeebePropertiesProviderModule,
         BpmnImprovedCanvasModule,
         BpmnJSColorPicker,
-        RefactoringsModule,
+        // RefactoringsModule,
         CloudElementTemplatesPropertiesProviderModule
       ],
       moddleExtensions = {
         zeebe: ZeebeModdle
       },
       layout = {},
-      refactorings = {
-        openai: {
-          createChatCompletion: () => null
-        }
-      }
+      // refactorings = {
+      //   openai: {
+      //     createChatCompletion: () => null
+      //   }
+      // }
     } = options;
 
     clearBpmnJS();
@@ -101,7 +101,7 @@ describe('<Example>', function() {
         description: TooltipProvider,
         layout
       },
-      refactorings,
+      // refactorings,
       ...options
     });
 
