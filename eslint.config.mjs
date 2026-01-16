@@ -48,6 +48,7 @@ export default [
   {
     languageOptions: {
       globals: {
+        chai: true,
         sinon: true,
         require: true
       }

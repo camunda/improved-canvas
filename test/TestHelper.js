@@ -20,8 +20,6 @@ import download from 'downloadjs';
 
 import Modeler from 'bpmn-js/lib/Modeler';
 
-import chai from 'chai';
-
 import {
   query as domQuery
 } from 'min-dom';
