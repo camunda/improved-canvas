@@ -1,9 +1,9 @@
 import {
-  insertCoreStyles,
-  insertBpmnStyles,
   bootstrapModeler,
+  contextPadEvent,
   inject,
-  getBpmnJS
+  insertCoreStyles,
+  insertBpmnStyles
 } from 'test/TestHelper';
 
 import {
@@ -230,18 +230,3 @@ describe('<ImprovedContextPad>', function() {
   });
 
 });
-
-
-// helpers //////////
-export function contextPadEvent(action) {
-  return getBpmnJS().invoke(function(canvas) {
-    const target = domQuery(`.djs-context-pad [data-action="${ action }"]`, canvas.getContainer());
-
-    return {
-      clientX: 100,
-      clientY: 100,
-      preventDefault: () => {},
-      target
-    };
-  });
-}

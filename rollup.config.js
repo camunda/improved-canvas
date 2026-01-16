@@ -1,4 +1,3 @@
-/* eslint-env node */
 import alias from '@rollup/plugin-alias';
 
 const commonjs = require('@rollup/plugin-commonjs');
