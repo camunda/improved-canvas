@@ -1,16 +1,16 @@
 import alias from '@rollup/plugin-alias';
+import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import css from 'rollup-plugin-import-css';
 
-const commonjs = require('@rollup/plugin-commonjs');
-const json = require('@rollup/plugin-json');
+import { readFileSync } from 'fs';
 
-const pkg = require('./package.json');
+const pkg = importPkg();
 const nonbundledDependencies = Object.keys({ ...pkg.dependencies });
 
-const nodeResolve = require('@rollup/plugin-node-resolve');
 
-const css = require('rollup-plugin-import-css');
-
-module.exports = {
+export default {
   input: 'lib/index.js',
   output: [ {
     file: pkg.main,
@@ -34,3 +34,7 @@ module.exports = {
   ],
   external: nonbundledDependencies
 };
+
+function importPkg() {
+  return JSON.parse(readFileSync('./package.json', { encoding:'utf8' }));
+}
