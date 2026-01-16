@@ -20,10 +20,15 @@ import download from 'downloadjs';
 
 import Modeler from 'bpmn-js/lib/Modeler';
 
+import chai from 'chai';
+
+import {
+  query as domQuery
+} from 'min-dom';
 
 let PROPERTIES_PANEL_CONTAINER;
 
-global.chai.use(function(chai, utils) {
+chai.use(function(chai, utils) {
 
   utils.addMethod(chai.Assertion.prototype, 'jsonEqual', function(comparison) {
 
@@ -221,3 +226,17 @@ document.addEventListener('keydown', function(event) {
     download(result.xml, 'test.bpmn', 'application/xml');
   });
 });
+
+
+export function contextPadEvent(action) {
+  return getBpmnJS().invoke(function(canvas) {
+    const target = domQuery(`.djs-context-pad [data-action="${ action }"]`, canvas.getContainer());
+
+    return {
+      clientX: 100,
+      clientY: 100,
+      preventDefault: () => {},
+      target
+    };
+  });
+}

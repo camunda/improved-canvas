@@ -1,8 +1,9 @@
 import {
-  insertCoreStyles,
-  insertBpmnStyles,
   bootstrapModeler,
-  inject
+  contextPadEvent,
+  inject,
+  insertCoreStyles,
+  insertBpmnStyles
 } from 'test/TestHelper';
 
 import {
@@ -10,8 +11,6 @@ import {
 } from 'min-dom';
 
 import ColorPickerModule from 'bpmn-js-color-picker';
-
-import { contextPadEvent } from '../contextPad/ImprovedContextPad.spec';
 
 import HorizontalPopupMenu from 'lib/bpmn/popupMenu';
 import ImprovedContextPad from 'lib/bpmn/contextPad';
