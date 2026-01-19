@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.7.7
+
+* `FIX`: make title specific for each attached event ([#79](https://github.com/camunda/improved-canvas/pull/79))
+
 ## 1.7.6
 
 * `CHORE`: support bpmn-js-create-append-anything beyond v0.5.x
