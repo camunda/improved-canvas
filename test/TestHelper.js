@@ -1,6 +1,7 @@
 import {
   act,
-  fireEvent
+  fireEvent,
+  waitFor
 } from '@testing-library/preact';
 
 import TestContainer from 'mocha-test-container-support';
@@ -236,5 +237,18 @@ export function contextPadEvent(action) {
       preventDefault: () => {},
       target
     };
+  });
+}
+
+export async function openContextPad(element) {
+  getBpmnJS().invoke(function(contextPad) {
+    contextPad.open(element);
+  });
+
+  await waitFor(() => {
+    const contextPadNode = domQuery('.djs-context-pad');
+
+    // wait for context pad to be rendered at adjusted position
+    expect(contextPadNode.getAttribute('style')).to.exist;
   });
 }
