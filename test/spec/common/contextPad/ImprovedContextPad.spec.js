@@ -3,7 +3,8 @@ import {
   contextPadEvent,
   inject,
   insertCoreStyles,
-  insertBpmnStyles
+  insertBpmnStyles,
+  openContextPad
 } from 'test/TestHelper';
 
 import {
@@ -11,10 +12,6 @@ import {
 } from 'min-dom';
 
 import { waitFor } from '@testing-library/preact';
-
-import {
-  getBBox
-} from 'diagram-js/lib/util/Elements';
 
 import ImprovedContextPad from 'lib/bpmn/contextPad';
 
@@ -45,16 +42,16 @@ describe('<ImprovedContextPad>', function() {
   }));
 
 
-  // TODO(nikku): this works visually, but not as a test
-  it.skip('should open at the top of element', inject(function(elementRegistry, contextPad) {
+  it('should open at the top of element', inject(async function(elementRegistry) {
 
     // given
     const shape = elementRegistry.get('StartEvent_1');
-    const shapeBounds = getBBox(shape);
+    const shapeGfx = elementRegistry.getGraphics(shape);
+    const shapeBounds = shapeGfx.getBoundingClientRect();
     const shapeCenter = shapeBounds.x + shapeBounds.width / 2;
 
     // when
-    contextPad.open(shape);
+    await openContextPad(shape);
 
     // then
     const contextPadNode = domQuery('.djs-context-pad');
@@ -63,7 +60,7 @@ describe('<ImprovedContextPad>', function() {
     const contextPadCenter = contextPadBounds.x + contextPadBounds.width / 2;
 
     expect(contextPadCenter).to.closeTo(shapeCenter, 1);
-    expect(contextPadBounds.y).to.be.greaterThan(shapeBounds.y);
+    expect(contextPadBounds.bottom).to.be.lessThan(shapeBounds.top);
   }));
 
 
