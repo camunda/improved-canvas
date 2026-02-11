@@ -25,8 +25,6 @@ import {
 
 import ZeebeBehaviorsModule from 'camunda-bpmn-js-behaviors/lib/camunda-cloud';
 
-import RefactoringsModule from '@bpmn-io/refactorings';
-
 import { CloudElementTemplatesPropertiesProviderModule } from 'bpmn-js-element-templates';
 
 import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
@@ -72,7 +70,6 @@ describe('<Example>', function() {
         ZeebePropertiesProviderModule,
         BpmnImprovedCanvasModule,
         BpmnJSColorPicker,
-        RefactoringsModule,
         CloudElementTemplatesPropertiesProviderModule
       ],
       moddleExtensions = {
