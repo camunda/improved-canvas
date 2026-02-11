@@ -6,6 +6,11 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.8.0
+
+* `DEPS`: update to `min-dash@5.0.0`
+* `DEPS`: update to `diagram-js-grid@2.0.0`
+
 ## 1.7.7
 
 * `FIX`: make title specific for each attached event ([#79](https://github.com/camunda/improved-canvas/pull/79))
