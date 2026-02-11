@@ -43,7 +43,7 @@
   "module": "dist/index.es.js",
   "dependencies": {
     "diagram-js-grid": "^2.0.0",
-    "min-dash": "^4.2.1"
+    "min-dash": "^5.0.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.28.6",
