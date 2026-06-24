@@ -50,27 +50,32 @@
   display: block;
   content: "";
   width: 0.5px;
-  height: 40px;
+  height: 28px;
   background: var(--context-pad-divider-color);
   margin: auto var(--context-pad-padding);
 }
 
 .bio-improved-canvas .djs-context-pad .entry {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: var(--context-pad-padding) 0 var(--context-pad-padding) 0;
   background: none;
   box-shadow: none;
-  border-radius: 0;
-  padding: 6px;
+  border-radius: 4px;
+  padding: 5px;
 
   /* Safari icon fix */
   & > svg {
     height: 100%;
   }
+}
+
+/* font-glyph icons (e.g. text annotation) match the inline SVG icon size */
+.bio-improved-canvas .djs-context-pad .entry[class*="bpmn-icon-"] {
+  font-size: 18px;
 }
 
 .bio-improved-canvas .djs-context-pad .bio-properties-panel-tooltip-wrapper {

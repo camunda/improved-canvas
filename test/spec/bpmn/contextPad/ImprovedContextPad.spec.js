@@ -14,6 +14,8 @@ import ImprovedContextPadModule from 'lib/bpmn/contextPad';
 
 import ColorPickerModule from 'bpmn-js-color-picker';
 
+import { CreateAppendAnythingModule } from 'bpmn-js-create-append-anything';
+
 import diagramXML from '../../../fixtures/simple.bpmn';
 
 insertCoreStyles();
@@ -24,7 +26,8 @@ describe('<ImprovedContextPad>', function() {
   beforeEach(bootstrapModeler(diagramXML, {
     additionalModules: [
       ImprovedContextPadModule,
-      ColorPickerModule
+      ColorPickerModule,
+      CreateAppendAnythingModule
     ]
   }));
 
@@ -41,10 +44,9 @@ describe('<ImprovedContextPad>', function() {
 
       // then
       const entries = [ ...domQueryAll('.djs-context-pad .entry', canvas.getContainer()) ];
-      expect(entries.length).to.equal(5);
+      expect(entries.length).to.equal(4);
       expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
         'replace',
-        'connect',
         'set-color',
         'append.text-annotation',
         'delete'
@@ -96,6 +98,27 @@ describe('<ImprovedContextPad>', function() {
         'lane-divide-two',
         'lane-divide-three',
         'lane-insert-below',
+        'append.text-annotation',
+        'delete'
+      ]);
+    }));
+
+
+    it('end event', inject(function(elementRegistry, contextPad) {
+
+      // given
+      const shape = elementRegistry.get('EndEvent_1');
+
+      // when
+      contextPad.open(shape);
+
+      // then
+      const entries = [ ...domQueryAll('.djs-context-pad .entry') ];
+
+      expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
+        'replace',
+        'connect',
+        'set-color',
         'append.text-annotation',
         'delete'
       ]);

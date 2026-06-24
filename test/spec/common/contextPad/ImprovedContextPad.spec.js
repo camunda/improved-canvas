@@ -86,7 +86,7 @@ describe('<ImprovedContextPad>', function() {
       // given
       const shape = elementRegistry.get('StartEvent_1');
       contextPad.open(shape);
-      const entry = domQuery('[data-action="connect"]');
+      const entry = domQuery('[data-action="append.text-annotation"]');
 
       // when
       const event = new MouseEvent('dragstart', {
@@ -95,7 +95,7 @@ describe('<ImprovedContextPad>', function() {
       entry.dispatchEvent(event);
 
       // then
-      expect(dragging.context().prefix).to.eql('connect');
+      expect(dragging.context().prefix).to.eql('create');
 
     }));
 

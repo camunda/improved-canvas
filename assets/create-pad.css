@@ -13,35 +13,6 @@
     display: none;
   }
 
-  &.hover {
-    z-index: 150;
-
-    .djs-create-pad-icon {
-      display: none;
-    }
-
-    .djs-create-pad-entries {
-      display: grid;
-    }
-  }
-
-  .djs-create-pad-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-
-    svg {
-      width: 20px;
-      height: 20px;
-      border-radius: 100%;
-      background-color: var(--color-blue-205-100-50);
-      box-shadow: var(--context-pad-box-shadow);
-    }
-  }
-
   .djs-create-pad-entries {
     display: none;
     flex-direction: row;
@@ -56,19 +27,48 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 32px;
-      height: 32px;
-      font-size: 22px;
-  
+      width: 28px;
+      height: 28px;
+      font-size: 18px;
+
       * {
         display: flex;
         justify-content: center;
         align-items: center;
       }
-  
+
       &:hover {
+        border-radius: 4px;
         background: var(--context-pad-hover-color);
       }
+    }
+  }
+}
+
+/* Append pad: entries always visible as a horizontal row when open */
+.bio-improved-canvas .djs-append-create-pad {
+  align-items: center;
+
+  &.open .djs-create-pad-entries {
+    display: flex;
+    flex-direction: row;
+    z-index: 150;
+  }
+
+  /* the append trigger is a "+" call-to-action button */
+  .djs-create-pad-entries .djs-create-pad-entry-cta {
+    border-radius: 4px;
+    margin-right: 2px;
+    background-color: var(--context-pad-entry-call-to-action-background-color);
+    cursor: pointer;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background-color: var(--context-pad-entry-call-to-action-hover-background-color);
     }
   }
 }
