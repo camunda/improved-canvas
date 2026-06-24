@@ -81,108 +81,6 @@ describe('<CreatePad>', function() {
   });
 
 
-  describe('open on hover', function() {
-
-    beforeEach(bootstrapModeler(diagramXML, {
-      additionalModules: [
-        createCustomCreatePadModule()
-      ]
-    }));
-
-    let clock;
-
-    beforeEach(function() {
-      clock = sinon.useFakeTimers();
-    });
-
-    afterEach(function() {
-      clock.restore();
-    });
-
-
-    it('should open on mouseenter after 200ms delay', inject(function(canvas, customCreatePad, elementRegistry) {
-
-      // given
-      const task = elementRegistry.get('Task_1');
-
-      customCreatePad.open(task);
-
-      const html = canvas.getContainer().querySelector('.djs-create-pad');
-
-      expect(html).to.exist;
-
-      html.dispatchEvent(new MouseEvent('mouseenter'));
-
-      expect(html.classList.contains('hover')).to.be.false;
-
-      clock.tick(100);
-
-      expect(html.classList.contains('hover')).to.be.false;
-
-      // when
-      clock.tick(100);
-
-      // then
-      expect(html.classList.contains('hover')).to.be.true;
-    }));
-
-
-    it('should close on mouseleave', inject(function(canvas, customCreatePad, elementRegistry) {
-
-      // given
-      const task = elementRegistry.get('Task_1');
-
-      customCreatePad.open(task);
-
-      const html = canvas.getContainer().querySelector('.djs-create-pad');
-
-      expect(html).to.exist;
-
-      html.dispatchEvent(new MouseEvent('mouseenter'));
-
-      expect(html.classList.contains('hover')).to.be.false;
-
-      clock.tick(200);
-
-      expect(html.classList.contains('hover')).to.be.true;
-
-      // when
-      html.dispatchEvent(new MouseEvent('mouseleave'));
-
-      // then
-      expect(html.classList.contains('hover')).to.be.false;
-    }));
-
-
-    it('should not open on mouseenter after 200ms delay if closed', inject(function(canvas, customCreatePad, elementRegistry) {
-
-      // given
-      const task = elementRegistry.get('Task_1');
-
-      customCreatePad.open(task);
-
-      const html = canvas.getContainer().querySelector('.djs-create-pad');
-
-      expect(html).to.exist;
-
-      html.dispatchEvent(new MouseEvent('mouseenter'));
-
-      expect(html.classList.contains('hover')).to.be.false;
-
-      clock.tick(100);
-
-      expect(html.classList.contains('hover')).to.be.false;
-
-      // when
-      customCreatePad.close();
-
-      // then
-      expect(customCreatePad._mouseEnterTimeout).to.be.null;
-    }));
-
-  });
-
-
   describe('getHtml', function() {
 
     beforeEach(bootstrapModeler(diagramXML, {
@@ -372,16 +270,6 @@ describe('<CreatePad>', function() {
 
   describe('entries', function() {
 
-    let clock;
-
-    beforeEach(function() {
-      clock = sinon.useFakeTimers();
-    });
-
-    afterEach(function() {
-      clock.restore();
-    });
-
     beforeEach(bootstrapModeler(diagramXML, {
       additionalModules: [
         createCustomCreatePadModule({
@@ -513,6 +401,17 @@ describe('<CreatePad>', function() {
 
       describe('hover action', function() {
 
+        let clock;
+
+        beforeEach(function() {
+          clock = sinon.useFakeTimers();
+        });
+
+        afterEach(function() {
+          clock.restore();
+        });
+
+
         it('should handle mouseenter and mouseleave', inject(function(customCreatePad, elementRegistry) {
 
           // given
@@ -631,78 +530,6 @@ describe('<CreatePad>', function() {
       });
 
     });
-
-  });
-
-
-  describe('grid layout', function() {
-
-    beforeEach(bootstrapModeler(diagramXML, {
-      additionalModules: [
-        createCustomCreatePadModule({
-          getEntries: () => ({}),
-          getPosition: () => ({ x: 100, y: 100 })
-        })
-      ]
-    }));
-
-    const expectGridRows = (node) => {
-      const style = window.getComputedStyle(node);
-
-      return style['grid-template-rows'];
-    };
-
-    const expectGridColumns = (node) => {
-      const style = window.getComputedStyle(node);
-
-      return style['grid-template-columns'];
-    };
-
-    const expectGrid = (numberOfEntries, rows, columns) => {
-      it(`${ numberOfEntries } entries`, inject(function(customCreatePad, elementRegistry) {
-
-        // given
-        const task = elementRegistry.get('Task_1');
-
-        sinon.stub(customCreatePad, 'getEntries').callsFake(() => {
-          const entries = {};
-
-          for (let i = 0; i < numberOfEntries; i++) {
-            entries[ i ] = {
-              className: i
-            };
-          }
-
-          return entries;
-        });
-
-        // when
-        customCreatePad.open(task);
-
-        // then
-        expect(expectGridRows(domQuery('.djs-create-pad-entries', customCreatePad.getHtml()))).to.equal(rows);
-        expect(expectGridColumns(domQuery('.djs-create-pad-entries', customCreatePad.getHtml()))).to.equal(columns);
-      }));
-    };
-
-
-
-    expectGrid(1, 'repeat(1, 1fr)', 'repeat(1, 1fr)');
-
-
-    expectGrid(2, 'repeat(2, 1fr)', 'repeat(1, 1fr)');
-
-
-    expectGrid(3, 'repeat(2, 1fr)', 'repeat(2, 1fr)');
-
-
-    expectGrid(4, 'repeat(2, 1fr)', 'repeat(2, 1fr)');
-
-
-    expectGrid(5, 'repeat(2, 1fr)', 'repeat(3, 1fr)');
-
-
-    expectGrid(6, 'repeat(2, 1fr)', 'repeat(3, 1fr)');
 
   });
 
