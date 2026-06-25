@@ -12,9 +12,6 @@ const coverage = process.env.COVERAGE;
 
 const absoluteBasePath = path.resolve(path.join(__dirname, basePath));
 
-// use puppeteer provided Chrome for testing
-process.env.CHROME_BIN = require('puppeteer').executablePath();
-
 const suite = coverage ? 'test/coverageBundle.js' : 'test/testBundle.js';
 
 module.exports = function(karma) {
