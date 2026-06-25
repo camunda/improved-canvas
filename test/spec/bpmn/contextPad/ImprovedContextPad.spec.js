@@ -92,7 +92,6 @@ describe('<ImprovedContextPad>', function() {
 
       expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
         'replace',
-        'connect',
         'set-color',
         'lane-insert-above',
         'lane-divide-two',
@@ -117,7 +116,6 @@ describe('<ImprovedContextPad>', function() {
 
       expect(entries.map(entry => entry.getAttribute('data-action'))).to.eql([
         'replace',
-        'connect',
         'set-color',
         'append.text-annotation',
         'delete'
