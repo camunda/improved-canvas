@@ -91,5 +91,9 @@
   },
   "peerDependencies": {
     "bpmn-js-create-append-anything": ">=0.5.0"
+  },
+  "allowScripts": {
+    "inferno": false,
+    "@carbon/icons": false
   }
 }
