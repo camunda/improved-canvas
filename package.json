@@ -81,7 +81,6 @@
     "mocha": "^11.7.5",
     "mocha-test-container-support": "^0.2.0",
     "npm-run-all2": "^8.0.4",
-    "puppeteer": "^24.37.2",
     "raw-loader": "^4.0.2",
     "rollup": "^4.57.1",
     "rollup-plugin-import-css": "^4.2.0",
