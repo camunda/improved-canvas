@@ -73,13 +73,26 @@ describe('<AppendCreatePad>', function() {
     }));
 
 
-    it('should return false if append not allowed', inject(function(appendCreatePad, elementRegistry) {
+    it('should return true if connect-only (end event)', inject(function(appendCreatePad, elementRegistry) {
 
       // given
       const endEvent = elementRegistry.get('EndEvent_1');
 
       // when
       const canOpen = appendCreatePad.canOpen(endEvent);
+
+      // then
+      expect(canOpen).to.be.true;
+    }));
+
+
+    it('should return false for a connection', inject(function(appendCreatePad, elementRegistry) {
+
+      // given
+      const connection = elementRegistry.get('SequenceFlow_1');
+
+      // when
+      const canOpen = appendCreatePad.canOpen(connection);
 
       // then
       expect(canOpen).to.be.false;
@@ -146,7 +159,7 @@ describe('<AppendCreatePad>', function() {
       // then
       expect(entries).to.exist;
 
-      expect(Object.keys(entries)).to.eql([ 'append', 'connect' ]);
+      expect(Object.keys(entries)).to.eql([ 'connect' ]);
     }));
 
   });
