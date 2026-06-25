@@ -2,6 +2,33 @@
   z-index: 100;
 }
 
+.bio-improved-canvas .djs-palette-create-entry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.bio-improved-canvas .djs-palette-create-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background-color: var(--gray-100);
+  color: white;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.bio-improved-canvas .djs-palette-create-entry:hover .djs-palette-create-button {
+  background-color: var(--gray-80);
+}
+
 .bio-improved-canvas .djs-create-pad {
   position: absolute;
   display: flex;
@@ -60,6 +87,7 @@
     border-radius: 4px;
     margin-right: 2px;
     background-color: var(--context-pad-entry-call-to-action-background-color);
+    color: var(--context-pad-entry-call-to-action-color);
     cursor: pointer;
 
     svg {
