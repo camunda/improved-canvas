@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.9.0
+
+* `FEAT`: redesign the append pad and remove attach pad ([#82](https://github.com/camunda/improved-canvas/pull/82))
+
 ## 1.8.0
 
 * `DEPS`: update to `min-dash@5.0.0`
