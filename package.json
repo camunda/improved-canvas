@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.28.6",
-    "@bpmn-io/properties-panel": "^3.39.0",
+    "@bpmn-io/properties-panel": "^3.47.0",
     "@rollup/plugin-alias": "^6.0.0",
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-commonjs": "^29.0.0",
@@ -61,7 +61,7 @@
     "bpmn-js-color-picker": "^0.7.2",
     "bpmn-js-create-append-anything": "^1.2.0",
     "bpmn-js-element-templates": "^2.20.0",
-    "bpmn-js-properties-panel": "^5.50.1",
+    "bpmn-js-properties-panel": "^5.60.0",
     "camunda-bpmn-js-behaviors": "^1.14.0",
     "cross-env": "^10.1.0",
     "dmn-js": "^17.6.0",
