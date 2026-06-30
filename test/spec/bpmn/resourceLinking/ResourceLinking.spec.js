@@ -151,8 +151,6 @@ describe('<ResourceLinking>', function() {
         // then
         const entry = domQuery('.entry[data-action="link-resource"]');
 
-        console.log(entry);
-
         expect(entry).to.exist;
         expect(entry.classList.contains('resource-linking-no-resource')).to.be.true;
       }));
