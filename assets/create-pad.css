@@ -75,6 +75,7 @@
 /* Append pad: entries always visible as a horizontal row when open */
 .bio-improved-canvas .djs-append-create-pad {
   align-items: center;
+  transform: translate(-20px, -50%);
 
   &.open .djs-create-pad-entries {
     display: flex;
@@ -98,5 +99,27 @@
     &:hover {
       background-color: var(--context-pad-entry-call-to-action-hover-background-color);
     }
+  }
+}
+
+/* always-visible grey "+" indicator nudging the user to complete the path */
+.bio-improved-canvas .djs-append-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background-color: var(--gray-30);
+  color: white;
+  cursor: pointer;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    background-color: var(--gray-40);
   }
 }
