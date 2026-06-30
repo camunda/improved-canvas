@@ -1,8 +1,11 @@
+import { expect } from 'chai';
+
 import {
   HighContrastCanvasModule,
   BpmnImprovedCanvasModule,
   DmnImprovedCanvasModule
 } from '../../dist';
+
 
 describe('bundle', function() {
 

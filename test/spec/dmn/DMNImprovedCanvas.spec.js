@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+
 import TestContainer from 'mocha-test-container-support';
 
 import {
@@ -27,6 +29,7 @@ const singleStart = window.__env__ && window.__env__.SINGLE_START === 'dmn';
 
 insertCoreStyles();
 insertDmnStyles();
+
 
 describe('<DMNImprovedCanvas>', function() {
 

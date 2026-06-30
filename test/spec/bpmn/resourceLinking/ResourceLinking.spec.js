@@ -1,3 +1,6 @@
+import { expect } from 'chai';
+import { spy } from 'sinon';
+
 import {
   insertCoreStyles,
   insertBpmnStyles,
@@ -31,6 +34,7 @@ import diagramCollaborationManyExecutableXML from './ResourceLinkingCollaboratio
 insertCoreStyles();
 insertBpmnStyles();
 
+
 describe('<ResourceLinking>', function() {
 
   beforeEach(bootstrapModeler(diagramXML, {
@@ -48,7 +52,7 @@ describe('<ResourceLinking>', function() {
   let elementsChangedSpy;
 
   beforeEach(inject(function(eventBus) {
-    elementsChangedSpy = sinon.spy();
+    elementsChangedSpy = spy();
 
     eventBus.on('elements.changed', elementsChangedSpy);
   }));
@@ -547,9 +551,9 @@ describe('<ResourceLinking>', function() {
 
       contextPad.open(task);
 
-      const spy = sinon.spy();
+      const linkSpy = spy();
 
-      eventBus.on('contextPad.linkResource', spy);
+      eventBus.on('contextPad.linkResource', linkSpy);
 
       const event = mockContextPadEvent('link-resource');
 
@@ -557,7 +561,7 @@ describe('<ResourceLinking>', function() {
       contextPad.trigger('click', event);
 
       // then
-      expect(spy).to.have.been.calledWithMatch({
+      expect(linkSpy).to.have.been.calledWithMatch({
         element: task,
         originalEvent: event
       });

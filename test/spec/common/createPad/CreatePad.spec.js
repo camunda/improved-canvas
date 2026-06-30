@@ -1,3 +1,6 @@
+import { expect } from 'chai';
+import { spy, stub, useFakeTimers } from 'sinon';
+
 import {
   insertCoreStyles,
   insertBpmnStyles,
@@ -17,6 +20,7 @@ import diagramXML from '../../../fixtures/simple.bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
+
 
 describe('<CreatePad>', function() {
 
@@ -152,7 +156,7 @@ describe('<CreatePad>', function() {
       // given
       const task = elementRegistry.get('Task_1');
 
-      const openSpy = sinon.spy();
+      const openSpy = spy();
 
       eventBus.on('createPad.open', openSpy);
 
@@ -171,7 +175,7 @@ describe('<CreatePad>', function() {
       // given
       const task = elementRegistry.get('Task_1');
 
-      const closeSpy = sinon.spy();
+      const closeSpy = spy();
 
       eventBus.on('createPad.close', closeSpy);
 
@@ -224,8 +228,8 @@ describe('<CreatePad>', function() {
 
       selection.select(task);
 
-      const openSpy = sinon.spy(customCreatePad, 'open'),
-            closeSpy = sinon.spy(customCreatePad, 'close');
+      const openSpy = spy(customCreatePad, 'open'),
+            closeSpy = spy(customCreatePad, 'close');
 
       // when
       eventBus.fire('elements.changed', {
@@ -249,8 +253,8 @@ describe('<CreatePad>', function() {
 
       selection.select(task);
 
-      const openSpy = sinon.spy(customCreatePad, 'open'),
-            closeSpy = sinon.spy(customCreatePad, 'close');
+      const openSpy = spy(customCreatePad, 'open'),
+            closeSpy = spy(customCreatePad, 'close');
 
       // when
       eventBus.fire('elements.changed', {
@@ -306,7 +310,7 @@ describe('<CreatePad>', function() {
       // given
       const task = elementRegistry.get('Task_1');
 
-      sinon.stub(customCreatePad, 'getEntries').callsFake(() => ({
+      stub(customCreatePad, 'getEntries').callsFake(() => ({
         baz: {
           className: 'baz',
           title: 'Baz'
@@ -327,7 +331,7 @@ describe('<CreatePad>', function() {
       // given
       const task = elementRegistry.get('Task_1');
 
-      sinon.stub(customCreatePad, 'getEntries').callsFake(() => ({
+      stub(customCreatePad, 'getEntries').callsFake(() => ({
         baz: {
           html: '<div class="baz">Baz</div>'
         }
@@ -348,9 +352,9 @@ describe('<CreatePad>', function() {
         // given
         const task = elementRegistry.get('Task_1');
 
-        const clickSpy = sinon.spy();
+        const clickSpy = spy();
 
-        sinon.stub(customCreatePad, 'getEntries').callsFake(() => ({
+        stub(customCreatePad, 'getEntries').callsFake(() => ({
           baz: {
             className: 'baz',
             action: {
@@ -376,9 +380,9 @@ describe('<CreatePad>', function() {
         // given
         const task = elementRegistry.get('Task_1');
 
-        const dragstartSpy = sinon.spy();
+        const dragstartSpy = spy();
 
-        sinon.stub(customCreatePad, 'getEntries').callsFake(() => ({
+        stub(customCreatePad, 'getEntries').callsFake(() => ({
           baz: {
             className: 'baz',
             action: {
@@ -404,7 +408,7 @@ describe('<CreatePad>', function() {
         let clock;
 
         beforeEach(function() {
-          clock = sinon.useFakeTimers();
+          clock = useFakeTimers();
         });
 
         afterEach(function() {
@@ -417,10 +421,10 @@ describe('<CreatePad>', function() {
           // given
           const task = elementRegistry.get('Task_1');
 
-          const mouseenterSpy = sinon.spy(),
-                mouseleaveSpy = sinon.spy();
+          const mouseenterSpy = spy(),
+                mouseleaveSpy = spy();
 
-          sinon.stub(customCreatePad, 'getEntries').callsFake(() => ({
+          stub(customCreatePad, 'getEntries').callsFake(() => ({
             baz: {
               className: 'baz',
               action: {
@@ -456,10 +460,10 @@ describe('<CreatePad>', function() {
           // given
           const task = elementRegistry.get('Task_1');
 
-          const mouseenterSpy = sinon.spy(),
-                mouseleaveSpy = sinon.spy();
+          const mouseenterSpy = spy(),
+                mouseleaveSpy = spy();
 
-          sinon.stub(customCreatePad, 'getEntries').callsFake(() => ({
+          stub(customCreatePad, 'getEntries').callsFake(() => ({
             baz: {
               className: 'baz',
               action: {
@@ -494,10 +498,10 @@ describe('<CreatePad>', function() {
           // given
           const task = elementRegistry.get('Task_1');
 
-          const mouseenterSpy = sinon.spy(),
-                mouseleaveSpy = sinon.spy();
+          const mouseenterSpy = spy(),
+                mouseleaveSpy = spy();
 
-          sinon.stub(customCreatePad, 'getEntries').callsFake(() => ({
+          stub(customCreatePad, 'getEntries').callsFake(() => ({
             baz: {
               className: 'baz',
               action: {

@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+
 import {
   insertCoreStyles,
   insertDmnStyles,
@@ -15,6 +17,7 @@ import diagramXML from 'test/fixtures/simple.dmn';
 
 insertCoreStyles();
 insertDmnStyles();
+
 
 describe('<DMNImprovedContextPad>', function() {
 

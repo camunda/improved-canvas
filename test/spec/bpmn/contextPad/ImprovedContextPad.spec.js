@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+
 import {
   insertCoreStyles,
   insertBpmnStyles,
@@ -20,6 +22,7 @@ import diagramXML from '../../../fixtures/simple.bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
+
 
 describe('<ImprovedContextPad>', function() {
 

@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+
 import { bootstrapModeler } from 'test/TestHelper';
 
 import {
@@ -7,6 +9,7 @@ import {
 import { BpmnImprovedCanvasModule } from 'lib';
 
 import diagramXML from '../../fixtures/simple.bpmn';
+
 
 describe('<ImprovedCanvas>', function() {
 
