@@ -4,13 +4,18 @@ import { spy } from 'sinon';
 import {
   insertCoreStyles,
   insertBpmnStyles,
+  insertCSS,
   bootstrapModeler,
   inject
 } from 'test/TestHelper';
 
+import CanvasLockModule from '@bpmn-io/diagram-js-canvas-lock';
+
 import AppendCreatePad from 'lib/bpmn/appendCreatePad';
 
 import { PAD_GAP } from 'lib/common/constants';
+
+import AppendCanvasLockModule from 'lib/bpmn/appendCanvasLock';
 
 import diagramXML from './AppendCreatePad.bpmn';
 
@@ -25,6 +30,76 @@ describe('<AppendCreatePad>', function() {
       AppendCreatePad
     ]
   }));
+
+
+  describe('integration with diagram-js-canvas-lock', function() {
+
+    insertCSS(
+      'canvas-lock.css',
+      require('@bpmn-io/diagram-js-canvas-lock/assets/canvas-lock.css').default
+    );
+
+    beforeEach(bootstrapModeler(diagramXML, {
+      additionalModules: [
+        AppendCanvasLockModule,
+        CanvasLockModule
+      ]
+    }));
+
+
+    it('should close the pad when the canvas is locked', inject(
+      function(appendCreatePad, canvasLock, elementRegistry) {
+
+        // given
+        appendCreatePad.open(elementRegistry.get('Task_1'));
+
+        // assume
+        expect(appendCreatePad.isOpen()).to.be.true;
+
+        // when
+        canvasLock.lock();
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.false;
+      }
+    ));
+
+
+    it('should not open the pad while the canvas is locked', inject(
+      function(appendCreatePad, canvasLock, elementRegistry) {
+
+        // given
+        canvasLock.lock();
+
+        // when
+        appendCreatePad.open(elementRegistry.get('Task_1'));
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.false;
+      }
+    ));
+
+
+    it('should reopen the pad for the selection after unlock', inject(
+      function(appendCreatePad, canvasLock, elementRegistry, selection) {
+
+        // given
+        selection.select(elementRegistry.get('Task_1'));
+
+        canvasLock.lock();
+
+        // assume
+        expect(appendCreatePad.isOpen()).to.be.false;
+
+        // when
+        canvasLock.unlock();
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.true;
+      }
+    ));
+
+  });
 
 
   it('should have custom class name', inject(function(appendCreatePad, canvas, elementRegistry) {
