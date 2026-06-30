@@ -94,6 +94,7 @@
   },
   "allowScripts": {
     "inferno": false,
-    "@carbon/icons": false
+    "@carbon/icons": false,
+    "unrs-resolver@1.12.2": true
   }
 }
