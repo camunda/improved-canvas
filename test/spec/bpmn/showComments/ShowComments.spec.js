@@ -1,3 +1,6 @@
+import { expect } from 'chai';
+import { spy } from 'sinon';
+
 import {
   insertCoreStyles,
   insertBpmnStyles,
@@ -19,6 +22,7 @@ import diagramXML from '../../../fixtures/simple.bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
+
 
 describe('<ShowComments>', function() {
 
@@ -91,9 +95,9 @@ describe('<ShowComments>', function() {
 
       contextPad.open(startEvent);
 
-      const spy = sinon.spy();
+      const showCommentsSpy = spy();
 
-      eventBus.on('contextPad.showComments', spy);
+      eventBus.on('contextPad.showComments', showCommentsSpy);
 
       const event = mockContextPadEvent('show-comments');
 
@@ -101,7 +105,7 @@ describe('<ShowComments>', function() {
       contextPad.trigger('click', event);
 
       // then
-      expect(spy).to.have.been.calledWithMatch({
+      expect(showCommentsSpy).to.have.been.calledWithMatch({
         element: startEvent,
         originalEvent: event
       });

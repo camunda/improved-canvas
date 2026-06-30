@@ -1,3 +1,6 @@
+import { expect } from 'chai';
+import { spy, useFakeTimers } from 'sinon';
+
 import {
   insertCoreStyles,
   insertBpmnStyles,
@@ -13,6 +16,7 @@ import diagramXML from './AppendIndicator.bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
+
 
 describe('<AppendIndicator>', function() {
 
@@ -151,7 +155,7 @@ describe('<AppendIndicator>', function() {
     function(appendCreatePad, canvas, elementRegistry) {
 
       // given
-      const open = sinon.spy(appendCreatePad, 'open');
+      const open = spy(appendCreatePad, 'open');
 
       const indicator = getIndicator('Task_NoOutgoing', canvas);
 
@@ -168,9 +172,9 @@ describe('<AppendIndicator>', function() {
     function(appendCreatePad, canvas) {
 
       // given
-      const clock = sinon.useFakeTimers();
+      const clock = useFakeTimers();
 
-      const close = sinon.spy(appendCreatePad, 'close');
+      const close = spy(appendCreatePad, 'close');
 
       const indicator = getIndicator('Task_NoOutgoing', canvas);
 
@@ -195,7 +199,7 @@ describe('<AppendIndicator>', function() {
     function(appendCreatePad, canvas, elementRegistry, selection) {
 
       // given a selected element (its pad opens on selection)
-      const clock = sinon.useFakeTimers();
+      const clock = useFakeTimers();
 
       const selected = elementRegistry.get('AdHocSubProcess_1');
 
@@ -206,7 +210,7 @@ describe('<AppendIndicator>', function() {
 
       indicator.dispatchEvent(new MouseEvent('mouseenter'));
 
-      const open = sinon.spy(appendCreatePad, 'open');
+      const open = spy(appendCreatePad, 'open');
 
       const pad = appendCreatePad.getHtml();
 

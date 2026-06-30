@@ -1,3 +1,5 @@
+import { expect } from 'chai';
+
 import {
   insertCoreStyles,
   insertBpmnStyles,
@@ -29,6 +31,7 @@ const createEntryProvider = {
     };
   }
 };
+
 
 describe('<ImprovedPalette>', function() {
 

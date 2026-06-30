@@ -1,3 +1,6 @@
+import { expect } from 'chai';
+import { spy } from 'sinon';
+
 import {
   insertCoreStyles,
   insertBpmnStyles,
@@ -5,13 +8,13 @@ import {
   inject
 } from 'test/TestHelper';
 
-
 import AppendCreatePad from 'lib/bpmn/appendCreatePad';
 
 import diagramXML from './AppendCreatePad.bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
+
 
 describe('<AppendCreatePad>', function() {
 
@@ -41,7 +44,7 @@ describe('<AppendCreatePad>', function() {
       // given
       const task = elementRegistry.get('Task_1');
 
-      const open = sinon.spy(popupMenu, 'open');
+      const open = spy(popupMenu, 'open');
 
       appendCreatePad.open(task);
 

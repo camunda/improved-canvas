@@ -25,9 +25,15 @@ import {
   query as domQuery
 } from 'min-dom';
 
+import { expect, use as chaiUse } from 'chai';
+import sinonChai from 'sinon-chai';
+
+
 let PROPERTIES_PANEL_CONTAINER;
 
-chai.use(function(chai, utils) {
+chaiUse(sinonChai);
+
+chaiUse(function(chai, utils) {
 
   utils.addMethod(chai.Assertion.prototype, 'jsonEqual', function(comparison) {
 
