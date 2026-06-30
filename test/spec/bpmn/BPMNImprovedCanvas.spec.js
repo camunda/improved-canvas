@@ -7,6 +7,7 @@ import {
   setBpmnJS,
   insertCoreStyles,
   insertBpmnStyles,
+  insertCSS,
   enableLogging
 } from 'test/TestHelper';
 
@@ -33,6 +34,8 @@ import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
 import BpmnJSColorPicker from 'bpmn-js-color-picker';
 
+import CanvasLockModule from '@bpmn-io/diagram-js-canvas-lock';
+
 import { BpmnImprovedCanvasModule } from 'lib/';
 
 
@@ -40,6 +43,10 @@ const singleStart = window.__env__ && window.__env__.SINGLE_START === 'bpmn';
 
 insertCoreStyles();
 insertBpmnStyles();
+insertCSS(
+  'canvas-lock.css',
+  require('@bpmn-io/diagram-js-canvas-lock/assets/canvas-lock.css').default
+);
 
 describe('<Example>', function() {
 
@@ -72,6 +79,7 @@ describe('<Example>', function() {
         ZeebePropertiesProviderModule,
         BpmnImprovedCanvasModule,
         BpmnJSColorPicker,
+        CanvasLockModule,
         CloudElementTemplatesPropertiesProviderModule
       ],
       moddleExtensions = {
@@ -133,6 +141,22 @@ describe('<Example>', function() {
     expect(result.error).not.to.exist;
 
     expect(result.modeler.get('canvas').getContainer().classList.contains('bio-improved-canvas')).to.be.true;
+
+    // add a button to toggle the canvas lock for interactive play
+    if (singleStart) {
+      const canvasLock = result.modeler.get('canvasLock');
+
+      const button = document.createElement('button');
+
+      button.textContent = 'Toggle canvas lock';
+      button.style.cssText = 'position: absolute; top: 10px; right: 10px; z-index: 100;';
+
+      button.addEventListener('click', () => {
+        canvasLock.isLocked() ? canvasLock.unlock() : canvasLock.lock();
+      });
+
+      modelerContainer.appendChild(button);
+    }
   });
 
 

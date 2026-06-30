@@ -4,13 +4,18 @@ import { spy, useFakeTimers } from 'sinon';
 import {
   insertCoreStyles,
   insertBpmnStyles,
+  insertCSS,
   bootstrapModeler,
   inject
 } from 'test/TestHelper';
 
 import { query as domQuery } from 'min-dom';
 
+import CanvasLockModule from '@bpmn-io/diagram-js-canvas-lock';
+
 import AppendIndicator from 'lib/bpmn/appendIndicator';
+
+import AppendCanvasLockModule from 'lib/bpmn/appendCanvasLock';
 
 import diagramXML from './AppendIndicator.bpmn';
 
@@ -123,6 +128,58 @@ describe('<AppendIndicator>', function() {
       expect(open).to.have.been.calledWith(elementRegistry.get('Task_NoOutgoing'));
     }
   ));
+
+
+  describe('integration with diagram-js-canvas-lock', function() {
+
+    insertCSS(
+      'canvas-lock.css',
+      require('@bpmn-io/diagram-js-canvas-lock/assets/canvas-lock.css').default
+    );
+
+    beforeEach(bootstrapModeler(diagramXML, {
+      additionalModules: [
+        AppendCanvasLockModule,
+        CanvasLockModule
+      ]
+    }));
+
+
+    it('should hide the indicator while the canvas is locked', inject(
+      function(canvas, canvasLock) {
+
+        // given
+        const indicator = getIndicator('Task_NoOutgoing', canvas);
+
+        // assume
+        expect(getComputedStyle(indicator).display).not.to.equal('none');
+
+        // when
+        canvasLock.lock();
+
+        // then
+        expect(getComputedStyle(indicator).display).to.equal('none');
+      }
+    ));
+
+
+    it('should show the indicator again after the canvas is unlocked', inject(
+      function(canvas, canvasLock) {
+
+        // given
+        const indicator = getIndicator('Task_NoOutgoing', canvas);
+
+        canvasLock.lock();
+
+        // when
+        canvasLock.unlock();
+
+        // then
+        expect(getComputedStyle(indicator).display).not.to.equal('none');
+      }
+    ));
+
+  });
 
 
   it('should close the append menu shortly after the pointer leaves', inject(
