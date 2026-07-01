@@ -100,3 +100,8 @@
     }
   }
 }
+
+/* hide the create pad while the canvas is locked, e.g. by diagram-js-canvas-lock */
+.bio-improved-canvas.djs-canvas-locked .djs-create-pad-container {
+  display: none;
+}
