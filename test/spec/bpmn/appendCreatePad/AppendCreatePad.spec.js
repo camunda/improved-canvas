@@ -195,6 +195,35 @@ describe('<AppendCreatePad>', function() {
   });
 
 
+  describe('editor action', function() {
+
+    it('should trigger create entry if append is not allowed', inject(
+      function(appendCreatePad, editorActions, elementRegistry, palette, popupMenu, selection) {
+
+        // given
+        const endEvent = elementRegistry.get('EndEvent_1');
+
+        const triggerEntry = sinon.spy(palette, 'triggerEntry');
+        const open = sinon.spy(popupMenu, 'open');
+
+        selection.select(endEvent);
+
+        expect(appendCreatePad.isOpen()).to.be.true;
+
+        // when
+        editorActions.trigger('appendCreatePad', {});
+
+        // then
+        expect(triggerEntry).to.have.been.calledOnce;
+        expect(triggerEntry.firstCall.args[ 0 ]).to.equal('create');
+        expect(triggerEntry.firstCall.args[ 1 ]).to.equal('click');
+        expect(open.getCalls().filter(({ args }) => args[ 1 ] === 'bpmn-append')).to.have.length(0);
+      }
+    ));
+
+  });
+
+
   describe('#getPosition', function() {
 
     it('should return position for task', inject(function(appendCreatePad, canvas, elementRegistry) {
