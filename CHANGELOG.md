@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.9.1
+
+`FIX`: fix `A` shortcut for append on participant shows empty append menu instead of create element menu ([#85](https://github.com/camunda/improved-canvas/pull/85))
+
 ## 1.9.0
 
 * `FEAT`: redesign the append pad and remove attach pad ([#82](https://github.com/camunda/improved-canvas/pull/82))
