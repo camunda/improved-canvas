@@ -101,6 +101,36 @@ describe('<AppendCreatePad>', function() {
   });
 
 
+  describe('#canAppend', function() {
+
+    it('should return true if append allowed', inject(function(appendCreatePad, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      // when
+      const canAppend = appendCreatePad.canAppend(task);
+
+      // then
+      expect(canAppend).to.be.true;
+    }));
+
+
+    it('should return false for a connect-only element', inject(function(appendCreatePad, elementRegistry) {
+
+      // given
+      const endEvent = elementRegistry.get('EndEvent_1');
+
+      // when
+      const canAppend = appendCreatePad.canAppend(endEvent);
+
+      // then
+      expect(canAppend).to.be.false;
+    }));
+
+  });
+
+
   describe('#getEntries', function() {
 
     it('should get append entries (task)', inject(function(appendCreatePad, elementRegistry) {
