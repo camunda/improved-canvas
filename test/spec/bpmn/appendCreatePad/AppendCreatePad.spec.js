@@ -318,4 +318,48 @@ describe('<AppendCreatePad>', function() {
 
   });
 
+
+  describe('label editing', function() {
+
+    it('should close while label editing is active', inject(
+      function(appendCreatePad, directEditing, elementRegistry, selection) {
+
+        // given the pad is open for a selected element
+        const task = elementRegistry.get('Task_1');
+
+        selection.select(task);
+
+        expect(appendCreatePad.isOpen()).to.be.true;
+
+        // when direct editing starts
+        directEditing.activate(task);
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.false;
+      }
+    ));
+
+
+    it('should reopen for the same element when label editing ends', inject(
+      function(appendCreatePad, directEditing, elementRegistry, selection) {
+
+        // given direct editing was active for a selected element
+        const task = elementRegistry.get('Task_1');
+
+        selection.select(task);
+
+        directEditing.activate(task);
+
+        expect(appendCreatePad.isOpen()).to.be.false;
+
+        // when direct editing ends
+        directEditing.cancel();
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.true;
+      }
+    ));
+
+  });
+
 });
