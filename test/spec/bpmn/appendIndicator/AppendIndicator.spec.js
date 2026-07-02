@@ -50,6 +50,15 @@ describe('<AppendIndicator>', function() {
   ));
 
 
+  it('should show indicator for a boundary event without outgoing flow', inject(
+    function(canvas) {
+
+      // then
+      expect(getIndicator('BoundaryEvent_NoOutgoing', canvas)).to.exist;
+    }
+  ));
+
+
   it('should not show indicator for elements inside an ad-hoc subprocess', inject(
     function(canvas) {
 
@@ -278,6 +287,48 @@ describe('<AppendIndicator>', function() {
 
       // then the indicator does not reappear mid-drag
       expect(indicator.style.display).to.equal('none');
+    }
+  ));
+
+
+  it('should hide indicators while a label is edited and restore them afterwards', inject(
+    function(canvas, directEditing, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_NoOutgoing');
+
+      // when a label is edited directly
+      directEditing.activate(task);
+
+      // then the indicator is hidden so it does not overlap the edit box
+      expect(getIndicator('Task_NoOutgoing', canvas).style.display).to.equal('none');
+
+      // when editing ends
+      directEditing.cancel();
+
+      // then it is restored
+      expect(getIndicator('Task_NoOutgoing', canvas).style.display).not.to.equal('none');
+    }
+  ));
+
+  it('should keep indicators hidden when a drag-append hands over to editing', inject(
+    function(canvas, directEditing, elementRegistry, eventBus) {
+
+      // given a drag-append: editing activates before the drag is cleaned up
+      const task = elementRegistry.get('Task_NoOutgoing');
+
+      eventBus.fire('drag.start', {});
+      directEditing.activate(task);
+      eventBus.fire('drag.cleanup', {});
+
+      // then indicators stay hidden while editing continues
+      expect(getIndicator('Task_NoOutgoing', canvas).style.display).to.equal('none');
+
+      // when editing ends
+      directEditing.cancel();
+
+      // then they are restored
+      expect(getIndicator('Task_NoOutgoing', canvas).style.display).not.to.equal('none');
     }
   ));
 
