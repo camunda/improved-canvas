@@ -18,6 +18,10 @@
     <subProcess id="SubProcess_2">
       <task id="Task_RoomInSub" />
     </subProcess>
+    <subProcess id="SubProcess_3">
+      <task id="Task_Blocked" />
+      <task id="Task_Blocker" />
+    </subProcess>
   </process>
   <bpmndi:BPMNDiagram id="BpmnDiagram_1">
     <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Process_1">
@@ -51,6 +55,15 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_RoomInSub_di" bpmnElement="Task_RoomInSub">
         <omgdc:Bounds x="200" y="840" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SubProcess_3_di" bpmnElement="SubProcess_3" isExpanded="true">
+        <omgdc:Bounds x="160" y="1000" width="400" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Blocked_di" bpmnElement="Task_Blocked">
+        <omgdc:Bounds x="200" y="1040" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Blocker_di" bpmnElement="Task_Blocker">
+        <omgdc:Bounds x="320" y="1040" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
