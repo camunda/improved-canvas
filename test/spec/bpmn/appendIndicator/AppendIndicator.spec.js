@@ -323,4 +323,21 @@ describe('<AppendIndicator>', function() {
     }
   ));
 
+
+  it('should restore a neighbor indicator when the blocking shape is moved to another parent', inject(
+    function(canvas, elementRegistry, modeling) {
+
+      // given a blocked sibling and the blocker inside the same sub-process
+      const blocker = elementRegistry.get('Task_Blocker');
+
+      expect(getIndicator('Task_Blocked', canvas)).not.to.exist;
+
+      // when the blocker is moved out to the root
+      modeling.moveElements([ blocker ], { x: 400, y: -960 }, canvas.getRootElement());
+
+      // then the freed sibling regains its indicator
+      expect(getIndicator('Task_Blocked', canvas)).to.exist;
+    }
+  ));
+
 });
