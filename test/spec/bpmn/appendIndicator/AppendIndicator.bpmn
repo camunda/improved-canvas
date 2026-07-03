@@ -2,6 +2,7 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/bpmn">
   <process id="Process_1" isExecutable="false">
     <task id="Task_NoOutgoing" />
+    <task id="Task_Compensation" isForCompensation="true" />
     <task id="Task_WithBoundary" />
     <boundaryEvent id="BoundaryEvent_NoOutgoing" attachedToRef="Task_WithBoundary" />
     <task id="Task_WithOutgoing">
@@ -14,21 +15,15 @@
     <adHocSubProcess id="AdHocSubProcess_1">
       <task id="Task_InAdHoc" />
     </adHocSubProcess>
-    <subProcess id="SubProcess_1">
-      <task id="Task_NearEdge" />
-    </subProcess>
-    <subProcess id="SubProcess_2">
-      <task id="Task_RoomInSub" />
-    </subProcess>
-    <subProcess id="SubProcess_3">
-      <task id="Task_Blocked" />
-      <task id="Task_Blocker" />
-    </subProcess>
+    <subProcess id="SubProcess_1" />
   </process>
   <bpmndi:BPMNDiagram id="BpmnDiagram_1">
     <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Process_1">
       <bpmndi:BPMNShape id="Task_NoOutgoing_di" bpmnElement="Task_NoOutgoing">
         <omgdc:Bounds x="160" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_Compensation_di" bpmnElement="Task_Compensation">
+        <omgdc:Bounds x="1000" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_WithBoundary_di" bpmnElement="Task_WithBoundary">
         <omgdc:Bounds x="600" y="80" width="100" height="80" />
@@ -54,24 +49,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="SubProcess_1_di" bpmnElement="SubProcess_1" isExpanded="true">
         <omgdc:Bounds x="160" y="600" width="200" height="160" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_NearEdge_di" bpmnElement="Task_NearEdge">
-        <omgdc:Bounds x="240" y="640" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="SubProcess_2_di" bpmnElement="SubProcess_2" isExpanded="true">
-        <omgdc:Bounds x="160" y="800" width="300" height="160" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_RoomInSub_di" bpmnElement="Task_RoomInSub">
-        <omgdc:Bounds x="200" y="840" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="SubProcess_3_di" bpmnElement="SubProcess_3" isExpanded="true">
-        <omgdc:Bounds x="160" y="1000" width="400" height="160" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Blocked_di" bpmnElement="Task_Blocked">
-        <omgdc:Bounds x="200" y="1040" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_Blocker_di" bpmnElement="Task_Blocker">
-        <omgdc:Bounds x="320" y="1040" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

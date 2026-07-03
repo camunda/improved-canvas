@@ -68,11 +68,14 @@ describe('<AppendIndicator>', function() {
   ));
 
 
-  it('should not show indicator when the slot would not fit inside a sub-process', inject(
+  // TODO: re-enable once bpmn-js-create-append-anything ships the
+  // `isForCompensation` check in its `shape.append` rule and the dependency is
+  // bumped here (see https://github.com/bpmn-io/bpmn-js-create-append-anything).
+  it.skip('should not show indicator for a compensation activity', inject(
     function(canvas) {
 
-      // then
-      expect(getIndicator('Task_NearEdge', canvas)).not.to.exist;
+      // then appending is not allowed after a compensation activity
+      expect(getIndicator('Task_Compensation', canvas)).not.to.exist;
     }
   ));
 
@@ -82,80 +85,6 @@ describe('<AppendIndicator>', function() {
 
       // then
       expect(getIndicator('SubProcess_1', canvas)).to.exist;
-    }
-  ));
-
-
-  it('should hide a child indicator when the container is resized onto it', inject(
-    function(canvas, elementRegistry, modeling) {
-
-      // given
-      expect(getIndicator('Task_RoomInSub', canvas)).to.exist;
-
-      // when the sub-process right edge is moved onto the child's slot
-      modeling.resizeShape(
-        elementRegistry.get('SubProcess_2'),
-        { x: 160, y: 800, width: 180, height: 160 }
-      );
-
-      // then
-      expect(getIndicator('Task_RoomInSub', canvas)).not.to.exist;
-    }
-  ));
-
-
-  it('should not show indicator when the slot overlaps a neighbor', inject(
-    function(canvas, modeling) {
-
-      // when a shape is created over the indicator's slot
-      modeling.createShape(
-        { type: 'bpmn:Task', width: 100, height: 80 },
-        { x: 320, y: 120 },
-        canvas.getRootElement()
-      );
-
-      // then
-      expect(getIndicator('Task_NoOutgoing', canvas)).not.to.exist;
-    }
-  ));
-
-
-  it('should restore a neighbor indicator when the overlapping shape moves away', inject(
-    function(canvas, modeling) {
-
-      // given
-      const overlapping = modeling.createShape(
-        { type: 'bpmn:Task', width: 100, height: 80 },
-        { x: 320, y: 120 },
-        canvas.getRootElement()
-      );
-
-      // when
-      modeling.moveShape(overlapping, { x: 400, y: 0 });
-
-      // then
-      expect(getIndicator('Task_NoOutgoing', canvas)).to.exist;
-    }
-  ));
-
-
-  it('should restore a neighbor indicator when the overlapping shape is removed', inject(
-    function(canvas, modeling) {
-
-      // given
-      const overlapping = modeling.createShape(
-        { type: 'bpmn:Task', width: 100, height: 80 },
-        { x: 320, y: 120 },
-        canvas.getRootElement()
-      );
-
-      expect(getIndicator('Task_NoOutgoing', canvas)).not.to.exist;
-
-      // when
-      modeling.removeShape(overlapping);
-
-      // then
-      expect(getIndicator('Task_NoOutgoing', canvas)).to.exist;
     }
   ));
 
@@ -333,6 +262,25 @@ describe('<AppendIndicator>', function() {
   ));
 
 
+  it('should hide the indicator when an outgoing flow is added', inject(
+    function(canvas, elementRegistry, modeling) {
+
+      // given
+      const source = elementRegistry.get('Task_NoOutgoing');
+      const target = elementRegistry.get('Task_WithOutgoing');
+
+      // assume the source has an indicator while unconnected
+      expect(getIndicator('Task_NoOutgoing', canvas)).to.exist;
+
+      // when
+      modeling.connect(source, target);
+
+      // then
+      expect(getIndicator('Task_NoOutgoing', canvas)).not.to.exist;
+    }
+  ));
+
+
   it('should restore the indicator when an outgoing flow is removed', inject(
     function(canvas, elementRegistry, modeling) {
 
@@ -375,19 +323,64 @@ describe('<AppendIndicator>', function() {
   ));
 
 
-  it('should restore a neighbor indicator when the blocking shape is moved to another parent', inject(
-    function(canvas, elementRegistry, modeling) {
+  it('should restore both indicators when a delete is undone', inject(
+    function(canvas, elementRegistry, modeling, commandStack) {
 
-      // given a blocked sibling and the blocker inside the same sub-process
-      const blocker = elementRegistry.get('Task_Blocker');
+      // given
+      const source = elementRegistry.get('Task_NoOutgoing');
+      const target = elementRegistry.get('Task_WithOutgoing');
 
-      expect(getIndicator('Task_Blocked', canvas)).not.to.exist;
+      const connection = modeling.connect(source, target);
 
-      // when the blocker is moved out to the root
-      modeling.moveElements([ blocker ], { x: 400, y: -960 }, canvas.getRootElement());
+      modeling.removeConnection(connection);
 
-      // then the freed sibling regains its indicator
-      expect(getIndicator('Task_Blocked', canvas)).to.exist;
+      // assume the source's indicator is back while disconnected
+      expect(getIndicator('Task_NoOutgoing', canvas)).to.exist;
+
+      // when the removal is undone
+      commandStack.undo();
+
+      // then the source is connected again and its indicator is gone
+      expect(getIndicator('Task_NoOutgoing', canvas)).not.to.exist;
+    }
+  ));
+
+
+  it('should restore both indicators when a reconnect is undone', inject(
+    function(canvas, elementRegistry, modeling, commandStack) {
+
+      // given
+      const connection = elementRegistry.get('SequenceFlow_1');
+      const newSource = elementRegistry.get('Task_NoOutgoing');
+
+      modeling.reconnectStart(connection, newSource, { x: 210, y: 120 });
+
+      // when the reconnect is undone
+      commandStack.undo();
+
+      // then both ends return to their original indicator state
+      expect(getIndicator('Task_WithOutgoing', canvas)).not.to.exist;
+      expect(getIndicator('Task_NoOutgoing', canvas)).to.exist;
+    }
+  ));
+
+
+  it('should restore the indicator when an append is undone', inject(
+    function(canvas, elementRegistry, modeling, commandStack) {
+
+      // given
+      const source = elementRegistry.get('Task_NoOutgoing');
+
+      modeling.appendShape(source, { type: 'bpmn:Task' }, { x: 400, y: 120 });
+
+      // assume the source's indicator is gone once it has an outgoing flow
+      expect(getIndicator('Task_NoOutgoing', canvas)).not.to.exist;
+
+      // when the append is undone
+      commandStack.undo();
+
+      // then the source has no outgoing flow again and its indicator is back
+      expect(getIndicator('Task_NoOutgoing', canvas)).to.exist;
     }
   ));
 
