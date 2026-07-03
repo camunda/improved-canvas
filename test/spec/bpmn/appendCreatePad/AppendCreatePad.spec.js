@@ -295,7 +295,7 @@ describe('<AppendCreatePad>', function() {
     }));
 
 
-    it('should return position for boundary event (bottom)', inject(function(appendCreatePad, canvas, elementRegistry) {
+    it('should place the pad to the right for a bottom-attached boundary event', inject(function(appendCreatePad, canvas, elementRegistry) {
 
       // given
       const boundaryEvent = elementRegistry.get('CompensationBoundaryEvent_1');
@@ -303,7 +303,7 @@ describe('<AppendCreatePad>', function() {
       // when
       const position = appendCreatePad.getPosition(boundaryEvent);
 
-      // then
+      // then the pad opens to the right, clear of the label below the event
       const gfx = canvas.getGraphics(boundaryEvent);
 
       const targetBounds = gfx.getBoundingClientRect();
@@ -312,8 +312,8 @@ describe('<AppendCreatePad>', function() {
 
       const containerBounds = container.getBoundingClientRect();
 
-      expect(position.left).to.be.closeTo(targetBounds.left + targetBounds.width / 2 - containerBounds.left, 1);
-      expect(position.top).to.be.within(targetBounds.bottom - containerBounds.top, targetBounds.bottom - containerBounds.top + 40);
+      expect(position.left).to.be.within(targetBounds.right - containerBounds.left, targetBounds.right - containerBounds.left + 40);
+      expect(position.top).to.be.closeTo(targetBounds.top + targetBounds.height / 2 - containerBounds.top, 1);
     }));
 
   });
