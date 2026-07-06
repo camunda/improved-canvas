@@ -89,6 +89,25 @@ describe('<AppendIndicator>', function() {
   ));
 
 
+  it('should not scale the indicator larger than default when zooming in', inject(
+    function(canvas) {
+
+      // given
+      canvas.zoom(1);
+
+      const indicator = getIndicator('Task_NoOutgoing', canvas);
+
+      const defaultWidth = indicator.getBoundingClientRect().width;
+
+      // when
+      canvas.zoom(2);
+
+      // then it keeps its default size instead of growing with the zoom
+      expect(indicator.getBoundingClientRect().width).to.be.closeTo(defaultWidth, 1);
+    }
+  ));
+
+
   it('should open the append menu on hover', inject(
     function(appendCreatePad, canvas, elementRegistry) {
 
