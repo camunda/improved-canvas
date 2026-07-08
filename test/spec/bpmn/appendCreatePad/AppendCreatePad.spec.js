@@ -10,7 +10,7 @@ import {
 
 import AppendCreatePad from 'lib/bpmn/appendCreatePad';
 
-import { APPEND_GAP, MIN_PAD_GAP, PAD_CONTENT_OFFSET } from 'lib/bpmn/appendCreatePad/constants';
+import { PAD_GAP } from 'lib/common/constants';
 
 import diagramXML from './AppendCreatePad.bpmn';
 
@@ -329,30 +329,12 @@ describe('<AppendCreatePad>', function() {
         canvas.zoom(0.8);
 
         // then
-        const { x, width } = canvas.getAbsoluteBBox(task);
+        const containerBounds = canvas.getContainer().getBoundingClientRect();
+        const targetBounds = canvas.getGraphics(task).getBoundingClientRect();
 
-        const gap = appendCreatePad.getPosition(task).left - (x + width);
+        const gap = appendCreatePad.getPosition(task).left - (targetBounds.right - containerBounds.left);
 
-        expect(gap).to.be.closeTo(APPEND_GAP * 0.8 + PAD_CONTENT_OFFSET, 1);
-      }
-    ));
-
-
-    it('should clamp the pad gap to a minimum when zoomed far out', inject(
-      function(appendCreatePad, canvas, elementRegistry) {
-
-        // given
-        const task = elementRegistry.get('Task_1');
-
-        // when
-        canvas.zoom(0.1);
-
-        // then
-        const { x, width } = canvas.getAbsoluteBBox(task);
-
-        const gap = appendCreatePad.getPosition(task).left - (x + width);
-
-        expect(gap).to.be.closeTo(MIN_PAD_GAP + PAD_CONTENT_OFFSET, 1);
+        expect(gap).to.be.closeTo(PAD_GAP * 0.8, 1);
       }
     ));
 
