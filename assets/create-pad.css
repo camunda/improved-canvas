@@ -75,7 +75,7 @@
 /* Append pad: entries always visible as a horizontal row when open */
 .bio-improved-canvas .djs-append-create-pad {
   align-items: center;
-  transform: translate(-20px, -50%);
+  transform: translateY(-50%);
 
   &.open .djs-create-pad-entries {
     display: flex;
