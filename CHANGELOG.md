@@ -6,6 +6,8 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+* `FIX`: prevent append pad overlapping the selected element after zoom out ([#87](https://github.com/camunda/improved-canvas/pull/87))
+
 ## 1.9.0
 
 * `FEAT`: redesign the append pad and remove attach pad ([#82](https://github.com/camunda/improved-canvas/pull/82))
