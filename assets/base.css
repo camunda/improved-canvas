@@ -11,3 +11,23 @@
   --blue-60: #0f62fe;
   --blue-70: #0043ce;
 }
+
+/* shared tooltip look for the improved-canvas pads (context pad + create pad). */
+.bio-improved-canvas .bio-properties-panel-tooltip-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  text-decoration: none;
+}
+
+.bio-improved-canvas .bio-properties-panel-tooltip {
+  position: absolute;
+}
+
+.bio-improved-canvas .bio-properties-panel-tooltip-content {
+  font-size: 12px;
+  padding: 9px 12px;
+  border-radius: 4px;
+  width: max-content;
+}

@@ -305,7 +305,7 @@ describe('<CreatePad>', function() {
     }));
 
 
-    it('should add title', inject(function(customCreatePad, elementRegistry) {
+    it('should render the title as a tooltip', inject(function(customCreatePad, elementRegistry) {
 
       // given
       const task = elementRegistry.get('Task_1');
@@ -321,8 +321,14 @@ describe('<CreatePad>', function() {
       customCreatePad.open(task);
 
       // then
-      expect(domQuery('.baz', customCreatePad.getHtml())).to.exist;
-      expect(domQuery('.baz', customCreatePad.getHtml()).getAttribute('title')).to.equal('Baz');
+      const entry = domQuery('.baz', customCreatePad.getHtml());
+
+      expect(entry).to.exist;
+
+      // the native title is replaced by the accessible tooltip
+      expect(entry.getAttribute('title')).not.to.exist;
+      expect(entry.getAttribute('aria-label')).to.equal('Baz');
+      expect(domQuery('.bio-properties-panel-tooltip-wrapper', customCreatePad.getHtml())).to.exist;
     }));
 
 
@@ -375,6 +381,36 @@ describe('<CreatePad>', function() {
       }));
 
 
+      it('should trigger action on a tooltip-wrapped entry', inject(function(customCreatePad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const clickSpy = spy();
+
+        // a title makes the entry render inside a tooltip (cloning the entry)
+        stub(customCreatePad, 'getEntries').callsFake(() => ({
+          baz: {
+            className: 'baz',
+            title: 'Baz',
+            action: {
+              click: clickSpy
+            }
+          }
+        }));
+
+        // when
+        customCreatePad.open(task);
+
+        // then
+        const entry = domQuery('.baz', customCreatePad.getHtml());
+
+        entry.click();
+
+        expect(clickSpy).to.have.been.called;
+      }));
+
+
       it('should add dragstart action', inject(function(customCreatePad, elementRegistry) {
 
         // given
@@ -397,7 +433,7 @@ describe('<CreatePad>', function() {
         // then
         const entry = domQuery('.baz', customCreatePad.getHtml());
 
-        entry.dispatchEvent(new DragEvent('dragstart'));
+        dragstart(entry);
 
         expect(dragstartSpy).to.have.been.called;
       }));
@@ -416,7 +452,7 @@ describe('<CreatePad>', function() {
         });
 
 
-        it('should handle mouseenter and mouseleave', inject(function(customCreatePad, elementRegistry) {
+        it('should handle hover in and out', inject(function(customCreatePad, elementRegistry) {
 
           // given
           const task = elementRegistry.get('Task_1');
@@ -443,19 +479,19 @@ describe('<CreatePad>', function() {
           // then
           const entry = domQuery('.baz', customCreatePad.getHtml());
 
-          entry.dispatchEvent(new MouseEvent('mouseenter'));
+          mouseover(entry);
 
           clock.tick(500);
 
           expect(mouseenterSpy).to.have.been.called;
 
-          entry.dispatchEvent(new MouseEvent('mouseleave'));
+          mouseout(entry);
 
           expect(mouseleaveSpy).to.have.been.called;
         }));
 
 
-        it('should not handle mouseenter', inject(function(customCreatePad, elementRegistry) {
+        it('should not trigger hover before the delay', inject(function(customCreatePad, elementRegistry) {
 
           // given
           const task = elementRegistry.get('Task_1');
@@ -482,18 +518,18 @@ describe('<CreatePad>', function() {
           // then
           const entry = domQuery('.baz', customCreatePad.getHtml());
 
-          entry.dispatchEvent(new MouseEvent('mouseenter'));
+          mouseover(entry);
 
           clock.tick(100);
 
-          entry.dispatchEvent(new MouseEvent('mouseleave'));
+          mouseout(entry);
 
           expect(mouseenterSpy).not.to.have.been.called;
           expect(mouseleaveSpy).not.to.have.been.called;
         }));
 
 
-        it('should always handle mouseleave after mouseenter', inject(function(customCreatePad, elementRegistry) {
+        it('should handle leave on pad close', inject(function(customCreatePad, elementRegistry) {
 
           // given
           const task = elementRegistry.get('Task_1');
@@ -520,7 +556,7 @@ describe('<CreatePad>', function() {
           // then
           const entry = domQuery('.baz', customCreatePad.getHtml());
 
-          entry.dispatchEvent(new MouseEvent('mouseenter'));
+          mouseover(entry);
 
           clock.tick(500);
 
@@ -529,6 +565,86 @@ describe('<CreatePad>', function() {
           customCreatePad.close();
 
           expect(mouseleaveSpy).to.have.been.called;
+        }));
+
+
+        it('should ignore hover on a non-entry target', inject(function(customCreatePad, elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          const mouseenterSpy = spy(),
+                mouseleaveSpy = spy();
+
+          stub(customCreatePad, 'getEntries').callsFake(() => ({
+            baz: {
+              className: 'baz',
+              action: {
+                hover: () => {
+                  mouseenterSpy();
+
+                  return mouseleaveSpy;
+                }
+              }
+            }
+          }));
+
+          customCreatePad.open(task);
+
+          const entries = domQuery('.djs-create-pad-entries', customCreatePad.getHtml());
+
+          // when hovering the entries container rather than an entry
+          mouseover(entries);
+
+          clock.tick(500);
+
+          mouseout(entries);
+
+          // then
+          expect(mouseenterSpy).not.to.have.been.called;
+          expect(mouseleaveSpy).not.to.have.been.called;
+        }));
+
+
+        it('should ignore hover that stays within the same entry', inject(function(customCreatePad, elementRegistry) {
+
+          // given
+          const task = elementRegistry.get('Task_1');
+
+          const mouseenterSpy = spy(),
+                mouseleaveSpy = spy();
+
+          stub(customCreatePad, 'getEntries').callsFake(() => ({
+            baz: {
+              className: 'baz',
+              action: {
+                hover: () => {
+                  mouseenterSpy();
+
+                  return mouseleaveSpy;
+                }
+              }
+            }
+          }));
+
+          customCreatePad.open(task);
+
+          const entry = domQuery('.baz', customCreatePad.getHtml());
+
+          const child = document.createElement('span');
+
+          entry.appendChild(child);
+
+          // when moving between elements inside the same entry
+          mouseover(entry, child);
+
+          clock.tick(500);
+
+          mouseout(entry, child);
+
+          // then
+          expect(mouseenterSpy).not.to.have.been.called;
+          expect(mouseleaveSpy).not.to.have.been.called;
         }));
 
       });
@@ -578,4 +694,16 @@ function createCustomCreatePad(options = {}) {
   CustomCreatePad.$inject = [ 'canvas', 'eventBus' ];
 
   return CustomCreatePad;
+}
+
+function dragstart(element) {
+  element.dispatchEvent(new DragEvent('dragstart', { bubbles: true }));
+}
+
+function mouseover(element, relatedTarget) {
+  element.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, relatedTarget }));
+}
+
+function mouseout(element, relatedTarget) {
+  element.dispatchEvent(new MouseEvent('mouseout', { bubbles: true, relatedTarget }));
 }
