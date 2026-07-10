@@ -43,7 +43,6 @@
   .djs-create-pad-entries {
     display: none;
     flex-direction: row;
-    overflow: hidden;
     padding: 4px;
     border-radius: 4px;
     background-color: white;
@@ -123,4 +122,8 @@
   &:hover {
     background-color: var(--gray-40);
   }
+}
+
+.bio-improved-canvas .djs-create-pad .djs-create-pad-tooltip {
+  display: contents;
 }

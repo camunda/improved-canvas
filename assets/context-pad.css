@@ -78,22 +78,6 @@
   font-size: 18px;
 }
 
-.bio-improved-canvas .djs-context-pad .bio-properties-panel-tooltip-wrapper {
-  position: relative;
-  text-decoration: none;
-}
-
-.bio-improved-canvas .djs-context-pad .bio-properties-panel-tooltip {
-  position: absolute;
-}
-
-.bio-improved-canvas .djs-context-pad .bio-properties-panel-tooltip-content {
-  font-size: 12px;
-  padding: 9px 12px;
-  border-radius: 4px;
-  width: max-content;
-}
-
 .bio-improved-canvas .djs-context-pad .entry:last-child {
   margin-right: 0;
 }
