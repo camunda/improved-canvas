@@ -6,7 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.10.0
+
 * `FEAT`: surface unfinished flows with an append indicator that opens the append menu on hover, guiding users to complete the paths ([#83](https://github.com/camunda/improved-canvas/pull/83))
+* `FEAT`: hide create pad and append idicator while canvas is locked ([#86](https://github.com/camunda/improved-canvas/pull/86))
 * `FIX`: prevent append pad overlapping the selected element after zoom out ([#87](https://github.com/camunda/improved-canvas/pull/87))
 * `DEPS`: update to `diagram-js-grid@2.0.1`
 
