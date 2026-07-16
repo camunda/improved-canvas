@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { useFakeTimers } from 'sinon';
 
 import {
   insertCoreStyles,
@@ -63,6 +64,8 @@ describe('<DMNImprovedContextPad>', function() {
 
   describe('position', function() {
 
+    let clock;
+
     beforeEach(bootstrapModeler(inputDataXML, {
       drd: {
         additionalModules: [
@@ -70,6 +73,14 @@ describe('<DMNImprovedContextPad>', function() {
         ]
       }
     }));
+
+    beforeEach(function() {
+      clock = useFakeTimers();
+    });
+
+    afterEach(function() {
+      clock.restore();
+    });
 
 
     it('should not cover the type dropdown when flipped below', inject(
@@ -90,16 +101,16 @@ describe('<DMNImprovedContextPad>', function() {
         // when
         selection.select(shape);
 
+        clock.tick(100);
+
         // then
-        return whenScheduled().then(() => {
-          const [ dropdown ] = overlays.get({ element: shape, type: 'type-ref-dropdown' });
-          const contextPadHtml = domQuery('.djs-context-pad', canvas.getContainer());
+        const [ dropdown ] = overlays.get({ element: shape, type: 'type-ref-dropdown' });
+        const contextPadHtml = domQuery('.djs-context-pad', canvas.getContainer());
 
-          const dropdownBottom = dropdown.html.getBoundingClientRect().bottom;
-          const contextPadTop = contextPadHtml.getBoundingClientRect().top;
+        const dropdownBottom = dropdown.html.getBoundingClientRect().bottom;
+        const contextPadTop = contextPadHtml.getBoundingClientRect().top;
 
-          expect(contextPadTop).to.be.at.least(dropdownBottom);
-        });
+        expect(contextPadTop).to.be.at.least(dropdownBottom);
       }
     ));
 
@@ -107,8 +118,3 @@ describe('<DMNImprovedContextPad>', function() {
 
 });
 
-
-// context pad position is updated asynchronously via the scheduler (setTimeout)
-function whenScheduled() {
-  return new Promise(resolve => setTimeout(resolve, 100));
-}
