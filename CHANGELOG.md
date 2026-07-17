@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.10.1
+
+* `FIX`: fix overlays overlapping ([#89](https://github.com/camunda/improved-canvas/pull/89))
+
 ## 1.10.0
 
 * `FEAT`: surface unfinished flows with an append indicator that opens the append menu on hover, guiding users to complete the paths ([#83](https://github.com/camunda/improved-canvas/pull/83))
