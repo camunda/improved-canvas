@@ -94,6 +94,21 @@ describe('<AppendIndicator>', function() {
   ));
 
 
+  it('should position the indicator past the element right edge', inject(
+    function(overlays, elementRegistry) {
+
+      // given
+      const element = elementRegistry.get('Task_NoOutgoing');
+
+      // when
+      const [ overlay ] = overlays.get({ element, type: 'append-indicator' });
+
+      // then it sits outside the element
+      expect(overlay.position.left).to.be.above(element.width);
+    }
+  ));
+
+
   it('should not scale the indicator larger than default when zooming in', inject(
     function(canvas) {
 
