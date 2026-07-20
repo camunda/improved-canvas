@@ -13,7 +13,7 @@ import CanvasLockModule from '@bpmn-io/diagram-js-canvas-lock';
 
 import AppendCreatePad from 'lib/bpmn/appendCreatePad';
 
-import { PAD_GAP } from 'lib/common/constants';
+import { PAD_GAP, OUTLINE_OFFSET } from 'lib/common/constants';
 
 import AppendCanvasLockModule from 'lib/bpmn/appendCanvasLock';
 
@@ -113,6 +113,30 @@ describe('<AppendCreatePad>', function() {
     // then
     expect(canvas.getContainer().querySelector('.djs-append-create-pad')).to.exist;
   }));
+
+
+  it('should position the pad independent of the lazily created outline', inject(
+    function(appendCreatePad, selection, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      // when opening before the element was ever selected (no outline yet)
+      appendCreatePad.open(task);
+
+      const before = appendCreatePad.getHtml().style.left;
+
+      // and when opening after selection created the outline
+      selection.select(task);
+
+      appendCreatePad.open(task);
+
+      const after = appendCreatePad.getHtml().style.left;
+
+      // then the pad does not jump
+      expect(after).to.eql(before);
+    }
+  ));
 
 
   it('should open append popup on icon click', inject(
@@ -409,7 +433,9 @@ describe('<AppendCreatePad>', function() {
 
         const gap = appendCreatePad.getPosition(task).left - (targetBounds.right - containerBounds.left);
 
-        expect(gap).to.be.closeTo(PAD_GAP * 0.8, 1);
+        // the pad sits beyond the element's outline; the element gfx has no outline
+        // here (never hovered/selected), so the gap spans the outline offset too
+        expect(gap).to.be.closeTo((PAD_GAP + OUTLINE_OFFSET) * 0.8, 1);
       }
     ));
 
