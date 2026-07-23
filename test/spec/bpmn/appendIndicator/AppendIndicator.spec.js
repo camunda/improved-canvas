@@ -72,11 +72,7 @@ describe('<AppendIndicator>', function() {
     }
   ));
 
-
-  // TODO: re-enable once bpmn-js-create-append-anything ships the
-  // `isForCompensation` check in its `shape.append` rule and the dependency is
-  // bumped here (see https://github.com/bpmn-io/bpmn-js-create-append-anything).
-  it.skip('should not show indicator for a compensation activity', inject(
+  it('should not show indicator for a compensation activity', inject(
     function(canvas) {
 
       // then appending is not allowed after a compensation activity
