@@ -11,6 +11,8 @@ import {
 
 import CanvasLockModule from '@bpmn-io/diagram-js-canvas-lock';
 
+import { query as domQuery } from 'min-dom';
+
 import AppendCreatePad from 'lib/bpmn/appendCreatePad';
 
 import { PAD_GAP, OUTLINE_OFFSET } from 'lib/common/constants';
@@ -158,6 +160,25 @@ describe('<AppendCreatePad>', function() {
       expect(open).to.have.been.calledOnce;
       expect(open.firstCall.args[ 0 ]).to.equal(task);
       expect(open.firstCall.args[ 1 ]).to.equal('bpmn-append');
+    }
+  ));
+
+
+  it('should open append popup at default width', inject(
+    function(appendCreatePad, canvas, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      appendCreatePad.open(task);
+
+      const icon = canvas.getContainer().querySelector('.djs-append-create-pad .djs-create-pad-entry-cta');
+
+      // when
+      icon.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+      // then
+      expect(getComputedStyle(domQuery('.djs-popup')).width).to.eql('300px');
     }
   ));
 
