@@ -6,7 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.10.2
+
 * `FIX`: correct misplaced append indicator on element's left edge ([#90](https://github.com/camunda/improved-canvas/pull/90))
+* `FIX`: increase pad gap to not overlap element resize handles ([#93](https://github.com/camunda/improved-canvas/pull/93))
 * `FIX`: allow overriding append popup width via css variable ([#94](https://github.com/camunda/improved-canvas/pull/94))
 
 ## 1.10.1
