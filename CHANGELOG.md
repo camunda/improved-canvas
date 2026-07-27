@@ -7,7 +7,7 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 ___Note:__ Yet to be released changes appear here._
 
 * `FIX`: correct misplaced append indicator on element's left edge ([#90](https://github.com/camunda/improved-canvas/pull/90))
-
+* `FIX`: allow overriding append popup width via css variable ([#94](https://github.com/camunda/improved-canvas/pull/94))
 
 ## 1.10.1
 
