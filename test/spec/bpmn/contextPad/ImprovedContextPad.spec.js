@@ -130,7 +130,7 @@ describe('<ImprovedContextPad>', function() {
 
   describe('label editing', function() {
 
-    it('should hide the context pad while label editing is active', inject(
+    it('should keep the context pad visible while label editing is active', inject(
       function(contextPad, directEditing, elementRegistry) {
 
         // given
@@ -143,28 +143,7 @@ describe('<ImprovedContextPad>', function() {
         // when
         directEditing.activate(element);
 
-        // then
-        expect(contextPad.isShown()).to.be.false;
-      }
-    ));
-
-
-    it('should restore the context pad when label editing ends', inject(
-      function(contextPad, directEditing, elementRegistry) {
-
-        // given
-        const element = elementRegistry.get('Task_1');
-
-        contextPad.open(element);
-
-        directEditing.activate(element);
-
-        expect(contextPad.isShown()).to.be.false;
-
-        // when
-        directEditing.cancel();
-
-        // then
+        // then it stays visible
         expect(contextPad.isShown()).to.be.true;
       }
     ));
