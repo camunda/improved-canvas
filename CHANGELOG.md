@@ -6,6 +6,11 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.10.3
+
+* `FIX`: show append/context pads and append indicator during label editing ([#95](https://github.com/camunda/improved-canvas/pull/95))
+* `FIX`: keep the create pad mounted when its element changes ([#95](https://github.com/camunda/improved-canvas/pull/95))
+
 ## 1.10.2
 
 * `FIX`: correct misplaced append indicator on element's left edge ([#90](https://github.com/camunda/improved-canvas/pull/90))
