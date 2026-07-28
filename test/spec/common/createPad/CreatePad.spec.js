@@ -221,12 +221,14 @@ describe('<CreatePad>', function() {
     }));
 
 
-    it('should re-open on elements changed (target changed)', inject(function(customCreatePad, elementRegistry, eventBus, selection) {
+    it('should reposition in place on elements changed (target changed)', inject(function(customCreatePad, elementRegistry, eventBus, selection) {
 
       // given
       const task = elementRegistry.get('Task_1');
 
       selection.select(task);
+
+      const htmlBefore = customCreatePad.getHtml();
 
       const openSpy = spy(customCreatePad, 'open'),
             closeSpy = spy(customCreatePad, 'close');
@@ -238,10 +240,35 @@ describe('<CreatePad>', function() {
         ]
       });
 
-      // then
-      expect(closeSpy).to.have.been.called;
-      expect(openSpy).to.have.been.called;
+      // then it is refreshed in place, not re-created
+      expect(closeSpy).not.to.have.been.called;
+      expect(openSpy).not.to.have.been.called;
       expect(customCreatePad.isOpen()).to.be.true;
+      expect(customCreatePad.getHtml()).to.equal(htmlBefore);
+    }));
+
+
+    it('should close on elements changed when the target can no longer be opened', inject(function(customCreatePad, elementRegistry, eventBus, selection) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      selection.select(task);
+
+      expect(customCreatePad.isOpen()).to.be.true;
+
+      // the target can no longer be opened
+      stub(customCreatePad, 'canOpen').returns(false);
+
+      // when
+      eventBus.fire('elements.changed', {
+        elements: [
+          task
+        ]
+      });
+
+      // then
+      expect(customCreatePad.isOpen()).to.be.false;
     }));
 
 

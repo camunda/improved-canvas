@@ -11,6 +11,8 @@ import {
 
 import CanvasLockModule from '@bpmn-io/diagram-js-canvas-lock';
 
+import { is } from 'bpmn-js/lib/util/ModelUtil';
+
 import { query as domQuery } from 'min-dom';
 
 import AppendCreatePad from 'lib/bpmn/appendCreatePad';
@@ -480,6 +482,32 @@ describe('<AppendCreatePad>', function() {
 
         // then it remains visible so the append affordance is preserved
         expect(appendCreatePad.isOpen()).to.be.true;
+      }
+    ));
+
+
+    it('should append a task after a label edit commits mid-click', inject(
+      function(appendCreatePad, canvas, elementRegistry, eventBus) {
+
+        // given the append pad is open
+        const task = elementRegistry.get('Task_1');
+
+        appendCreatePad.open(task);
+
+        const appendTask = canvas.getContainer().querySelector(
+          '.djs-append-create-pad [data-entry-id="append.append-task"]'
+        );
+
+        const tasksBefore = elementRegistry.filter(element => is(element, 'bpmn:Task')).length;
+
+        // when a label edit commits on blur (fires elements.changed for the target)
+        // while the append task button is clicked
+        eventBus.fire('elements.changed', { elements: [ task ] });
+
+        appendTask.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+
+        // then a new task is appended to the diagram
+        expect(elementRegistry.filter(element => is(element, 'bpmn:Task')).length).to.equal(tasksBefore + 1);
       }
     ));
 
