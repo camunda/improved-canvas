@@ -6,6 +6,8 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+* `DEPS`: update to `bpmn-js-create-append-anything@2.0.0`
+
 ## 1.10.3
 
 * `FIX`: show append/context pads and append indicator during label editing ([#95](https://github.com/camunda/improved-canvas/pull/95))
