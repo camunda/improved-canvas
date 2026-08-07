@@ -6,6 +6,8 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.10.4
+
 * `DEPS`: update to `bpmn-js-create-append-anything@2.0.0`
 
 ## 1.10.3
