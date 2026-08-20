@@ -319,6 +319,36 @@ describe('<AppendCreatePad>', function() {
       expect(Object.keys(entries)).to.eql([ 'connect' ]);
     }));
 
+
+    it('should not get append trigger for linked compensation boundary event', inject(
+      function(appendCreatePad, elementRegistry) {
+
+        // given
+        const boundaryEvent = elementRegistry.get('CompensationBoundaryEvent_1');
+
+        // when
+        const entries = appendCreatePad.getEntries(boundaryEvent);
+
+        // then
+        expect(entries).not.to.have.property('append');
+      }
+    ));
+
+
+    it('should get append trigger for compensation boundary event linked to text annotation', inject(
+      function(appendCreatePad, elementRegistry) {
+
+        // given
+        const boundaryEvent = elementRegistry.get('AnnotatedCompensationBoundaryEvent_1');
+
+        // when
+        const entries = appendCreatePad.getEntries(boundaryEvent);
+
+        // then
+        expect(entries).to.have.property('append');
+      }
+    ));
+
   });
 
 

@@ -23,6 +23,9 @@
     <boundaryEvent id="CompensationBoundaryEvent_1" attachedToRef="Task_1">
       <compensateEventDefinition id="CompensateEventDefinition_0i3933p" />
     </boundaryEvent>
+    <boundaryEvent id="AnnotatedCompensationBoundaryEvent_1" attachedToRef="Task_1">
+      <compensateEventDefinition id="CompensateEventDefinition_1" />
+    </boundaryEvent>
     <task id="CompensationTask_1" isForCompensation="true" />
     <intermediateCatchEvent id="MessageIntermediateCatchEvent_1">
       <incoming>SequenceFlow_5</incoming>
@@ -37,6 +40,8 @@
     <association id="Association_1" associationDirection="One" sourceRef="CompensationBoundaryEvent_1" targetRef="CompensationTask_1" />
     <textAnnotation id="TextAnnotation_1" />
     <association id="Association_2" associationDirection="None" sourceRef="ReceiveTask_1" targetRef="TextAnnotation_1" />
+    <textAnnotation id="TextAnnotation_2" />
+    <association id="Association_3" associationDirection="None" sourceRef="AnnotatedCompensationBoundaryEvent_1" targetRef="TextAnnotation_2" />
   </process>
   <bpmndi:BPMNDiagram id="BpmnDiagram_1">
     <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Process_1">
@@ -70,6 +75,12 @@
       <bpmndi:BPMNShape id="Event_1croeja_di" bpmnElement="CompensationBoundaryEvent_1">
         <omgdc:Bounds x="272" y="222" width="36" height="36" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="AnnotatedCompensationBoundaryEvent_1_di" bpmnElement="AnnotatedCompensationBoundaryEvent_1">
+        <omgdc:Bounds x="222" y="222" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_2_di" bpmnElement="TextAnnotation_2">
+        <omgdc:Bounds x="120" y="280" width="100" height="30" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0vg8wnk_di" bpmnElement="SequenceFlow_1">
         <di:waypoint x="188" y="200" />
         <di:waypoint x="240" y="200" />
@@ -99,6 +110,10 @@
       <bpmndi:BPMNEdge id="Association_0h1iobe_di" bpmnElement="Association_2">
         <di:waypoint x="588" y="160" />
         <di:waypoint x="636" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_3_di" bpmnElement="Association_3">
+        <di:waypoint x="240" y="258" />
+        <di:waypoint x="220" y="280" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
