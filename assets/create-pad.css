@@ -124,6 +124,17 @@
   }
 }
 
+/* the selected element's indicator stands in for the pad's "+" call to action,
+   so it takes that look; unselected ones stay subtle in a crowded diagram */
+.bio-improved-canvas .djs-append-indicator.selected {
+  background-color: var(--context-pad-entry-call-to-action-background-color);
+  color: var(--context-pad-entry-call-to-action-color);
+
+  &:hover {
+    background-color: var(--context-pad-entry-call-to-action-hover-background-color);
+  }
+}
+
 .bio-improved-canvas .djs-create-pad .djs-create-pad-tooltip {
   display: contents;
 }

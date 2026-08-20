@@ -88,7 +88,7 @@ describe('<AppendCreatePad>', function() {
       function(appendCreatePad, canvasLock, elementRegistry, selection) {
 
         // given
-        selection.select(elementRegistry.get('Task_1'));
+        selection.select(elementRegistry.get('EndEvent_1'));
 
         canvasLock.lock();
 
@@ -100,6 +100,23 @@ describe('<AppendCreatePad>', function() {
 
         // then
         expect(appendCreatePad.isOpen()).to.be.true;
+      }
+    ));
+
+
+    it('should not reopen the pad for a selection with outgoing flow after unlock', inject(
+      function(appendCreatePad, canvasLock, elementRegistry, selection) {
+
+        // given
+        selection.select(elementRegistry.get('Task_1'));
+
+        canvasLock.lock();
+
+        // when
+        canvasLock.unlock();
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.false;
       }
     ));
 
@@ -228,6 +245,120 @@ describe('<AppendCreatePad>', function() {
   });
 
 
+  describe('#canAutoOpen', function() {
+
+    it('should return true for an element without outgoing sequence flow', inject(function(appendCreatePad, elementRegistry) {
+
+      // given
+      const endEvent = elementRegistry.get('EndEvent_1');
+
+      // when
+      const canAutoOpen = appendCreatePad.canAutoOpen(endEvent);
+
+      // then
+      expect(canAutoOpen).to.be.true;
+    }));
+
+
+    it('should return false for an element with outgoing sequence flow', inject(function(appendCreatePad, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      // when
+      const canAutoOpen = appendCreatePad.canAutoOpen(task);
+
+      // then
+      expect(canAutoOpen).to.be.false;
+    }));
+
+
+    it('should return true for an element with outgoing sequence flow inside an ad-hoc sub-process', inject(
+      function(appendCreatePad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_InAdHoc_1');
+
+        // when
+        const canAutoOpen = appendCreatePad.canAutoOpen(task);
+
+        // then
+        expect(canAutoOpen).to.be.true;
+      }
+    ));
+
+  });
+
+
+  describe('auto-open on selection', function() {
+
+    it('should open automatically when selecting an element without outgoing flow', inject(
+      function(appendCreatePad, elementRegistry, selection) {
+
+        // given
+        const endEvent = elementRegistry.get('EndEvent_1');
+
+        // when
+        selection.select(endEvent);
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.true;
+      }
+    ));
+
+
+    it('should not open automatically when selecting an element with outgoing flow', inject(
+      function(appendCreatePad, elementRegistry, selection) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        selection.select(task);
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.false;
+      }
+    ));
+
+
+    it('should still open on direct call for an element with outgoing flow', inject(
+      function(appendCreatePad, elementRegistry) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        // when
+        appendCreatePad.open(task);
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.true;
+      }
+    ));
+
+
+    it('should close when selecting an element with outgoing flow after another was open', inject(
+      function(appendCreatePad, elementRegistry, selection) {
+
+        // given
+        const endEvent = elementRegistry.get('EndEvent_1');
+        const task = elementRegistry.get('Task_1');
+
+        selection.select(endEvent);
+
+        expect(appendCreatePad.isOpen()).to.be.true;
+
+        // when
+        selection.select(task);
+
+        // then
+        expect(appendCreatePad.isOpen()).to.be.false;
+      }
+    ));
+
+  });
+
+
   describe('#canAppend', function() {
 
     it('should return true if append allowed', inject(function(appendCreatePad, elementRegistry) {
@@ -345,6 +476,54 @@ describe('<AppendCreatePad>', function() {
         expect(triggerEntry.firstCall.args[ 0 ]).to.equal('create');
         expect(triggerEntry.firstCall.args[ 1 ]).to.equal('click');
         expect(open.getCalls().filter(({ args }) => args[ 1 ] === 'bpmn-append')).to.have.length(0);
+      }
+    ));
+
+
+    it('should trigger the append popup for a selected element with outgoing flow', inject(
+      function(appendCreatePad, editorActions, elementRegistry, popupMenu, selection) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        const open = spy(popupMenu, 'open');
+
+        selection.select(task);
+
+        expect(appendCreatePad.isOpen()).to.be.false;
+
+        // when
+        editorActions.trigger('appendCreatePad', {});
+
+        // then
+        expect(open).to.have.been.calledOnce;
+        expect(open.firstCall.args[ 0 ]).to.equal(task);
+        expect(open.firstCall.args[ 1 ]).to.equal('bpmn-append');
+
+        // and
+        expect(appendCreatePad.isOpen()).to.be.false;
+      }
+    ));
+
+
+    it('should not throw when opening the pad is vetoed', inject(
+      function(appendCreatePad, editorActions, elementRegistry, eventBus, popupMenu, selection) {
+
+        // given
+        const task = elementRegistry.get('Task_1');
+
+        selection.select(task);
+
+        eventBus.once('createPad.open.allowed', () => false);
+
+        const open = spy(popupMenu, 'open');
+
+        // when
+        expect(() => editorActions.trigger('appendCreatePad', {})).not.to.throw();
+
+        // then
+        expect(open).not.to.have.been.called;
+        expect(appendCreatePad.isOpen()).to.be.false;
       }
     ));
 
@@ -471,14 +650,16 @@ describe('<AppendCreatePad>', function() {
       function(appendCreatePad, directEditing, elementRegistry, selection) {
 
         // given the pad is open for a selected element
-        const task = elementRegistry.get('Task_1');
+        const boundaryEvent = elementRegistry.get('BoundaryEvent_1');
 
-        selection.select(task);
+        selection.select(boundaryEvent);
 
         expect(appendCreatePad.isOpen()).to.be.true;
 
         // when direct editing starts
-        directEditing.activate(task);
+        directEditing.activate(boundaryEvent);
+
+        expect(directEditing.isActive()).to.be.true;
 
         // then it remains visible so the append affordance is preserved
         expect(appendCreatePad.isOpen()).to.be.true;

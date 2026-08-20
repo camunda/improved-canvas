@@ -13,6 +13,8 @@ import { query as domQuery } from 'min-dom';
 
 import CanvasLockModule from '@bpmn-io/diagram-js-canvas-lock';
 
+import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
+
 import AppendIndicator from 'lib/bpmn/appendIndicator';
 
 import AppendCanvasLockModule from 'lib/bpmn/appendCanvasLock';
@@ -77,6 +79,135 @@ describe('<AppendIndicator>', function() {
 
       // then appending is not allowed after a compensation activity
       expect(getIndicator('Task_Compensation', canvas)).not.to.exist;
+    }
+  ));
+
+
+  it('should show indicator for the selected element even with outgoing flow', inject(
+    function(canvas, elementRegistry, selection) {
+
+      // when
+      selection.select(elementRegistry.get('Task_WithOutgoing'));
+
+      // then
+      expect(getIndicator('Task_WithOutgoing', canvas)).to.exist;
+    }
+  ));
+
+
+  it('should hide the indicator again once deselected', inject(
+    function(canvas, elementRegistry, selection) {
+
+      // given
+      selection.select(elementRegistry.get('Task_WithOutgoing'));
+
+      // when
+      selection.select(null);
+
+      // then
+      expect(getIndicator('Task_WithOutgoing', canvas)).not.to.exist;
+    }
+  ));
+
+
+  it('should highlight the selected element\'s indicator', inject(
+    function(canvas, elementRegistry, selection) {
+
+      // when
+      selection.select(elementRegistry.get('Task_WithOutgoing'));
+
+      // then
+      expect(getIndicator('Task_WithOutgoing', canvas).classList.contains('selected')).to.be.true;
+      expect(getIndicator('Task_NoOutgoing', canvas).classList.contains('selected')).to.be.false;
+    }
+  ));
+
+
+  it('should highlight the selected element\'s existing indicator', inject(
+    function(canvas, elementRegistry, selection) {
+
+      // given
+      const element = elementRegistry.get('Task_NoOutgoing');
+
+      expect(getIndicator('Task_NoOutgoing', canvas).classList.contains('selected')).to.be.false;
+
+      // when
+      selection.select(element);
+
+      // then
+      expect(getIndicator('Task_NoOutgoing', canvas).classList.contains('selected')).to.be.true;
+    }
+  ));
+
+
+  it('should drop the highlight once deselected', inject(
+    function(canvas, elementRegistry, selection) {
+
+      // given
+      const element = elementRegistry.get('Task_NoOutgoing');
+
+      selection.select(element);
+
+      // when
+      selection.select(null);
+
+      // then
+      expect(getIndicator('Task_NoOutgoing', canvas).classList.contains('selected')).to.be.false;
+    }
+  ));
+
+
+  it('should open the append menu on hover for the selected element with outgoing flow', inject(
+    function(appendCreatePad, canvas, elementRegistry, selection) {
+
+      // given
+      selection.select(elementRegistry.get('Task_WithOutgoing'));
+
+      const open = spy(appendCreatePad, 'open');
+
+      const indicator = getIndicator('Task_WithOutgoing', canvas);
+
+      // when
+      indicator.dispatchEvent(new MouseEvent('mouseenter'));
+
+      // then
+      expect(open).to.have.been.calledWith(elementRegistry.get('Task_WithOutgoing'));
+    }
+  ));
+
+
+  it('should not auto-open the full pad for a selected element with outgoing flow', inject(
+    function(appendCreatePad, elementRegistry, selection) {
+
+      // when
+      selection.select(elementRegistry.get('Task_WithOutgoing'));
+
+      // then
+      expect(appendCreatePad.isOpen()).to.be.false;
+    }
+  ));
+
+
+  it('should always offer either the pad or an indicator for a selected element', inject(
+    function(appendCreatePad, canvas, elementRegistry, selection) {
+
+      // given
+      const targets = elementRegistry.filter(
+        element => element.parent && !element.labelTarget && appendCreatePad.canOpen(element)
+      );
+
+      expect(targets).not.to.be.empty;
+
+      targets.forEach(element => {
+
+        // when
+        selection.select(element);
+
+        // then
+        const offered = appendCreatePad.isOpen() || !!getIndicator(element.id, canvas);
+
+        expect(offered, `no pad and no indicator for <${element.id}>`).to.be.true;
+      });
     }
   ));
 
@@ -443,5 +574,50 @@ describe('<AppendIndicator>', function() {
       expect(getIndicator('Task_NoOutgoing', canvas)).to.exist;
     }
   ));
+
+
+  describe('appending denied by a custom rule', function() {
+
+    class DenyAppendRules extends RuleProvider {
+      constructor(eventBus) {
+        super(eventBus);
+
+        this.addRule('shape.append', ({ element }) => {
+          if (element.id === 'Task_WithOutgoing') {
+            return false;
+          }
+        });
+      }
+    }
+
+    DenyAppendRules.$inject = [ 'eventBus' ];
+
+    beforeEach(bootstrapModeler(diagramXML, {
+      additionalModules: [
+        AppendIndicator,
+        {
+          __init__: [ 'denyAppendRules' ],
+          denyAppendRules: [ 'type', DenyAppendRules ]
+        }
+      ]
+    }));
+
+
+    it('should open the pad instead, as no indicator can stand in', inject(
+      function(appendCreatePad, canvas, elementRegistry, selection) {
+
+        // given
+        const element = elementRegistry.get('Task_WithOutgoing');
+
+        // when
+        selection.select(element);
+
+        // then
+        expect(getIndicator('Task_WithOutgoing', canvas)).not.to.exist;
+        expect(appendCreatePad.isOpen()).to.be.true;
+      }
+    ));
+
+  });
 
 });

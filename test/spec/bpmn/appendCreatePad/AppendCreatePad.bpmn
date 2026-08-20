@@ -37,6 +37,15 @@
     <association id="Association_1" associationDirection="One" sourceRef="CompensationBoundaryEvent_1" targetRef="CompensationTask_1" />
     <textAnnotation id="TextAnnotation_1" />
     <association id="Association_2" associationDirection="None" sourceRef="ReceiveTask_1" targetRef="TextAnnotation_1" />
+    <adHocSubProcess id="AdHocSubProcess_1">
+      <task id="Task_InAdHoc_1">
+        <outgoing>SequenceFlow_AdHoc</outgoing>
+      </task>
+      <task id="Task_InAdHoc_2">
+        <incoming>SequenceFlow_AdHoc</incoming>
+      </task>
+      <sequenceFlow id="SequenceFlow_AdHoc" sourceRef="Task_InAdHoc_1" targetRef="Task_InAdHoc_2" />
+    </adHocSubProcess>
   </process>
   <bpmndi:BPMNDiagram id="BpmnDiagram_1">
     <bpmndi:BPMNPlane id="BpmnPlane_1" bpmnElement="Process_1">
@@ -99,6 +108,19 @@
       <bpmndi:BPMNEdge id="Association_0h1iobe_di" bpmnElement="Association_2">
         <di:waypoint x="588" y="160" />
         <di:waypoint x="636" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="AdHocSubProcess_1_di" bpmnElement="AdHocSubProcess_1" isExpanded="true">
+        <omgdc:Bounds x="152" y="400" width="350" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_InAdHoc_1_di" bpmnElement="Task_InAdHoc_1">
+        <omgdc:Bounds x="192" y="460" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_InAdHoc_2_di" bpmnElement="Task_InAdHoc_2">
+        <omgdc:Bounds x="352" y="460" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_AdHoc_di" bpmnElement="SequenceFlow_AdHoc">
+        <di:waypoint x="292" y="500" />
+        <di:waypoint x="352" y="500" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
