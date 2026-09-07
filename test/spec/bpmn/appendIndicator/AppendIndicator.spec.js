@@ -493,6 +493,32 @@ describe('<AppendIndicator>', function() {
   ));
 
 
+  it('should not leave a stale indicator after morphing then deleting the element', inject(
+    function(bpmnReplace, canvas, modeling, selection) {
+
+      // given a newly created start event whose indicator is shown
+      const startEvent = modeling.createShape(
+        { type: 'bpmn:StartEvent' },
+        { x: 600, y: 400 },
+        canvas.getRootElement()
+      );
+
+      selection.select(startEvent);
+
+      // when it is morphed to another type (the morph reuses the same id) and
+      // then removed
+      const morphed = bpmnReplace.replaceElement(startEvent, {
+        type: 'bpmn:IntermediateThrowEvent'
+      });
+
+      modeling.removeElements([ morphed ]);
+
+      // then no indicator is left behind on the canvas
+      expect(getIndicator(morphed.id, canvas)).not.to.exist;
+    }
+  ));
+
+
   it('should update both indicators when a flow\'s source is reconnected', inject(
     function(canvas, elementRegistry, modeling) {
 

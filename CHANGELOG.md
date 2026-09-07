@@ -6,6 +6,8 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+* `FIX`: remove the append indicator when its element is removed ([#100](https://github.com/camunda/improved-canvas/pull/100))
+
 ## 1.11.0
 
 * `FEAT`: show the append indicator instead of the full pad when the selected element has an outgoing sequence flow, highlighting it as a call to action ([#99](https://github.com/camunda/improved-canvas/pull/99))

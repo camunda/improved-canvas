@@ -644,6 +644,57 @@ describe('<AppendCreatePad>', function() {
   });
 
 
+  describe('removing the target element', function() {
+
+    it('should close the pad when its open target is removed', inject(
+      function(appendCreatePad, elementRegistry, modeling) {
+
+        // given the pad is open for an element
+        const task = elementRegistry.get('Task_1');
+
+        appendCreatePad.open(task);
+
+        expect(appendCreatePad.isOpen()).to.be.true;
+
+        // when the element is removed
+        modeling.removeElements([ task ]);
+
+        // then the pad closes
+        expect(appendCreatePad.isOpen()).to.be.false;
+      }
+    ));
+
+
+    it('should close the pad after morphing the target then removing it', inject(
+      function(appendCreatePad, bpmnReplace, canvas, modeling, selection) {
+
+        // given a newly created start event whose pad is open
+        const startEvent = modeling.createShape(
+          { type: 'bpmn:StartEvent' },
+          { x: 700, y: 400 },
+          canvas.getRootElement()
+        );
+
+        selection.select(startEvent);
+
+        expect(appendCreatePad.isOpen()).to.be.true;
+
+        // when it is morphed to another type
+        const newElement = bpmnReplace.replaceElement(startEvent, {
+          type: 'bpmn:IntermediateThrowEvent'
+        });
+
+        // and then removed
+        modeling.removeElements([ newElement ]);
+
+        // then the pad is closed
+        expect(appendCreatePad.isOpen()).to.be.false;
+      }
+    ));
+
+  });
+
+
   describe('label editing', function() {
 
     it('should stay open while label editing is active', inject(
