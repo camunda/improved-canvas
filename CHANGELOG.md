@@ -6,6 +6,8 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.11.1
+
 * `FIX`: remove the append indicator when its element is removed ([#100](https://github.com/camunda/improved-canvas/pull/100))
 
 ## 1.11.0
