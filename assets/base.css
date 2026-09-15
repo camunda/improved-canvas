@@ -1,15 +1,32 @@
-.bio-improved-canvas {
-  --gray-10: #f4f4f4;
-  --gray-20: #e0e0e0;
-  --gray-30: #c6c6c6;
-  --gray-40: #a8a8a8;
-  --gray-50: #878d96;
-  --gray-60: #697077;
-  --gray-80: #393939;
-  --gray-100: #161616;
+/**
+ * Semantic tokens, copied from `@bpmn-io/theme` to style the components
+ * according to this theme.
+ *
+ * Names and values of the tokens should stay intact with the `@bpmn-io/theme`
+ * source of truth, to ensure matching styles and allow overrides with an
+ * alternative theme.
+ */
+.bio-theme-parent {
+  --bio-surface: hsl(0, 0%, 100%);
+  --bio-surface-medium: hsl(225, 10%, 95%);
+  --bio-surface-strong: hsl(225, 10%, 90%);
+  --bio-surface-inverted: hsl(0, 0%, 22%);
+  --bio-surface-inverted-subtle: hsl(225, 10%, 35%);
+  --bio-border-subtle: hsl(225, 10%, 85%);
+  --bio-text: hsl(225, 10%, 15%);
+  --bio-text-on-inverted: hsl(0, 0%, 100%);
+  --bio-text-on-primary: hsl(0, 0%, 100%);
+  --bio-primary: hsl(205, 100%, 40%);
+  --bio-primary-hover: hsl(205, 100%, 35%);
+  --bio-neutral-subtle: hsl(225, 10%, 80%);
+  --bio-neutral-subtle-hover: hsl(225, 10%, 75%);
+  --bio-shadow: hsla(0, 0%, 0%, 30%);
+  --bio-radius-lg: 4px;
+}
 
-  --blue-60: #0f62fe;
-  --blue-70: #0043ce;
+.djs-parent.bio-improved-canvas {
+  --button-border-radius: var(--bio-radius-lg);
+  --surface-border-radius: var(--bio-radius-lg);
 }
 
 /* shared tooltip look for the improved-canvas pads (context pad + create pad). */
@@ -28,6 +45,6 @@
 .bio-improved-canvas .bio-properties-panel-tooltip-content {
   font-size: 12px;
   padding: 9px 12px;
-  border-radius: 4px;
+  border-radius: var(--surface-border-radius);
   width: max-content;
 }
