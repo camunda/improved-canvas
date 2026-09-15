@@ -3,16 +3,16 @@
 }
 
 .bio-improved-canvas {
-  --context-pad-background-color: white;
-  --context-pad-color: var(--gray-80);
-  --context-pad-divider-color: var(--gray-20);
-  --context-pad-hover-color: var(--gray-10);
-  --context-pad-active-color: #e8e8e8;
-  --context-pad-box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.30);
+  --context-pad-background-color: var(--bio-surface);
+  --context-pad-color: var(--bio-text);
+  --context-pad-divider-color: var(--bio-border-subtle);
+  --context-pad-hover-color: var(--bio-surface-medium);
+  --context-pad-active-color: var(--bio-surface-strong);
+  --context-pad-box-shadow: 0px 2px 6px 0px var(--bio-shadow);
 
-  --context-pad-entry-call-to-action-background-color: var(--blue-60);
-  --context-pad-entry-call-to-action-hover-background-color: var(--blue-70);
-  --context-pad-entry-call-to-action-color: white;
+  --context-pad-entry-call-to-action-background-color: var(--bio-primary);
+  --context-pad-entry-call-to-action-hover-background-color: var(--bio-primary-hover);
+  --context-pad-entry-call-to-action-color: var(--bio-text-on-primary);
   --context-pad-padding: 4px;
 }
 
@@ -20,7 +20,7 @@
   width: auto;
   background: var(--context-pad-background-color);
   color: var(--context-pad-color);
-  border-radius: 4px;
+  border-radius: var(--surface-border-radius);
   box-shadow: var(--context-pad-box-shadow);
   z-index: 50;
 
@@ -64,8 +64,8 @@
   margin: var(--context-pad-padding) 0 var(--context-pad-padding) 0;
   background: none;
   box-shadow: none;
-  border-radius: 4px;
   padding: 5px;
+  border-radius: var(--button-border-radius);
 
   /* Safari icon fix */
   & > svg {
@@ -99,5 +99,5 @@
 
 /* Resource linking */
 .bio-improved-canvas .djs-context-pad .entry.resource-linking-no-resource svg {
-  fill: var(--blue-60);
+  fill: var(--bio-primary);
 }
