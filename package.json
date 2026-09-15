@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "all": "run-s lint test build",
+    "all": "run-s lint lint:theme test build",
     "test": "karma start karma.config.js",
     "lint": "eslint .",
     "dev": "npm test -- --auto-watch --no-single-run",
@@ -13,7 +13,8 @@
     "start:dmn": "cross-env SINGLE_START=dmn npm run dev",
     "build": "rollup -c",
     "build:watch": "rollup -cw",
-    "prepare": "run-s build"
+    "prepare": "run-s build",
+    "lint:theme": "bpmn-io-theme-validate assets/base.css"
   },
   "repository": {
     "type": "git",
@@ -49,6 +50,7 @@
     "@babel/plugin-transform-react-jsx": "^7.28.6",
     "@bpmn-io/diagram-js-canvas-lock": "^0.1.0",
     "@bpmn-io/properties-panel": "^3.47.0",
+    "@bpmn-io/theme": "^0.2.0",
     "@rollup/plugin-alias": "^6.0.0",
     "@rollup/plugin-babel": "^7.1.0",
     "@rollup/plugin-commonjs": "^29.0.3",

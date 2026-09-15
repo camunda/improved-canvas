@@ -1,25 +1,24 @@
 /* Canvas */
 .bio-improved-canvas {
   --palette-background-color: white;
-  --palette-separator-color: var(--gray-20);
-  --palette-entry-color: var(--gray-100);
-  --palette-border-color: var(--gray-20);
-  
-  --context-pad-entry-background-color: var(--gray-10);
+  --palette-separator-color: #e0e0e0;
+  --palette-entry-color: #161616;
+  --palette-border-color: #e0e0e0;
+
+  --context-pad-entry-background-color: #f4f4f4;
 }
 
 .djs-container.bio-improved-canvas,
 .dmn-drd-container.bio-improved-canvas {
-  background-color: var(--gray-10);
+  background-color: #f4f4f4;
 }
 
 .dmn-drd-container.bio-improved-canvas {
   --dmn-definitions-background-color: white;
-  --dmn-definitions-border-color: var(--gray-20);
+  --dmn-definitions-border-color: #e0e0e0;
 }
 
 /* Grid */
 .bio-improved-canvas defs pattern circle {
-  fill: hsl(0, 0%, 87%) !important;
-  fill: var(--gray-40) !important;
+  fill: #a8a8a8 !important;
 }
