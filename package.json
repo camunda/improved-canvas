@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "all": "run-s lint test build",
+    "all": "run-s lint lint:theme test build",
     "test": "karma start karma.config.js",
     "lint": "eslint .",
     "dev": "npm test -- --auto-watch --no-single-run",
@@ -13,7 +13,8 @@
     "start:dmn": "cross-env SINGLE_START=dmn npm run dev",
     "build": "rollup -c",
     "build:watch": "rollup -cw",
-    "prepare": "run-s build"
+    "prepare": "run-s build",
+    "lint:theme": "bpmn-io-theme-validate assets/base.css"
   },
   "repository": {
     "type": "git",
@@ -49,6 +50,7 @@
     "@babel/plugin-transform-react-jsx": "^7.28.6",
     "@bpmn-io/diagram-js-canvas-lock": "^0.1.0",
     "@bpmn-io/properties-panel": "^3.55.0",
+    "@bpmn-io/theme": "^0.2.0",
     "@rollup/plugin-alias": "^6.0.0",
     "@rollup/plugin-babel": "^7.1.0",
     "@rollup/plugin-commonjs": "^29.0.3",
@@ -58,13 +60,14 @@
     "axe-core": "^4.11.1",
     "babel-loader": "^10.0.0",
     "babel-plugin-istanbul": "^7.0.1",
-    "bpmn-js": "^18.22.0",
+    "bpmn-js": "^18.30.0",
     "bpmn-js-color-picker": "^0.7.2",
     "bpmn-js-create-append-anything": "^2.0.0",
     "bpmn-js-element-templates": "^2.27.0",
     "bpmn-js-properties-panel": "^5.61.0",
     "camunda-bpmn-js-behaviors": "^1.18.0",
     "cross-env": "^10.1.0",
+    "diagram-js": "^15.27.0",
     "dmn-js": "^17.9.0",
     "dmn-js-properties-panel": "^3.11.1",
     "downloadjs": "^1.4.7",
@@ -91,7 +94,8 @@
     "zeebe-bpmn-moddle": "^1.17.0"
   },
   "peerDependencies": {
-    "bpmn-js-create-append-anything": ">=0.5.0"
+    "bpmn-js-create-append-anything": ">=0.5.0",
+    "diagram-js": ">= 15.27.0"
   },
   "allowScripts": {
     "inferno": false,
