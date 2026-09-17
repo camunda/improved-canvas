@@ -6,6 +6,8 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.11.2
+
 * `FIX`: hide append button for linked compensation boundary event ([#98](https://github.com/camunda/improved-canvas/pull/98))
 
 ## 1.11.1
