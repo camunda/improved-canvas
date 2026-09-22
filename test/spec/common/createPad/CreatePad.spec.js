@@ -12,6 +12,8 @@ import {
   query as domQuery
 } from 'min-dom';
 
+import { waitFor } from '@testing-library/preact';
+
 import CreatePad from 'lib/common/createPad/CreatePad';
 
 import ErrorCreatePad from './ErrorCreatePad';
@@ -356,6 +358,34 @@ describe('<CreatePad>', function() {
       expect(entry.getAttribute('title')).not.to.exist;
       expect(entry.getAttribute('aria-label')).to.equal('Baz');
       expect(domQuery('.bio-properties-panel-tooltip-wrapper', customCreatePad.getHtml())).to.exist;
+    }));
+
+
+    it('should scope the tooltip theme', inject(async function(customCreatePad, elementRegistry) {
+
+      // given
+      const task = elementRegistry.get('Task_1');
+
+      stub(customCreatePad, 'getEntries').callsFake(() => ({
+        baz: {
+          className: 'baz',
+          title: 'Baz'
+        }
+      }));
+
+      customCreatePad.open(task);
+
+      const wrapper = domQuery('.bio-properties-panel-tooltip-wrapper', customCreatePad.getHtml());
+
+      // when
+      wrapper.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+
+      // then
+      await waitFor(() => {
+        const tooltip = domQuery('.bio-properties-panel-tooltip', wrapper);
+
+        expect(tooltip.classList.contains('bio-theme-parent')).to.be.true;
+      });
     }));
 
 
