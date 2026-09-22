@@ -168,6 +168,27 @@ describe('<ImprovedContextPad>', function() {
       });
     }));
 
+
+    it('should scope the tooltip theme', inject(async function(elementRegistry, contextPad) {
+
+      // given
+      const shape = elementRegistry.get('StartEvent_1');
+
+      contextPad.open(shape);
+
+      const entry = domQuery('.bio-properties-panel-tooltip-wrapper');
+
+      // when
+      entry.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+
+      // then
+      await waitFor(() => {
+        const tooltip = domQuery('.bio-properties-panel-tooltip', entry);
+
+        expect(tooltip.classList.contains('bio-theme-parent')).to.be.true;
+      });
+    }));
+
   });
 
 
