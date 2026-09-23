@@ -6,7 +6,9 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
-* `FEAT`: source colors and corner radii from `@bpmn-io/theme`. The `--gray-*` and `--blue-*` variables are removed. Override the `--bio-*` tokens instead.
+## 1.12.0
+
+* `FEAT`: source colors and corner radii from `@bpmn-io/theme`. The `--gray-*` and `--blue-*` variables are removed. Override the `--bio-*` tokens instead ([#101](https://github.com/camunda/improved-canvas/pull/101))
 * `DEPS`: add `diagram-js@>= 15.27.0` peer dependency, which scopes the theme via `bio-theme-parent`
 
 ## 1.11.3
