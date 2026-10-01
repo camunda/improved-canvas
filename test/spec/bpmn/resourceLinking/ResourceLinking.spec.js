@@ -25,6 +25,8 @@ import CustomRulesModule from 'bpmn-js/test/util/custom-rules';
 import ZeebeModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 
 import ImprovedContextPad from 'lib/bpmn/contextPad';
+import { CloudElementTemplatesCoreModule } from 'bpmn-js-element-templates';
+
 import ResourceLinking from 'lib/bpmn/resourceLinking';
 
 import diagramXML from './ResourceLinking.bpmn';
@@ -793,6 +795,190 @@ describe('<ResourceLinking> (configuration)', function() {
 });
 
 
+
+describe('<ResourceLinking> (element templates)', function() {
+
+  beforeEach(bootstrapModeler(diagramXML, {
+    additionalModules: [
+      ImprovedContextPad,
+      ResourceLinking,
+      CloudElementTemplatesCoreModule
+    ],
+    moddleExtensions: {
+      zeebe: ZeebeModdle
+    },
+    elementTemplates: [
+      template('unrelated', 'bpmn:UserTask', [ nameProperty() ]),
+      userTaskTemplate('form-editable', [
+        { type: 'String', binding: { type: 'zeebe:formDefinition', property: 'formId' } }
+      ]),
+      userTaskTemplate('form-hidden', [
+        { type: 'Hidden', value: 'theForm', binding: { type: 'zeebe:formDefinition', property: 'formId' } }
+      ]),
+      userTaskTemplate('form-read-only', [
+        { type: 'String', editable: false, binding: { type: 'zeebe:formDefinition', property: 'formId' } }
+      ]),
+      template('process-unrelated', 'bpmn:CallActivity', [ nameProperty() ]),
+      template('process-hidden', 'bpmn:CallActivity', [
+        { type: 'Hidden', value: 'theProcess', binding: { type: 'zeebe:calledElement', property: 'processId' } }
+      ]),
+      template('decision-unrelated', 'bpmn:BusinessRuleTask', [ nameProperty() ]),
+      template('decision-hidden', 'bpmn:BusinessRuleTask', [
+        { type: 'Hidden', value: 'theDecision', binding: { type: 'zeebe:calledDecision', property: 'decisionId' } },
+        { type: 'String', binding: { type: 'zeebe:calledDecision', property: 'resultVariable' } }
+      ])
+    ]
+  }));
+
+
+  describe('user task', function() {
+
+    it('should allow if template does not configure the form', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('UserTask');
+
+      applyTemplate(modeling, task, 'unrelated');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
+    }));
+
+
+    it('should allow if template leaves the form editable', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('UserTask');
+
+      applyTemplate(modeling, task, 'form-editable');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
+    }));
+
+
+    it('should disallow if template hides the form', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('UserTask');
+
+      applyTemplate(modeling, task, 'form-hidden');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+
+    it('should disallow if template marks the form read-only', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('UserTask');
+
+      applyTemplate(modeling, task, 'form-read-only');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+  });
+
+
+  describe('call activity', function() {
+
+    it('should allow if template does not configure the process', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const callActivity = elementRegistry.get('CallActivity');
+
+      applyTemplate(modeling, callActivity, 'process-unrelated');
+
+      // when
+      contextPad.open(callActivity);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
+    }));
+
+
+    it('should disallow if template hides the process', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const callActivity = elementRegistry.get('CallActivity');
+
+      applyTemplate(modeling, callActivity, 'process-hidden');
+
+      // when
+      contextPad.open(callActivity);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+  });
+
+
+  describe('business rule task', function() {
+
+    it('should allow if template does not configure the decision', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('BusinessRuleTask');
+
+      applyTemplate(modeling, task, 'decision-unrelated');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).to.exist;
+    }));
+
+
+    it('should disallow if template hides the decision', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('BusinessRuleTask');
+
+      applyTemplate(modeling, task, 'decision-hidden');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+  });
+
+
+  it('should disallow if template cannot be resolved', inject(function(elementRegistry, contextPad, modeling) {
+
+    // given
+    const task = elementRegistry.get('UserTask');
+
+    applyTemplate(modeling, task, 'does-not-exist');
+
+    // when
+    contextPad.open(task);
+
+    // then
+    expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+  }));
+
+});
+
 // helpers //////////
 function queryContextPadEntry(action, contextPadHtml) {
   return domQuery(`[data-action="${ action }"]`, contextPadHtml);
@@ -819,4 +1005,43 @@ function createElement(type, properties, parent, bpmnFactory) {
   }
 
   return element;
+}
+function template(id, appliesTo, properties, attrs = {}) {
+  return {
+    $schema: 'https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json',
+    id,
+    name: id,
+    appliesTo: [ appliesTo ],
+    properties,
+    ...attrs
+  };
+}
+
+/**
+ * A user task template binding a form. The schema requires such templates to opt into
+ * Zeebe user tasks, hence the additional marker property and element type.
+ */
+function userTaskTemplate(id, properties) {
+  return template(
+    id,
+    'bpmn:UserTask',
+    [ { type: 'Hidden', binding: { type: 'zeebe:userTask' } }, ...properties ],
+    { elementType: { value: 'bpmn:UserTask' } }
+  );
+}
+
+/**
+ * A template property that has nothing to do with resource linking.
+ */
+function nameProperty() {
+  return {
+    type: 'String',
+    binding: { type: 'property', name: 'name' }
+  };
+}
+
+function applyTemplate(modeling, element, templateId) {
+  modeling.updateProperties(element, {
+    'zeebe:modelerTemplate': templateId
+  });
 }
