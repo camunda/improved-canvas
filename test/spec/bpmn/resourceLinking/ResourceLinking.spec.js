@@ -823,6 +823,12 @@ describe('<ResourceLinking> (element templates)', function() {
         { type: 'Hidden', value: 'theProcess', binding: { type: 'zeebe:calledElement', property: 'processId' } }
       ]),
       template('decision-unrelated', 'bpmn:BusinessRuleTask', [ nameProperty() ]),
+      template('decision-job-worker', 'bpmn:BusinessRuleTask', [
+        { type: 'Hidden', value: 'myWorker', binding: { type: 'zeebe:taskDefinition', property: 'type' } }
+      ]),
+      template('decision-job-worker-legacy', 'bpmn:BusinessRuleTask', [
+        { type: 'Hidden', value: 'myWorker', binding: { type: 'zeebe:taskDefinition:type' } }
+      ]),
       template('decision-hidden', 'bpmn:BusinessRuleTask', [
         { type: 'Hidden', value: 'theDecision', binding: { type: 'zeebe:calledDecision', property: 'decisionId' } },
         { type: 'String', binding: { type: 'zeebe:calledDecision', property: 'resultVariable' } }
@@ -952,6 +958,37 @@ describe('<ResourceLinking> (element templates)', function() {
       const task = elementRegistry.get('BusinessRuleTask');
 
       applyTemplate(modeling, task, 'decision-hidden');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+
+    it('should disallow if template fixes a job worker implementation', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('BusinessRuleTask');
+
+      applyTemplate(modeling, task, 'decision-job-worker');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      // linking a decision would delete the template's task definition
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+
+    it('should disallow if template fixes a job worker implementation (legacy binding)', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('BusinessRuleTask');
+
+      applyTemplate(modeling, task, 'decision-job-worker-legacy');
 
       // when
       contextPad.open(task);
