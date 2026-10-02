@@ -823,6 +823,12 @@ describe('<ResourceLinking> (element templates)', function() {
         { type: 'Hidden', value: 'theProcess', binding: { type: 'zeebe:calledElement', property: 'processId' } }
       ]),
       template('decision-unrelated', 'bpmn:BusinessRuleTask', [ nameProperty() ]),
+      template('decision-task-header', 'bpmn:BusinessRuleTask', [
+        { type: 'Hidden', value: 'theValue', binding: { type: 'zeebe:taskHeader', key: 'myHeader' } }
+      ]),
+      template('decision-job-worker-retries', 'bpmn:BusinessRuleTask', [
+        { type: 'Hidden', value: '3', binding: { type: 'zeebe:taskDefinition', property: 'retries' } }
+      ]),
       template('decision-job-worker-editable', 'bpmn:BusinessRuleTask', [
         { label: 'Job type', type: 'String', binding: { type: 'zeebe:taskDefinition', property: 'type' } }
       ]),
@@ -981,7 +987,6 @@ describe('<ResourceLinking> (element templates)', function() {
       contextPad.open(task);
 
       // then
-      // linking a decision would delete the template's task definition
       expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
     }));
 
@@ -1012,7 +1017,36 @@ describe('<ResourceLinking> (element templates)', function() {
       contextPad.open(task);
 
       // then
-      // the implementation is deleted whether or not the job type is editable
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+
+    it('should disallow if template declares a task header', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('BusinessRuleTask');
+
+      applyTemplate(modeling, task, 'decision-task-header');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+
+    it('should disallow if template declares a job worker through another property', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('BusinessRuleTask');
+
+      applyTemplate(modeling, task, 'decision-job-worker-retries');
+
+      // when
+      contextPad.open(task);
+
+      // then
       expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
     }));
 
