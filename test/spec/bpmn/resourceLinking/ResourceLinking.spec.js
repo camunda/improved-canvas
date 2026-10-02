@@ -823,6 +823,9 @@ describe('<ResourceLinking> (element templates)', function() {
         { type: 'Hidden', value: 'theProcess', binding: { type: 'zeebe:calledElement', property: 'processId' } }
       ]),
       template('decision-unrelated', 'bpmn:BusinessRuleTask', [ nameProperty() ]),
+      template('decision-job-worker-editable', 'bpmn:BusinessRuleTask', [
+        { label: 'Job type', type: 'String', binding: { type: 'zeebe:taskDefinition', property: 'type' } }
+      ]),
       template('decision-job-worker', 'bpmn:BusinessRuleTask', [
         { type: 'Hidden', value: 'myWorker', binding: { type: 'zeebe:taskDefinition', property: 'type' } }
       ]),
@@ -994,6 +997,22 @@ describe('<ResourceLinking> (element templates)', function() {
       contextPad.open(task);
 
       // then
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
+
+    it('should disallow if template declares an editable job worker implementation', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('BusinessRuleTask');
+
+      applyTemplate(modeling, task, 'decision-job-worker-editable');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      // the implementation is deleted whether or not the job type is editable
       expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
     }));
 
