@@ -795,7 +795,6 @@ describe('<ResourceLinking> (configuration)', function() {
 });
 
 
-
 describe('<ResourceLinking> (element templates)', function() {
 
   beforeEach(bootstrapModeler(diagramXML, {
@@ -823,6 +822,10 @@ describe('<ResourceLinking> (element templates)', function() {
         { type: 'Hidden', value: 'theProcess', binding: { type: 'zeebe:calledElement', property: 'processId' } }
       ]),
       template('decision-unrelated', 'bpmn:BusinessRuleTask', [ nameProperty() ]),
+      template('decision-fixed-sibling', 'bpmn:BusinessRuleTask', [
+        { label: 'Decision', type: 'String', binding: { type: 'zeebe:calledDecision', property: 'decisionId' } },
+        { type: 'Hidden', value: 'theResult', binding: { type: 'zeebe:calledDecision', property: 'resultVariable' } }
+      ]),
       template('decision-task-header', 'bpmn:BusinessRuleTask', [
         { type: 'Hidden', value: 'theValue', binding: { type: 'zeebe:taskHeader', key: 'myHeader' } }
       ]),
@@ -1050,6 +1053,22 @@ describe('<ResourceLinking> (element templates)', function() {
       expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
     }));
 
+
+    it('should disallow if template fixes a property next to the decision', inject(function(elementRegistry, contextPad, modeling) {
+
+      // given
+      const task = elementRegistry.get('BusinessRuleTask');
+
+      applyTemplate(modeling, task, 'decision-fixed-sibling');
+
+      // when
+      contextPad.open(task);
+
+      // then
+      // unlinking removes the called decision whole, result variable included
+      expect(domQuery('.entry[data-action="link-resource"]')).not.to.exist;
+    }));
+
   });
 
 
@@ -1096,6 +1115,7 @@ function createElement(type, properties, parent, bpmnFactory) {
 
   return element;
 }
+
 function template(id, appliesTo, properties, attrs = {}) {
   return {
     $schema: 'https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json',
