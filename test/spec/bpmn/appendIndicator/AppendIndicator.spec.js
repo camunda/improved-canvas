@@ -305,6 +305,36 @@ describe('<AppendIndicator>', function() {
   ));
 
 
+  it('should open the append popup immediately on click', inject(
+    function(appendCreatePad, canvas, elementRegistry, popupMenu) {
+
+      // given
+      const clock = useFakeTimers();
+
+      const openPad = spy(appendCreatePad, 'open');
+      const openPopup = spy(popupMenu, 'open');
+
+      const indicator = getIndicator('Task_NoOutgoing', canvas);
+
+      indicator.dispatchEvent(new MouseEvent('mouseenter'));
+
+      // when
+      indicator.dispatchEvent(new MouseEvent('click'));
+      clock.tick(150);
+
+      // then
+      expect(openPopup).to.have.been.calledOnce;
+      expect(openPopup).to.have.been.calledWith(
+        elementRegistry.get('Task_NoOutgoing'),
+        'bpmn-append'
+      );
+      expect(openPad).not.to.have.been.called;
+
+      clock.restore();
+    }
+  ));
+
+
   describe('integration with diagram-js-canvas-lock', function() {
 
     insertCSS(
