@@ -161,6 +161,8 @@ describe('<AppendIndicator>', function() {
     function(appendCreatePad, canvas, elementRegistry, selection) {
 
       // given
+      const clock = useFakeTimers();
+
       selection.select(elementRegistry.get('Task_WithOutgoing'));
 
       const open = spy(appendCreatePad, 'open');
@@ -169,9 +171,12 @@ describe('<AppendIndicator>', function() {
 
       // when
       indicator.dispatchEvent(new MouseEvent('mouseenter'));
+      clock.tick(150);
 
       // then
       expect(open).to.have.been.calledWith(elementRegistry.get('Task_WithOutgoing'));
+
+      clock.restore();
     }
   ));
 
@@ -255,19 +260,77 @@ describe('<AppendIndicator>', function() {
   ));
 
 
-  it('should open the append menu on hover', inject(
+  it('should open the append menu after a short hover delay', inject(
     function(appendCreatePad, canvas, elementRegistry) {
 
       // given
+      const clock = useFakeTimers();
+
       const open = spy(appendCreatePad, 'open');
 
       const indicator = getIndicator('Task_NoOutgoing', canvas);
 
       // when
       indicator.dispatchEvent(new MouseEvent('mouseenter'));
+      clock.tick(150);
 
       // then
       expect(open).to.have.been.calledWith(elementRegistry.get('Task_NoOutgoing'));
+
+      clock.restore();
+    }
+  ));
+
+
+  it('should not open the append menu when briefly crossing the indicator', inject(
+    function(appendCreatePad, canvas) {
+
+      // given
+      const clock = useFakeTimers();
+
+      const open = spy(appendCreatePad, 'open');
+
+      const indicator = getIndicator('Task_NoOutgoing', canvas);
+
+      // when
+      indicator.dispatchEvent(new MouseEvent('mouseenter'));
+      indicator.dispatchEvent(new MouseEvent('mouseleave'));
+      clock.tick(150);
+
+      // then
+      expect(open).not.to.have.been.called;
+
+      clock.restore();
+    }
+  ));
+
+
+  it('should open the append popup immediately on click', inject(
+    function(appendCreatePad, canvas, elementRegistry, popupMenu) {
+
+      // given
+      const clock = useFakeTimers();
+
+      const openPad = spy(appendCreatePad, 'open');
+      const openPopup = spy(popupMenu, 'open');
+
+      const indicator = getIndicator('Task_NoOutgoing', canvas);
+
+      indicator.dispatchEvent(new MouseEvent('mouseenter'));
+
+      // when
+      indicator.dispatchEvent(new MouseEvent('click'));
+      clock.tick(150);
+
+      // then
+      expect(openPopup).to.have.been.calledOnce;
+      expect(openPopup).to.have.been.calledWith(
+        elementRegistry.get('Task_NoOutgoing'),
+        'bpmn-append'
+      );
+      expect(openPad).not.to.have.been.called;
+
+      clock.restore();
     }
   ));
 
@@ -335,6 +398,7 @@ describe('<AppendIndicator>', function() {
       const indicator = getIndicator('Task_NoOutgoing', canvas);
 
       indicator.dispatchEvent(new MouseEvent('mouseenter'));
+      clock.tick(150);
 
       const pad = appendCreatePad.getHtml();
 
@@ -365,6 +429,7 @@ describe('<AppendIndicator>', function() {
       const indicator = getIndicator('Task_NoOutgoing', canvas);
 
       indicator.dispatchEvent(new MouseEvent('mouseenter'));
+      clock.tick(150);
 
       const open = spy(appendCreatePad, 'open');
 
