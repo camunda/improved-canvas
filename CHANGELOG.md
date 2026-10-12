@@ -6,6 +6,10 @@ All notable changes to [@camunda/improved-canvas](https://github.com/camunda/imp
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.12.2
+
+* `FIX`: add small delay before opening append pad ([#105](https://github.com/camunda/improved-canvas/pull/105))
+
 ## 1.12.1
 
 * `FIX`: allow linking unless template fixes the resource ([#104](https://github.com/camunda/improved-canvas/pull/104))
